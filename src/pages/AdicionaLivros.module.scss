@@ -1,0 +1,24 @@
+.formularioLivro {
+  display: grid;
+  gap: 20px;
+  width: 300px;
+  padding: 35px 25px;
+  border-radius: 5px;
+  background-color: white;
+  border: solid 1px #1f2228;
+}
+
+.titulo {
+  color: white;
+  font-size: 35px;
+  margin-bottom: 20px;
+}
+
+.enviar {
+  width: 150px;
+  margin: auto !important;
+}
+
+.selectLabel {
+  text-align: initial;
+}

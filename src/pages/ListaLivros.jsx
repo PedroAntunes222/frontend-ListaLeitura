@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import getLivros from "../blocos/getLivros";
+import { getLivros } from "../Service/getData";
 
 function Home() {
-  // useEffect(() => {
-  //   fetch("http://localhost:8080/livro/getAll")
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       setLivros(result);
-  //     });
-  // });
-
   const [livros, setLivros] = useState([]);
 
   useEffect(() => {
