@@ -1,3 +1,9 @@
+.titulo {
+  color: white;
+  font-size: 35px;
+  margin-bottom: 20px;
+}
+
 .formularioLivro {
   display: grid;
   gap: 20px;
@@ -6,19 +12,23 @@
   border-radius: 5px;
   background-color: white;
   border: solid 1px #1f2228;
-}
 
-.titulo {
-  color: white;
-  font-size: 35px;
-  margin-bottom: 20px;
-}
+  .grupoBotoes {
+    gap: 10px;
+    display: flex;
+    width: fit-content;
+    margin: auto;
 
-.enviar {
-  width: 150px;
-  margin: auto !important;
-}
+    .botaoFormulario {
+      width: 80px;
 
-.selectLabel {
-  text-align: initial;
+      span {
+        margin-left: 0 !important;
+      }
+    }
+  }
+
+  .selectLabel {
+    text-align: initial;
+  }
 }

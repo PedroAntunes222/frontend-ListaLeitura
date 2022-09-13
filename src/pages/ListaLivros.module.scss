@@ -1,0 +1,22 @@
+.grupoCards {
+  display: grid;
+  width: 80%;
+  padding: 80px 0px;
+  grid-template-columns: 23% 23% 23% 23%;
+  gap: 28px;
+
+  .cardButton {
+    width: 100%;
+    padding: 0;
+
+    .botaoFormulario {
+      width: 100%;
+      border-radius: 0px;
+      height: 30px;
+
+      span {
+        margin: 0 !important;
+      }
+    }
+  }
+}

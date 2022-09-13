@@ -1,11 +1,18 @@
 import axios from "axios";
 
-const urlGet = "http://localhost:8080/livro/getAll";
+// const urlGet = "http://localhost:8080/usuario/";
 
-const urlPost = "http://localhost:8080/usuario/getAll";
+const urlPost = "http://localhost:8080/usuario/";
 
-export function getLivros() {
-  return axios.get(urlGet);
+export function getUser() {
+  let id = 2;
+  let url = "http://localhost:8080/usuario/" + id;
+  return axios.get(url);
+}
+
+export function getLivro(id) {
+  let url = "http://localhost:8080/livro/" + id;
+  return axios.get(url);
 }
 
 export function getUsers() {

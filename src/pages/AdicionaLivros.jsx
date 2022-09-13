@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
+import DeleteIcon from "@mui/icons-material/Delete";
 import InputLabel from "@mui/material/InputLabel";
 import styles from "./AdicionaLivros.module.scss";
 import FormControl from "@mui/material/FormControl";
@@ -14,6 +15,7 @@ function ListagemLivros() {
   const [nome, setNome] = useState("");
   const [genero, setGenero] = useState("");
   const [sinopse, setSinopse] = useState("");
+  const [capa, setCapa] = useState("");
 
   const enviaLivro = (e) => {
     e.preventDefault();
@@ -22,6 +24,8 @@ function ListagemLivros() {
         nome: nome,
         genero: genero,
         sinopse: sinopse,
+        capa: capa,
+        usuario: { id: 1 },
       })
       .then(function (response) {
         console.log(response);
@@ -33,6 +37,14 @@ function ListagemLivros() {
     setNome("");
     setGenero("");
     setSinopse("");
+    setCapa("");
+  };
+
+  const limpaForm = () => {
+    setNome("");
+    setGenero("");
+    setSinopse("");
+    setCapa("");
   };
 
   return (
@@ -61,8 +73,8 @@ function ListagemLivros() {
             label="Nome"
             onChange={(e) => setGenero(e.target.value)}
           >
-            <MenuItem value={"Aventura"}>Aventura</MenuItem>
             <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
+            <MenuItem value={"Aventura"}>Aventura</MenuItem>
             <MenuItem value={"Drama"}>Drama</MenuItem>
           </Select>
         </FormControl>
@@ -74,15 +86,33 @@ function ListagemLivros() {
           value={sinopse}
           onChange={(e) => setSinopse(e.target.value)}
         />
-        <Button
-          variant="contained"
-          onClick={enviaLivro}
-          endIcon={<SendIcon />}
-          color="success"
-          className={styles.enviar}
-        >
-          Adicionar
-        </Button>
+        <TextField
+          id="endereco-capa"
+          label="Image Adress"
+          variant="outlined"
+          multiline
+          value={capa}
+          onChange={(e) => setCapa(e.target.value)}
+        />
+
+        <div className={styles.grupoBotoes}>
+          <Button
+            variant="contained"
+            onClick={limpaForm}
+            endIcon={<DeleteIcon />}
+            color="error"
+            size="large"
+            className={styles.botaoFormulario}
+          />
+          <Button
+            variant="contained"
+            onClick={enviaLivro}
+            endIcon={<SendIcon />}
+            color="success"
+            size="large"
+            className={styles.botaoFormulario}
+          />
+        </div>
       </Box>
     </div>
   );
