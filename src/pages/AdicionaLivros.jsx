@@ -1,15 +1,19 @@
 import axios from "axios";
-import Box from "@mui/material/Box";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styles from "./AdicionaLivros.module.scss";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
-import DeleteIcon from "@mui/icons-material/Delete";
 import InputLabel from "@mui/material/InputLabel";
-import styles from "./AdicionaLivros.module.scss";
+import DeleteIcon from "@mui/icons-material/Delete";
 import FormControl from "@mui/material/FormControl";
+import Fab from "@mui/material/Fab";
+import InventoryIcon from "@mui/icons-material/Inventory";
 
 function ListagemLivros() {
   const [nome, setNome] = useState("");
@@ -17,7 +21,9 @@ function ListagemLivros() {
   const [sinopse, setSinopse] = useState("");
   const [capa, setCapa] = useState("");
 
-  const enviaLivro = (e) => {
+  const [loading, setLoading] = useState(false);
+
+  const adicionaLivro = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:8080/livro/add", {
@@ -48,15 +54,19 @@ function ListagemLivros() {
   };
 
   return (
-    <div>
+    <div className={styles.formPage}>
       <h1 className={styles.titulo}> Adicione um livro </h1>
+
+      <Fab component={Link} to="/lista" className={styles.livrosLista}>
+        <InventoryIcon />
+      </Fab>
+
       <Box
         component="form"
         noValidate
         autoComplete="off"
         className={styles.formularioLivro}
       >
-        {/* <h1 className={styles.titulo}> Adicione um livro </h1> */}
         <TextField
           id="nome-livro"
           label="Nome"
@@ -90,7 +100,6 @@ function ListagemLivros() {
           id="endereco-capa"
           label="Image Adress"
           variant="outlined"
-          multiline
           value={capa}
           onChange={(e) => setCapa(e.target.value)}
         />
@@ -106,7 +115,7 @@ function ListagemLivros() {
           />
           <Button
             variant="contained"
-            onClick={enviaLivro}
+            onClick={adicionaLivro}
             endIcon={<SendIcon />}
             color="success"
             size="large"

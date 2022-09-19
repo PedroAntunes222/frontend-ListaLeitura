@@ -1,34 +1,47 @@
-.titulo {
-  color: white;
-  font-size: 35px;
-  margin-bottom: 20px;
-}
+.formPage {
+  width: 40%;
+  padding: 80px 0px;
+  position: relative;
 
-.formularioLivro {
-  display: grid;
-  gap: 20px;
-  width: 300px;
-  padding: 35px 25px;
-  border-radius: 5px;
-  background-color: white;
-  border: solid 1px #1f2228;
-
-  .grupoBotoes {
-    gap: 10px;
-    display: flex;
-    width: fit-content;
-    margin: auto;
-
-    .botaoFormulario {
-      width: 80px;
-
-      span {
-        margin-left: 0 !important;
-      }
-    }
+  .titulo {
+    color: white;
+    font-size: 35px;
+    margin-bottom: 20px;
   }
 
-  .selectLabel {
-    text-align: initial;
+  .livrosLista {
+    position: absolute !important;
+    top: 50px;
+    left: 10px;
+  }
+
+  .formularioLivro {
+    display: grid;
+    gap: 20px;
+    width: 300px;
+    padding: 35px 25px;
+    border-radius: 5px;
+    background-color: white;
+    border: solid 1px #1f2228;
+    margin: auto;
+
+    .grupoBotoes {
+      gap: 10px;
+      display: flex;
+      width: fit-content;
+      margin: auto;
+
+      .botaoFormulario {
+        width: 80px;
+
+        span {
+          margin-left: 0 !important;
+        }
+      }
+    }
+
+    .selectLabel {
+      text-align: initial;
+    }
   }
 }

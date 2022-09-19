@@ -5,7 +5,7 @@ import axios from "axios";
 const urlPost = "http://localhost:8080/usuario/";
 
 export function getUser() {
-  let id = 2;
+  let id = 1;
   let url = "http://localhost:8080/usuario/" + id;
   return axios.get(url);
 }

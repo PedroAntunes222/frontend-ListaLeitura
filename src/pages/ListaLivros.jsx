@@ -1,89 +1,98 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { getUser } from "../Service/getData";
 import styles from "./ListaLivros.module.scss";
+
+import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import CheckIcon from "@mui/icons-material/Check";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function Home() {
   const [livros, setLivros] = useState([]);
+  const [refresh, setrefresh] = useState(0);
 
   useEffect(() => {
     getUser()
       .then((response) => {
-        console.log(response.data.livros);
         setLivros(response.data.livros);
       })
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    getUser()
+      .then((response) => {
+        setLivros(response.data.livros);
+      })
+      .catch((error) => console.log(error));
+  }, [refresh]);
+
+  const deletaLivro = (id, e) => {
+    e.preventDefault();
+    axios
+      .delete("http://localhost:8080/livro/" + id)
+      .then(function (response) {
+        console.log(response);
+        setrefresh((prev) => prev + 1);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <div className={styles.grupoCards}>
+      <Fab component={Link} to="/" className={styles.livrosAdd}>
+        <AddIcon />
+      </Fab>
+
       {livros.map((livro) => (
-        <Card sx={{ maxWidth: 345 }} key={livro.id}>
-          {!livro.capa ? (
-            <CardMedia
-              component="img"
-              height="200"
-              image="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
-              alt={`${livro.nome} no cover image`}
-            />
-          ) : (
-            <CardMedia
-              component="img"
-              height="200"
-              image={livro.capa}
-              alt={`${livro.nome} cover image`}
-            />
-          )}
+        <Card sx={{ maxWidth: 345 }} key={livro.id} className={styles.card}>
+          <Link to={`/livro/${livro.id}`}>
+            {!livro.capa ? (
+              <CardMedia
+                className={styles.capa}
+                component="img"
+                height="200"
+                image="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
+                alt={`${livro.nome} no cover image`}
+              />
+            ) : (
+              <CardMedia
+                className={styles.capa}
+                component="img"
+                image={livro.capa}
+                alt={`${livro.nome} cover image`}
+              />
+            )}
 
-          <CardContent>
-            <Typography gutterBottom variant="h4" component="div">
-              {livro.nome}
-            </Typography>
-            <Typography gutterBottom variant="h6" component="div">
-              {livro.genero}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {livro.sinopse}
-            </Typography>
-          </CardContent>
+            <CardContent className={styles.cardInfo}>
+              <VisibilityIcon />
 
-          <ButtonGroup variant="contained" className={styles.cardButton}>
-            <Button
-              component={Link}
-              to={`/livro/${livro.id}`}
-              size="small"
-              startIcon={<RemoveRedEyeIcon />}
-              className={styles.botaoFormulario}
-            />
-            <Button
-              color="error"
-              size="small"
-              startIcon={<DeleteIcon />}
-              className={styles.botaoFormulario}
-            />
-          </ButtonGroup>
+              <div className={styles.cardText}>
+                <div className={styles.title}>{livro.nome}</div>
+                <div>{livro.genero}</div>
+              </div>
 
-          <CardActions className={styles.cardButton}>
-            <Button
-              variant="contained"
-              component={Link}
-              to={`/livro/${livro.id}`}
-              size="small"
-              color="success"
-              startIcon={<CheckIcon />}
-              className={styles.botaoFormulario}
-            />
-          </CardActions>
+              <CardActions className={styles.cardButton}>
+                <Button
+                  onClick={(e) => deletaLivro(livro.id, e)}
+                  variant="contained"
+                  color="error"
+                  size="large"
+                  startIcon={<DeleteIcon />}
+                  className={styles.botaoFormulario}
+                />
+              </CardActions>
+            </CardContent>
+          </Link>
         </Card>
       ))}
     </div>

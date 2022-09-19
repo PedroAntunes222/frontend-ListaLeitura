@@ -1,0 +1,33 @@
+.cardInfo {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  max-width: 700px;
+  height: 300px;
+  place-content: center;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .infosLivro {
+    background-color: #343944;
+    display: grid;
+    place-content: center;
+    gap: 25px;
+
+    p {
+      font-size: 16px;
+    }
+
+    .grupoBotoes {
+      .botaoFormulario {
+        width: 80px;
+
+        span {
+          margin-left: 0 !important;
+        }
+      }
+    }
+  }
+}
