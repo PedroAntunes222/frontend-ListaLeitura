@@ -49,12 +49,14 @@ function Home() {
 
   return (
     <div className={styles.grupoCards}>
-      <Fab component={Link} to="/" className={styles.livrosAdd}>
-        <AddIcon />
-      </Fab>
+      <Card component={Link} to="/adicionar" className={styles.livrosAdd}>
+        <Fab>
+          <AddIcon />
+        </Fab>
+      </Card>
 
       {livros.map((livro) => (
-        <Card sx={{ maxWidth: 345 }} key={livro.id} className={styles.card}>
+        <Card key={livro.id} className={styles.card}>
           <Link to={`/livro/${livro.id}`}>
             {!livro.capa ? (
               <CardMedia

@@ -7,8 +7,9 @@
   position: relative;
 
   .livrosAdd {
-    position: absolute;
-    left: 0px;
+    display: grid;
+    place-content: center;
+    background-color: #343944;
   }
 
   .card {
@@ -51,6 +52,7 @@
         width: 100%;
         padding: 0;
       }
+
       .botaoFormulario {
         width: 100%;
         border-radius: 0px;
