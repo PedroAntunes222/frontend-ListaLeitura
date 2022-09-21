@@ -19,48 +19,59 @@
 }
 
 .cardInfo {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  max-width: 700px;
-  height: 300px;
-  place-content: center;
+  // display: grid;
+  // grid-template-columns: 50% 50%;
+  // max-width: 700px;
+  // height: 300px;
+  // place-content: center;
 
-  .coverLivro {
-    position: relative;
+  // .coverLivro {
+  //   position: relative;
 
-    .returnFlutuante {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+  //   img {
+  //     max-width: 100%;
+  //     height: auto;
+  //   }
 
-    .returnFlutuante {
-      position: absolute;
-      top: -10px;
-      left: -10px;
-    }
-  }
+  //   .returnFlutuante {
+  //     position: absolute;
+  //     top: -10px;
+  //     left: -10px;
+  //   }
+  // }
 
   .infosLivro {
     background-color: white;
+    border-radius: 5px;
     display: grid;
+    gap: 20px;
     padding: 60px 0px;
     align-items: center;
     position: relative;
+    width: 300px;
+    padding: 35px 25px;
 
-    .editFlutuante {
+    .returnFlutuante {
       position: absolute;
-      top: -10px;
-      right: -10px;
+      top: -20px;
+      left: -20px;
+    }
+
+    .generoGrid {
+      display: flex;
+      gap: 10px;
+      // width: 80%;
+      // margin: auto;
     }
 
     .input {
-      width: 80%;
+      width: 100%;
       margin: auto;
+
+      textarea {
+        overflow: auto !important;
+        max-height: 200px;
+      }
     }
 
     .grupoBotoes {

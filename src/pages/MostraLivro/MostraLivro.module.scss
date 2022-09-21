@@ -8,11 +8,6 @@
   .coverLivro {
     position: relative;
 
-    .returnFlutuante {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-    }
     img {
       max-width: 100%;
       height: auto;
@@ -28,6 +23,7 @@
   .infosLivro {
     background-color: #343944;
     display: grid;
+    padding: 50px 1px;
     gap: 25px;
     align-items: center;
     position: relative;
@@ -38,8 +34,30 @@
       right: -10px;
     }
 
-    p {
+    .tituloLivro {
+      font-size: 32px;
+    }
+
+    .subtituloLivro {
+      font-size: 22px;
+    }
+
+    .generosLivro {
+      font-size: 18px;
+      display: flex;
+      margin: auto;
+    }
+
+    .sinopseLivro {
       font-size: 16px;
+      text-align: justify;
+      padding: 0px 25px;
+      max-height: 200px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
     }
 
     .grupoBotoes {

@@ -1,8 +1,7 @@
 // import axios from "axios";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { getLivro } from "../Service/getData";
-// import { useNavigate } from "react-router-dom";
+import { getLivro } from "../../Service/getData";
 import { Link } from "react-router-dom";
 import styles from "./EditaLivro.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -15,13 +14,19 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
 
 function EditaLivro() {
   const navigate = useNavigate();
   //   const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
-  const [nome, setNome] = useState("");
-  const [genero, setGenero] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [subtitulo, setSubtitulo] = useState("");
+  const [genero1, setGenero1] = useState("");
+  const [genero2, setGenero2] = useState("");
   const [sinopse, setSinopse] = useState("");
   const [capa, setCapa] = useState("");
 
@@ -33,10 +38,11 @@ function EditaLivro() {
     setLoading(true);
     axios
       .put("http://localhost:8080/livro/" + id, {
-        nome: nome,
-        genero: genero,
-        sinopse: sinopse,
         capa: capa,
+        titulo: [titulo, subtitulo],
+        genero: [genero1, genero2],
+        sinopse: sinopse,
+        completo: false,
         usuario: { id: 1 },
       })
       .then(function (response) {
@@ -69,8 +75,10 @@ function EditaLivro() {
   }, []);
 
   useEffect(() => {
-    setNome(livro.nome);
-    setGenero(livro.genero);
+    setTitulo(livro.titulo ? livro.titulo[0] : "");
+    setSubtitulo(livro.titulo ? livro.titulo[1] : "");
+    setGenero1(livro.genero ? livro.genero[0] : "");
+    setGenero2(livro.genero ? livro.genero[1] : "");
     setSinopse(livro.sinopse);
     setCapa(livro.capa);
   }, [livro]);
@@ -86,7 +94,7 @@ function EditaLivro() {
       )}
       {modal ? (
         <div className={styles.loading}>
-          <p>Livro adicionado com sucesso</p>
+          <p>Livro atualizado com sucesso</p>
           <Button
             variant="outlined"
             onClick={fechaModal}
@@ -99,7 +107,7 @@ function EditaLivro() {
         <></>
       )}
       <div className={styles.cardInfo}>
-        <div className={styles.coverLivro}>
+        {/* <div className={styles.coverLivro}>
           <Fab
             component={Link}
             to={`/livro/${livro.id}`}
@@ -115,32 +123,80 @@ function EditaLivro() {
           ) : (
             <img src={livro.capa} alt={`${livro.nome} cover`} />
           )}
-        </div>
-        <Box className={styles.infosLivro}>
+        </div> */}
+        <h1>Editar Livro</h1>
+        <Box
+          component="form"
+          noValidate
+          autoComplete="off"
+          className={styles.infosLivro}
+        >
+          <Fab
+            component={Link}
+            to={`/livro/${livro.id}`}
+            className={styles.returnFlutuante}
+          >
+            <ReplyAllOutlinedIcon />
+          </Fab>
+
           <TextField
-            id="nomeLivro"
-            label="nome"
+            id="tituloLivro"
+            label="titulo"
             variant="outlined"
-            value={nome || ""}
-            onChange={(e) => setNome(e.target.value)}
+            value={titulo || ""}
+            onChange={(e) => setTitulo(e.target.value)}
             className={styles.input}
           />
+
           <TextField
-            id="nomeGenero"
-            label="genero"
+            id="Subtitulo-livro"
+            label="Subtitulo"
             variant="outlined"
-            value={genero || ""}
-            onChange={(e) => setGenero(e.target.value)}
+            value={subtitulo}
+            onChange={(e) => setSubtitulo(e.target.value)}
             className={styles.input}
           />
+
+          <div className={styles.generoGrid}>
+            <FormControl fullWidth className={styles.input}>
+              <InputLabel id="select-label">Gênero 1</InputLabel>
+              <Select
+                id="genero1-label"
+                value={genero1}
+                label="Gênero 1"
+                onChange={(e) => setGenero1(e.target.value)}
+              >
+                <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
+                <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                <MenuItem value={"Drama"}>Drama</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth className={styles.input}>
+              <InputLabel id="select-label">Gênero 2</InputLabel>
+              <Select
+                id="genero2-label"
+                value={genero2}
+                label="Gênero 2"
+                onChange={(e) => setGenero2(e.target.value)}
+              >
+                <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
+                <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                <MenuItem value={"Drama"}>Drama</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+
           <TextField
             id="nomeSinopse"
             label="sinopse"
             variant="outlined"
+            multiline
             value={sinopse || ""}
             onChange={(e) => setSinopse(e.target.value)}
             className={styles.input}
           />
+
           <TextField
             id="nomeSinopse"
             label="capa"
@@ -149,12 +205,6 @@ function EditaLivro() {
             onChange={(e) => setCapa(e.target.value)}
             className={styles.input}
           />
-
-          {/* 
-            <p>{livro.nome}</p>
-            <p>{livro.genero}</p>
-            <p>{livro.sinopse}</p> 
-        */}
 
           <div className={styles.grupoBotoes}>
             <Button

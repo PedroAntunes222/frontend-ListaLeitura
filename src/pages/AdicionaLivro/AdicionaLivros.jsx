@@ -13,12 +13,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FormControl from "@mui/material/FormControl";
 import Fab from "@mui/material/Fab";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function ListagemLivros() {
-  const [nome, setNome] = useState("");
-  const [genero, setGenero] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [subtitulo, setSubtitulo] = useState("");
+  const [genero1, setGenero1] = useState("");
+  const [genero2, setGenero2] = useState("");
   const [sinopse, setSinopse] = useState("");
   const [capa, setCapa] = useState("");
 
@@ -30,10 +32,11 @@ function ListagemLivros() {
     setLoading(true);
     axios
       .post("http://localhost:8080/livro/add", {
-        nome: nome,
-        genero: genero,
-        sinopse: sinopse,
         capa: capa,
+        titulo: [titulo, subtitulo],
+        genero: [genero1, genero2],
+        sinopse: sinopse,
+        completo: false,
         usuario: { id: 1 },
       })
       .then(function (response) {
@@ -44,17 +47,19 @@ function ListagemLivros() {
         console.log(error);
       });
 
-    // setLoading(false);
-
-    setNome("");
-    setGenero("");
+    setTitulo("");
+    setSubtitulo("");
+    setGenero1("");
+    setGenero2("");
     setSinopse("");
     setCapa("");
   };
 
   const limpaForm = () => {
-    setNome("");
-    setGenero("");
+    setTitulo("");
+    setSubtitulo("");
+    setGenero1("");
+    setGenero2("");
     setSinopse("");
     setCapa("");
   };
@@ -73,6 +78,7 @@ function ListagemLivros() {
       ) : (
         <></>
       )}
+
       {modal ? (
         <div className={styles.loading}>
           <p>Livro adicionado com sucesso</p>
@@ -96,30 +102,57 @@ function ListagemLivros() {
           autoComplete="off"
           className={styles.formularioLivro}
         >
-          <Fab component={Link} to="/lista" className={styles.livrosLista}>
+          <Fab component={Link} to="/lista" className={styles.flutuanteLista}>
             <InventoryIcon />
           </Fab>
+
           <TextField
-            id="nome-livro"
-            label="Nome"
+            id="Titulo-livro"
+            label="Titulo"
             variant="outlined"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
           />
-          <FormControl fullWidth>
-            <InputLabel id="select-label">Gênero</InputLabel>
-            <Select
-              id="select-label"
-              className={styles.selectLabel}
-              value={genero}
-              label="Nome"
-              onChange={(e) => setGenero(e.target.value)}
-            >
-              <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
-              <MenuItem value={"Aventura"}>Aventura</MenuItem>
-              <MenuItem value={"Drama"}>Drama</MenuItem>
-            </Select>
-          </FormControl>
+
+          <TextField
+            id="Subtitulo-livro"
+            label="Subtitulo"
+            variant="outlined"
+            value={subtitulo}
+            onChange={(e) => setSubtitulo(e.target.value)}
+          />
+          <div className={styles.generoGrid}>
+            <FormControl fullWidth>
+              <InputLabel id="select-label">Gênero 1</InputLabel>
+              <Select
+                id="genero1-label"
+                className={styles.selectLabel}
+                value={genero1}
+                label="genero1"
+                onChange={(e) => setGenero1(e.target.value)}
+              >
+                <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
+                <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                <MenuItem value={"Drama"}>Drama</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel id="select-label">Gênero 2</InputLabel>
+              <Select
+                id="genero2-label"
+                className={styles.selectLabel}
+                value={genero2}
+                label="genero2"
+                onChange={(e) => setGenero2(e.target.value)}
+              >
+                <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
+                <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                <MenuItem value={"Drama"}>Drama</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+
           <TextField
             id="sinopse-livro"
             label="Sinopse"
@@ -128,6 +161,7 @@ function ListagemLivros() {
             value={sinopse}
             onChange={(e) => setSinopse(e.target.value)}
           />
+
           <TextField
             id="endereco-capa"
             label="Image Adress"
@@ -145,6 +179,7 @@ function ListagemLivros() {
               size="large"
               className={styles.botaoFormulario}
             />
+
             <Button
               variant="contained"
               onClick={adicionaLivro}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { getUser } from "../Service/getData";
+import { getUser } from "../../Service/getData";
 import styles from "./ListaLivros.module.scss";
 
 import Fab from "@mui/material/Fab";
@@ -64,14 +64,14 @@ function Home() {
                 component="img"
                 height="200"
                 image="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
-                alt={`${livro.nome} no cover image`}
+                alt={`${livro.titulo} no cover image`}
               />
             ) : (
               <CardMedia
                 className={styles.capa}
                 component="img"
                 image={livro.capa}
-                alt={`${livro.nome} cover image`}
+                alt={`${livro.titulo} cover image`}
               />
             )}
 
@@ -79,7 +79,7 @@ function Home() {
               <VisibilityIcon />
 
               <div className={styles.cardText}>
-                <div className={styles.title}>{livro.nome}</div>
+                <div className={styles.title}>{livro.titulo}</div>
                 <div>{livro.genero}</div>
               </div>
 

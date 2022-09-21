@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import AdicionaLivros from "./AdicionaLivros";
-import EditaLivro from "./EditaLivro";
-import ListaLivros from "./ListaLivros";
-import MostraLivro from "./MostraLivro";
+import AdicionaLivros from "./AdicionaLivro/AdicionaLivros";
+import EditaLivro from "./EditaLivro/EditaLivro";
+import ListaLivros from "./ListaLivros/ListaLivros";
+import MostraLivro from "./MostraLivro/MostraLivro";
 
 function Rotas() {
   return (
