@@ -19,9 +19,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 function ListagemLivros() {
   const [titulo, setTitulo] = useState("");
   const [subtitulo, setSubtitulo] = useState("");
-  const [genero1, setGenero1] = useState("");
-  const [genero2, setGenero2] = useState("");
+  const [generoPrincipal, setgeneroPrincipal] = useState("");
+  const [generoSecundario, setgeneroSecundario] = useState("");
   const [sinopse, setSinopse] = useState("");
+  const [paginas, setPaginas] = useState("");
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -33,9 +34,13 @@ function ListagemLivros() {
     axios
       .post("http://localhost:8080/livro/add", {
         capa: capa,
-        titulo: [titulo, subtitulo],
-        genero: [genero1, genero2],
+        titulo: titulo,
+        subTitulo: subtitulo,
+        generoPrincipal: generoPrincipal,
+        generoSecundario: generoSecundario,
         sinopse: sinopse,
+        paginasLidas: 0,
+        paginasTotais: paginas,
         completo: false,
         usuario: { id: 1 },
       })
@@ -49,8 +54,8 @@ function ListagemLivros() {
 
     setTitulo("");
     setSubtitulo("");
-    setGenero1("");
-    setGenero2("");
+    setgeneroPrincipal("");
+    setgeneroSecundario("");
     setSinopse("");
     setCapa("");
   };
@@ -58,8 +63,8 @@ function ListagemLivros() {
   const limpaForm = () => {
     setTitulo("");
     setSubtitulo("");
-    setGenero1("");
-    setGenero2("");
+    setgeneroPrincipal("");
+    setgeneroSecundario("");
     setSinopse("");
     setCapa("");
   };
@@ -125,11 +130,11 @@ function ListagemLivros() {
             <FormControl fullWidth>
               <InputLabel id="select-label">Gênero 1</InputLabel>
               <Select
-                id="genero1-label"
+                id="generoPrincipal-label"
                 className={styles.selectLabel}
-                value={genero1}
-                label="genero1"
-                onChange={(e) => setGenero1(e.target.value)}
+                value={generoPrincipal}
+                label="generoPrincipal"
+                onChange={(e) => setgeneroPrincipal(e.target.value)}
               >
                 <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
                 <MenuItem value={"Aventura"}>Aventura</MenuItem>
@@ -140,12 +145,13 @@ function ListagemLivros() {
             <FormControl fullWidth>
               <InputLabel id="select-label">Gênero 2</InputLabel>
               <Select
-                id="genero2-label"
+                id="generoSecundario-label"
                 className={styles.selectLabel}
-                value={genero2}
-                label="genero2"
-                onChange={(e) => setGenero2(e.target.value)}
+                value={generoSecundario}
+                label="generoSecundario"
+                onChange={(e) => setgeneroSecundario(e.target.value)}
               >
+                <MenuItem value={""}>Nenhum</MenuItem>
                 <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
                 <MenuItem value={"Aventura"}>Aventura</MenuItem>
                 <MenuItem value={"Drama"}>Drama</MenuItem>
@@ -154,20 +160,28 @@ function ListagemLivros() {
           </div>
 
           <TextField
+            id="endereco-capa"
+            label="Image Adress"
+            variant="outlined"
+            value={capa}
+            onChange={(e) => setCapa(e.target.value)}
+          />
+
+          <TextField
+            id="paginas"
+            label="N° de Páginas"
+            variant="outlined"
+            value={paginas}
+            onChange={(e) => setPaginas(e.target.value)}
+          />
+
+          <TextField
             id="sinopse-livro"
             label="Sinopse"
             variant="outlined"
             multiline
             value={sinopse}
             onChange={(e) => setSinopse(e.target.value)}
-          />
-
-          <TextField
-            id="endereco-capa"
-            label="Image Adress"
-            variant="outlined"
-            value={capa}
-            onChange={(e) => setCapa(e.target.value)}
           />
 
           <div className={styles.grupoBotoes}>

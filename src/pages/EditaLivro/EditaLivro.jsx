@@ -21,13 +21,14 @@ import Select from "@mui/material/Select";
 
 function EditaLivro() {
   const navigate = useNavigate();
-  //   const navigate = useNavigate();
+
   const [livro, setLivro] = useState([]);
   const [titulo, setTitulo] = useState("");
   const [subtitulo, setSubtitulo] = useState("");
-  const [genero1, setGenero1] = useState("");
-  const [genero2, setGenero2] = useState("");
+  const [generoPrincipal, setgeneroPrincipal] = useState("");
+  const [generoSecundario, setgeneroSecundario] = useState("");
   const [sinopse, setSinopse] = useState("");
+  const [paginas, setPaginas] = useState("");
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -39,9 +40,13 @@ function EditaLivro() {
     axios
       .put("http://localhost:8080/livro/" + id, {
         capa: capa,
-        titulo: [titulo, subtitulo],
-        genero: [genero1, genero2],
+        titulo: titulo,
+        subTitulo: subtitulo,
+        generoPrincipal: generoPrincipal,
+        generoSecundario: generoSecundario,
         sinopse: sinopse,
+        paginasLidas: 0,
+        paginasTotais: paginas,
         completo: false,
         usuario: { id: 1 },
       })
@@ -75,11 +80,12 @@ function EditaLivro() {
   }, []);
 
   useEffect(() => {
-    setTitulo(livro.titulo ? livro.titulo[0] : "");
-    setSubtitulo(livro.titulo ? livro.titulo[1] : "");
-    setGenero1(livro.genero ? livro.genero[0] : "");
-    setGenero2(livro.genero ? livro.genero[1] : "");
+    setTitulo(livro.titulo);
+    setSubtitulo(livro.titulo);
+    setgeneroPrincipal(livro.generoPrincipal);
+    setgeneroSecundario(livro.generoSecundario);
     setSinopse(livro.sinopse);
+    setPaginas(livro.paginasTotais);
     setCapa(livro.capa);
   }, [livro]);
 
@@ -92,6 +98,7 @@ function EditaLivro() {
       ) : (
         <></>
       )}
+
       {modal ? (
         <div className={styles.loading}>
           <p>Livro atualizado com sucesso</p>
@@ -106,6 +113,7 @@ function EditaLivro() {
       ) : (
         <></>
       )}
+
       <div className={styles.cardInfo}>
         {/* <div className={styles.coverLivro}>
           <Fab
@@ -124,7 +132,9 @@ function EditaLivro() {
             <img src={livro.capa} alt={`${livro.nome} cover`} />
           )}
         </div> */}
-        <h1>Editar Livro</h1>
+
+        <h1 className={styles.titulo}>Editar Livro</h1>
+
         <Box
           component="form"
           noValidate
@@ -141,7 +151,7 @@ function EditaLivro() {
 
           <TextField
             id="tituloLivro"
-            label="titulo"
+            label="Titulo"
             variant="outlined"
             value={titulo || ""}
             onChange={(e) => setTitulo(e.target.value)}
@@ -152,7 +162,7 @@ function EditaLivro() {
             id="Subtitulo-livro"
             label="Subtitulo"
             variant="outlined"
-            value={subtitulo}
+            value={subtitulo || ""}
             onChange={(e) => setSubtitulo(e.target.value)}
             className={styles.input}
           />
@@ -161,11 +171,12 @@ function EditaLivro() {
             <FormControl fullWidth className={styles.input}>
               <InputLabel id="select-label">Gênero 1</InputLabel>
               <Select
-                id="genero1-label"
-                value={genero1}
+                id="generoPrincipal-label"
+                value={generoPrincipal || ""}
                 label="Gênero 1"
-                onChange={(e) => setGenero1(e.target.value)}
+                onChange={(e) => setgeneroPrincipal(e.target.value)}
               >
+                <MenuItem value={""}></MenuItem>
                 <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
                 <MenuItem value={"Aventura"}>Aventura</MenuItem>
                 <MenuItem value={"Drama"}>Drama</MenuItem>
@@ -175,11 +186,12 @@ function EditaLivro() {
             <FormControl fullWidth className={styles.input}>
               <InputLabel id="select-label">Gênero 2</InputLabel>
               <Select
-                id="genero2-label"
-                value={genero2}
+                id="generoSecundario-label"
+                value={generoSecundario || ""}
                 label="Gênero 2"
-                onChange={(e) => setGenero2(e.target.value)}
+                onChange={(e) => setgeneroSecundario(e.target.value)}
               >
+                <MenuItem value={""}>Nenhum</MenuItem>
                 <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
                 <MenuItem value={"Aventura"}>Aventura</MenuItem>
                 <MenuItem value={"Drama"}>Drama</MenuItem>
@@ -188,21 +200,29 @@ function EditaLivro() {
           </div>
 
           <TextField
+            id="capa"
+            label="Capa"
+            variant="outlined"
+            value={capa || ""}
+            onChange={(e) => setCapa(e.target.value)}
+            className={styles.input}
+          />
+
+          <TextField
+            id="paginas"
+            label="N° de Páginas"
+            variant="outlined"
+            value={paginas || ""}
+            onChange={(e) => setPaginas(e.target.value)}
+          />
+
+          <TextField
             id="nomeSinopse"
             label="sinopse"
             variant="outlined"
             multiline
             value={sinopse || ""}
             onChange={(e) => setSinopse(e.target.value)}
-            className={styles.input}
-          />
-
-          <TextField
-            id="nomeSinopse"
-            label="capa"
-            variant="outlined"
-            value={capa || ""}
-            onChange={(e) => setCapa(e.target.value)}
             className={styles.input}
           />
 

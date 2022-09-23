@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { getUser } from "../../Service/getData";
 import styles from "./ListaLivros.module.scss";
+import { getUser } from "../../Service/getData";
+import React, { useState, useEffect } from "react";
 
 import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
@@ -64,7 +64,7 @@ function Home() {
                 component="img"
                 height="200"
                 image="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
-                alt={`${livro.titulo} no cover image`}
+                alt={`${livro.titulo} no image`}
               />
             ) : (
               <CardMedia
@@ -76,11 +76,27 @@ function Home() {
             )}
 
             <CardContent className={styles.cardInfo}>
-              <VisibilityIcon />
+              <div className={styles.cardGenero}>
+                <p className={styles.genero}>{livro.generoPrincipal}</p>
+
+                {livro.generoSecundario ? (
+                  <p className={styles.genero}> / {livro.generoSecundario}</p>
+                ) : (
+                  ""
+                )}
+              </div>
+
+              <div>
+                <Fab size="small">
+                  <VisibilityIcon />
+                </Fab>
+              </div>
 
               <div className={styles.cardText}>
-                <div className={styles.title}>{livro.titulo}</div>
-                <div>{livro.genero}</div>
+                <div>
+                  <h4 className={styles.titulo}>{livro.titulo}</h4>
+                  <h4 className={styles.subtitulo}>{livro.subTitulo}</h4>
+                </div>
               </div>
 
               <CardActions className={styles.cardButton}>

@@ -22,6 +22,8 @@
 
     &:hover .cardInfo {
       opacity: 1;
+      display: grid;
+      align-items: center;
     }
 
     .capa {
@@ -38,20 +40,43 @@
       z-index: 1;
       bottom: 0;
       width: 100%;
+      height: 100%;
+
+      .cardGenero {
+        display: flex;
+        margin: auto;
+        gap: 5px;
+
+        .genero {
+          font-size: 16px;
+          font-weight: 300;
+        }
+      }
 
       .cardText {
         display: grid;
         gap: 10px;
-        padding: 50px 0px;
+        // padding: 50px 0px;
 
-        .title {
+        .titulo {
           font-size: 22px;
+          font-weight: 300;
+          min-height: 30px;
+        }
+
+        .subtitulo {
+          margin-top: 2px;
+          font-size: 14px;
+          font-weight: 300;
+          min-height: 30px;
         }
       }
 
       .cardButton {
-        width: 100%;
+        bottom: 0;
         padding: 0;
+        width: 100%;
+        position: absolute;
       }
 
       .botaoFormulario {

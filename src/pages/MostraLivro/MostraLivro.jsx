@@ -11,12 +11,61 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import SaveIcon from "@mui/icons-material/Save";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
 // import CircularProgress from "@mui/material/CircularProgress";
 
 function MostraLivro() {
   const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
+  const [rating, setRating] = useState("");
+
+  const [paginasTotais, setPaginasTotais] = useState("");
+  const [paginasLidas, setPaginasLidas] = useState("");
+
   // const [loading, setLoading] = useState(false);
+
+  const atlPages = (id, e) => {
+    e.preventDefault();
+    // setLoading(true);
+    axios
+      .put("http://localhost:8080/livro/" + id, {
+        capa: livro.capa,
+        titulo: livro.titulo,
+        subTitulo: livro.subTitulo,
+        generoPrincipal: livro.generoPrincipal,
+        generoSecundario: livro.generoSecundario,
+        sinopse: livro.sinopse,
+        paginasLidas: paginasLidas,
+        paginasTotais: livro.paginasTotais,
+        completo: false,
+        usuario: { id: 1 },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // setLoading(false);
+  };
+
+  // const pageProgress = () => {
+  //   if (paginasLidas > paginasTotais) {
+  //     //erro
+  //   } else if (paginasLidas === paginasTotais) {
+  //     //complete
+  //   }
+  //   //setPaginasLidas()
+  //   //return atlPages
+  //   else console.log("complete");
+  // };
 
   useEffect(() => {
     // setLoading(true);
@@ -29,6 +78,11 @@ function MostraLivro() {
       .catch((error) => console.log(error));
     // setLoading(false);
   }, []);
+
+  useEffect(() => {
+    setPaginasLidas(livro.paginasLidas);
+    setPaginasTotais(livro.paginasTotais);
+  }, [livro]);
 
   const deletaLivro = (id, e) => {
     e.preventDefault();
@@ -58,6 +112,16 @@ function MostraLivro() {
         ) : (
           <img src={livro.capa} alt={`${livro.titulo} cover`} />
         )}
+
+        <Stack spacing={1} className={styles.ratingLivro}>
+          <Rating
+            name="size-medium"
+            defaultValue={0}
+            precision={0.5}
+            value={parseFloat(rating)}
+            onChange={(e) => setRating(e.target.value)}
+          />
+        </Stack>
       </div>
       <div className={styles.infosLivro}>
         {/* BOTAO FLUTUANTE */}
@@ -70,36 +134,43 @@ function MostraLivro() {
         </Fab>
         {/* BOTAO FLUTUANTE */}
 
-        <div>
-          <h1 className={styles.tituloLivro}>
-            {livro.titulo ? livro.titulo[0] : ""}
-          </h1>
+        <div className={styles.titulos}>
+          <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
 
-          {livro.titulo ? (
-            livro.titulo[1] !== "" ? (
-              <h3 className={styles.subtituloLivro}>{livro.titulo[1]}</h3>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
+          {livro.subTitulo !== "" && (
+            <h3 className={styles.subtituloLivro}>{livro.subTitulo}</h3>
           )}
         </div>
 
         <div className={styles.generosLivro}>
-          <h4>{livro.genero ? livro.genero[0] : ""}</h4>
-          {livro.genero ? (
-            livro.genero[1] !== "" ? (
-              <h4> / {livro.genero[1]} </h4>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
+          <h4>{livro.generoPrincipal}</h4>
+          {livro.generoSecundario !== "" && (
+            <h4> / {livro.generoSecundario} </h4>
           )}
         </div>
 
         <p className={styles.sinopseLivro}> {livro.sinopse} </p>
+
+        <div className={styles.paginasGrid}>
+          <TextField
+            id="paginasLidas"
+            value={paginasLidas || ""}
+            className={styles.inputPage}
+            onChange={(e) => setPaginasLidas(e.target.value)}
+          />
+
+          <span> / </span>
+
+          <p className={styles.totalPages}> {paginasTotais}</p>
+
+          <Button
+            size="small"
+            onClick={(e) => atlPages(livro.id, e)}
+            className={styles.botaoAtl}
+          >
+            <SaveIcon />
+          </Button>
+        </div>
 
         <div className={styles.grupoBotoes}>
           <Button
@@ -110,9 +181,10 @@ function MostraLivro() {
             size="large"
             className={styles.botaoFormulario}
           />
+
           <Button
             variant="contained"
-            // onClick={limpaForm}
+            onClick={(e) => console.log(rating)}
             endIcon={<TaskAltIcon />}
             color="success"
             size="large"
