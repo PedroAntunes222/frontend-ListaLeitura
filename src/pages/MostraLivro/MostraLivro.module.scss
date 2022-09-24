@@ -38,10 +38,12 @@
     align-items: center;
     position: relative;
 
-    .editFlutuante {
+    .fabGroup {
       position: absolute;
       top: -10px;
       right: -10px;
+      display: grid;
+      gap: 20px;
     }
 
     .tituloLivro {
@@ -107,6 +109,7 @@
         // position: absolute;
         // right: -10px;
         // bottom: -10px;
+        align-self: center;
 
         span {
           margin-left: 0 !important;

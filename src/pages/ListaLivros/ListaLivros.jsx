@@ -6,10 +6,8 @@ import React, { useState, useEffect } from "react";
 
 import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import CardMedia from "@mui/material/CardMedia";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -99,16 +97,14 @@ function Home() {
                 </div>
               </div>
 
-              <CardActions className={styles.cardButton}>
-                <Button
-                  onClick={(e) => deletaLivro(livro.id, e)}
-                  variant="contained"
-                  color="error"
-                  size="large"
-                  startIcon={<DeleteIcon />}
-                  className={styles.botaoFormulario}
-                />
-              </CardActions>
+              <Fab
+                w
+                onClick={(e) => deletaLivro(livro.id, e)}
+                color="error"
+                className={styles.botaoFormulario}
+              >
+                <DeleteIcon />
+              </Fab>
             </CardContent>
           </Link>
         </Card>

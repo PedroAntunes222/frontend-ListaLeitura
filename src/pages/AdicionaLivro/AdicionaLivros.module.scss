@@ -31,7 +31,8 @@
   .formularioLivro {
     display: grid;
     gap: 20px;
-    width: 300px;
+    grid-template-columns: 48% 48%;
+    width: 600px;
     padding: 35px 25px;
     border-radius: 5px;
     background-color: white;
@@ -39,36 +40,46 @@
     margin: auto;
     position: relative;
 
-    .generoGrid {
-      display: flex;
-      gap: 10px;
-      // width: 80%;
-      // margin: auto;
+    .botaoRedo {
+      position: absolute;
+      right: -20px;
+      top: -20px;
+    }
+
+    .botaoSave {
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+    }
+
+    & > div {
+      gap: 15px;
+      display: grid;
+      height: fit-content;
+
+      .inputLivro {
+        width: 100%;
+
+        textarea {
+          overflow: auto !important;
+          max-height: 200px;
+        }
+      }
+
+      .generoGrid {
+        display: flex;
+        gap: 10px;
+
+        .selectLabel {
+          text-align: initial;
+        }
+      }
     }
 
     .flutuanteLista {
       position: absolute !important;
       top: -20px;
-      right: -20px;
-    }
-
-    .grupoBotoes {
-      gap: 10px;
-      display: flex;
-      width: fit-content;
-      margin: auto;
-
-      .botaoFormulario {
-        width: 80px;
-
-        span {
-          margin-left: 0 !important;
-        }
-      }
-    }
-
-    .selectLabel {
-      text-align: initial;
+      left: -20px;
     }
   }
 }

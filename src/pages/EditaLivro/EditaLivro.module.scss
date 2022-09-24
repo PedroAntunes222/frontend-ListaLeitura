@@ -48,20 +48,27 @@
   }
 
   .infosLivro {
-    background-color: white;
-    border-radius: 5px;
     display: grid;
     gap: 20px;
-    padding: 60px 0px;
-    align-items: center;
-    position: relative;
-    width: 300px;
+    grid-template-columns: 48% 48%;
+    width: 600px;
     padding: 35px 25px;
+    border-radius: 5px;
+    background-color: white;
+    border: solid 1px #1f2228;
+    margin: auto;
+    position: relative;
 
     .returnFlutuante {
       position: absolute;
       top: -20px;
       left: -20px;
+    }
+
+    .saveFlutuante {
+      position: absolute;
+      top: -20px;
+      right: -20px;
     }
 
     .generoGrid {
@@ -70,27 +77,18 @@
       // width: 80%;
       // margin: auto;
     }
+    & > div {
+      display: grid;
+      gap: 15px;
+      height: fit-content;
 
-    .input {
-      width: 100%;
-      margin: auto;
+      .input {
+        width: 100%;
+        margin: auto;
 
-      textarea {
-        overflow: auto !important;
-        max-height: 200px;
-      }
-    }
-
-    .grupoBotoes {
-      display: flex;
-      gap: 10px;
-      margin: auto;
-
-      .botaoFormulario {
-        width: 80px;
-
-        span {
-          margin-left: 0 !important;
+        textarea {
+          overflow: auto !important;
+          max-height: 200px;
         }
       }
     }

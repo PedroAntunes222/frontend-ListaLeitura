@@ -45,7 +45,7 @@ function EditaLivro() {
         generoPrincipal: generoPrincipal,
         generoSecundario: generoSecundario,
         sinopse: sinopse,
-        paginasLidas: 0,
+        paginasLidas: livro.paginasLidas,
         paginasTotais: paginas,
         completo: false,
         usuario: { id: 1 },
@@ -81,7 +81,7 @@ function EditaLivro() {
 
   useEffect(() => {
     setTitulo(livro.titulo);
-    setSubtitulo(livro.titulo);
+    setSubtitulo(livro.subTitulo);
     setgeneroPrincipal(livro.generoPrincipal);
     setgeneroSecundario(livro.generoSecundario);
     setSinopse(livro.sinopse);
@@ -149,90 +149,94 @@ function EditaLivro() {
             <ReplyAllOutlinedIcon />
           </Fab>
 
-          <TextField
-            id="tituloLivro"
-            label="Titulo"
-            variant="outlined"
-            value={titulo || ""}
-            onChange={(e) => setTitulo(e.target.value)}
-            className={styles.input}
-          />
+          <Fab
+            variant="contained"
+            onClick={(e) => atlLivro(livro.id, e)}
+            size="large"
+            color="success"
+            className={styles.saveFlutuante}
+          >
+            <SaveIcon />
+          </Fab>
 
-          <TextField
-            id="Subtitulo-livro"
-            label="Subtitulo"
-            variant="outlined"
-            value={subtitulo || ""}
-            onChange={(e) => setSubtitulo(e.target.value)}
-            className={styles.input}
-          />
+          <div>
+            <TextField
+              id="tituloLivro"
+              label="Titulo"
+              variant="outlined"
+              value={titulo || ""}
+              onChange={(e) => setTitulo(e.target.value)}
+              className={styles.input}
+            />
 
-          <div className={styles.generoGrid}>
-            <FormControl fullWidth className={styles.input}>
-              <InputLabel id="select-label">Gênero 1</InputLabel>
-              <Select
-                id="generoPrincipal-label"
-                value={generoPrincipal || ""}
-                label="Gênero 1"
-                onChange={(e) => setgeneroPrincipal(e.target.value)}
-              >
-                <MenuItem value={""}></MenuItem>
-                <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
-                <MenuItem value={"Aventura"}>Aventura</MenuItem>
-                <MenuItem value={"Drama"}>Drama</MenuItem>
-              </Select>
-            </FormControl>
+            <TextField
+              id="Subtitulo-livro"
+              label="Subtitulo"
+              variant="outlined"
+              value={subtitulo || ""}
+              onChange={(e) => setSubtitulo(e.target.value)}
+              className={styles.input}
+            />
 
-            <FormControl fullWidth className={styles.input}>
-              <InputLabel id="select-label">Gênero 2</InputLabel>
-              <Select
-                id="generoSecundario-label"
-                value={generoSecundario || ""}
-                label="Gênero 2"
-                onChange={(e) => setgeneroSecundario(e.target.value)}
-              >
-                <MenuItem value={""}>Nenhum</MenuItem>
-                <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
-                <MenuItem value={"Aventura"}>Aventura</MenuItem>
-                <MenuItem value={"Drama"}>Drama</MenuItem>
-              </Select>
-            </FormControl>
+            <div className={styles.generoGrid}>
+              <FormControl fullWidth className={styles.input}>
+                <InputLabel id="select-label">Gênero 1</InputLabel>
+                <Select
+                  id="generoPrincipal-label"
+                  value={generoPrincipal || ""}
+                  label="Gênero 1"
+                  onChange={(e) => setgeneroPrincipal(e.target.value)}
+                >
+                  <MenuItem value={""}></MenuItem>
+                  <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
+                  <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                  <MenuItem value={"Drama"}>Drama</MenuItem>
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth className={styles.input}>
+                <InputLabel id="select-label">Gênero 2</InputLabel>
+                <Select
+                  id="generoSecundario-label"
+                  value={generoSecundario || ""}
+                  label="Gênero 2"
+                  onChange={(e) => setgeneroSecundario(e.target.value)}
+                >
+                  <MenuItem value={""}>Nenhum</MenuItem>
+                  <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
+                  <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                  <MenuItem value={"Drama"}>Drama</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
           </div>
 
-          <TextField
-            id="capa"
-            label="Capa"
-            variant="outlined"
-            value={capa || ""}
-            onChange={(e) => setCapa(e.target.value)}
-            className={styles.input}
-          />
+          <div>
+            <TextField
+              id="capa"
+              label="Capa"
+              variant="outlined"
+              value={capa || ""}
+              onChange={(e) => setCapa(e.target.value)}
+              className={styles.input}
+            />
 
-          <TextField
-            id="paginas"
-            label="N° de Páginas"
-            variant="outlined"
-            value={paginas || ""}
-            onChange={(e) => setPaginas(e.target.value)}
-          />
+            <TextField
+              id="paginas"
+              label="N° de Páginas"
+              variant="outlined"
+              value={paginas || ""}
+              onChange={(e) => setPaginas(e.target.value)}
+            />
 
-          <TextField
-            id="nomeSinopse"
-            label="sinopse"
-            variant="outlined"
-            multiline
-            value={sinopse || ""}
-            onChange={(e) => setSinopse(e.target.value)}
-            className={styles.input}
-          />
-
-          <div className={styles.grupoBotoes}>
-            <Button
-              variant="contained"
-              onClick={(e) => atlLivro(livro.id, e)}
-              endIcon={<SaveIcon />}
-              size="large"
-              className={styles.botaoFormulario}
+            <TextField
+              id="nomeSinopse"
+              label="sinopse"
+              variant="outlined"
+              multiline
+              value={sinopse || ""}
+              onChange={(e) => setSinopse(e.target.value)}
+              className={styles.input}
             />
           </div>
         </Box>

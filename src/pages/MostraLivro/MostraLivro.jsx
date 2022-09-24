@@ -15,9 +15,6 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialIcon from "@mui/material/SpeedDialIcon";
-import SpeedDialAction from "@mui/material/SpeedDialAction";
 // import CircularProgress from "@mui/material/CircularProgress";
 
 function MostraLivro() {
@@ -123,16 +120,17 @@ function MostraLivro() {
           />
         </Stack>
       </div>
+
       <div className={styles.infosLivro}>
-        {/* BOTAO FLUTUANTE */}
-        <Fab
-          component={Link}
-          to={`/edit/${livro.id}`}
-          className={styles.editFlutuante}
-        >
-          <EditOutlinedIcon />
-        </Fab>
-        {/* BOTAO FLUTUANTE */}
+        <div className={styles.fabGroup}>
+          <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
+            <DeleteIcon />
+          </Fab>
+
+          <Fab component={Link} to={`/edit/${livro.id}`}>
+            <EditOutlinedIcon />
+          </Fab>
+        </div>
 
         <div className={styles.titulos}>
           <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
@@ -165,22 +163,21 @@ function MostraLivro() {
 
           <Button
             size="small"
+            endIcon={<SaveIcon />}
             onClick={(e) => atlPages(livro.id, e)}
             className={styles.botaoAtl}
-          >
-            <SaveIcon />
-          </Button>
+          />
         </div>
 
         <div className={styles.grupoBotoes}>
-          <Button
+          {/* <Button
             variant="contained"
             onClick={(e) => deletaLivro(livro.id, e)}
             endIcon={<DeleteIcon />}
             color="error"
             size="large"
             className={styles.botaoFormulario}
-          />
+          /> */}
 
           <Button
             variant="contained"
