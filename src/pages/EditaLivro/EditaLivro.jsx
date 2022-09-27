@@ -1,10 +1,10 @@
 // import axios from "axios";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { getLivro } from "../../Service/getData";
 import { Link } from "react-router-dom";
 import styles from "./EditaLivro.module.scss";
 import { useNavigate } from "react-router-dom";
+import { putLivro } from "../../Service/getData";
 
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
@@ -28,42 +28,35 @@ function EditaLivro() {
   const [generoPrincipal, setgeneroPrincipal] = useState("");
   const [generoSecundario, setgeneroSecundario] = useState("");
   const [sinopse, setSinopse] = useState("");
-  const [paginas, setPaginas] = useState("");
+  const [paginasTotais, setPaginasTotais] = useState("");
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState("");
+  const [modal, setModal] = useState(false);
 
   const atlLivro = (id, e) => {
     e.preventDefault();
     setLoading(true);
-    axios
-      .put("http://localhost:8080/livro/" + id, {
-        capa: capa,
-        titulo: titulo,
-        subTitulo: subtitulo,
-        generoPrincipal: generoPrincipal,
-        generoSecundario: generoSecundario,
-        sinopse: sinopse,
-        paginasLidas: livro.paginasLidas,
-        paginasTotais: paginas,
-        completo: false,
-        usuario: { id: 1 },
-      })
-      .then(function (response) {
-        console.log(response);
-        setModal(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
 
-    // setLoading(false);
+    putLivro(
+      id,
+      capa,
+      titulo,
+      subtitulo,
+      generoPrincipal,
+      generoSecundario,
+      sinopse,
+      livro.paginasLidas,
+      paginasTotais,
+      livro.rating,
+      livro.completo
+    );
+    setModal(true);
   };
 
   const fechaModal = () => {
     setLoading(false);
-    setModal("");
+    setModal(false);
     navigate(`/lista`);
   };
 
@@ -85,18 +78,16 @@ function EditaLivro() {
     setgeneroPrincipal(livro.generoPrincipal);
     setgeneroSecundario(livro.generoSecundario);
     setSinopse(livro.sinopse);
-    setPaginas(livro.paginasTotais);
+    setPaginasTotais(livro.paginasTotais);
     setCapa(livro.capa);
   }, [livro]);
 
   return (
     <>
-      {loading ? (
+      {loading && (
         <div className={styles.loading}>
           <CircularProgress />
         </div>
-      ) : (
-        <></>
       )}
 
       {modal ? (
@@ -225,8 +216,8 @@ function EditaLivro() {
               id="paginas"
               label="N° de Páginas"
               variant="outlined"
-              value={paginas || ""}
-              onChange={(e) => setPaginas(e.target.value)}
+              value={paginasTotais || ""}
+              onChange={(e) => setPaginasTotais(e.target.value)}
             />
 
             <TextField

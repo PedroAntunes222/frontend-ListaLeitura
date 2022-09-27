@@ -60,6 +60,22 @@
       .inputLivro {
         width: 100%;
 
+        ::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: #e2e2e2;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: #8b8b8b;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: #e2e2e2;
+        }
+
         textarea {
           overflow: auto !important;
           max-height: 200px;

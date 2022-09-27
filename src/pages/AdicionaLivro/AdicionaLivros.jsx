@@ -1,7 +1,9 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AdicionaLivros.module.scss";
+import { addLivro } from "../../Service/getData";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
@@ -26,7 +28,7 @@ function ListagemLivros() {
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState("");
+  const [modal, setModal] = useState(false);
 
   const limpaForm = () => {
     setTitulo("");
@@ -41,46 +43,33 @@ function ListagemLivros() {
   const adicionaLivro = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios
-      .post("http://localhost:8080/livro/add", {
-        capa: capa,
-        titulo: titulo,
-        subTitulo: subtitulo,
-        generoPrincipal: generoPrincipal,
-        generoSecundario: generoSecundario,
-        sinopse: sinopse,
-        paginasLidas: 0,
-        paginasTotais: paginas,
-        completo: false,
-        usuario: { id: 1 },
-      })
-      .then(function (response) {
-        console.log(response);
-        setModal(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
+    addLivro(
+      capa,
+      titulo,
+      subtitulo,
+      generoPrincipal,
+      generoSecundario,
+      sinopse,
+      paginas
+    );
+    setModal(true);
     limpaForm();
   };
 
   const fechaModal = () => {
     setLoading(false);
-    setModal("");
+    setModal(false);
   };
 
   return (
     <>
-      {loading ? (
+      {loading && (
         <div className={styles.loading}>
           <CircularProgress />
         </div>
-      ) : (
-        <></>
       )}
 
-      {modal ? (
+      {modal && (
         <div className={styles.loading}>
           <p>Livro adicionado com sucesso</p>
           <Button
@@ -91,9 +80,8 @@ function ListagemLivros() {
             className={styles.botaoFormulario}
           />
         </div>
-      ) : (
-        <></>
       )}
+
       <div className={styles.formPage}>
         <h1 className={styles.titulo}> Adicione um livro </h1>
 

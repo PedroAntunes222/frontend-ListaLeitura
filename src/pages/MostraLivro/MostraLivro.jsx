@@ -1,68 +1,37 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { getLivro } from "../../Service/getData";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
+import { delLivro } from "../../Service/getData";
+import { putLivro } from "../../Service/getData";
 
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-// import CircularProgress from "@mui/material/CircularProgress";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function MostraLivro() {
   const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(0);
+  const [completo, setCompleto] = useState(false);
+  const [unable, setUnable] = useState(true);
 
-  const [paginasTotais, setPaginasTotais] = useState("");
-  const [paginasLidas, setPaginasLidas] = useState("");
+  const [paginasTotais, setPaginasTotais] = useState(0);
+  const [paginasLidas, setPaginasLidas] = useState(0);
 
   // const [loading, setLoading] = useState(false);
-
-  const atlPages = (id, e) => {
-    e.preventDefault();
-    // setLoading(true);
-    axios
-      .put("http://localhost:8080/livro/" + id, {
-        capa: livro.capa,
-        titulo: livro.titulo,
-        subTitulo: livro.subTitulo,
-        generoPrincipal: livro.generoPrincipal,
-        generoSecundario: livro.generoSecundario,
-        sinopse: livro.sinopse,
-        paginasLidas: paginasLidas,
-        paginasTotais: livro.paginasTotais,
-        completo: false,
-        usuario: { id: 1 },
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    // setLoading(false);
-  };
-
-  // const pageProgress = () => {
-  //   if (paginasLidas > paginasTotais) {
-  //     //erro
-  //   } else if (paginasLidas === paginasTotais) {
-  //     //complete
-  //   }
-  //   //setPaginasLidas()
-  //   //return atlPages
-  //   else console.log("complete");
-  // };
 
   useEffect(() => {
     // setLoading(true);
@@ -79,19 +48,101 @@ function MostraLivro() {
   useEffect(() => {
     setPaginasLidas(livro.paginasLidas);
     setPaginasTotais(livro.paginasTotais);
+    setRating(livro.rating);
   }, [livro]);
+
+  const atlPages = (e) => {
+    e.preventDefault();
+
+    putLivro(
+      livro.id,
+      livro.capa,
+      livro.titulo,
+      livro.subTitulo,
+      livro.generoPrincipal,
+      livro.generoSecundario,
+      livro.sinopse,
+      paginasLidas,
+      livro.paginasTotais,
+      livro.rating,
+      completo
+    );
+  };
 
   const deletaLivro = (id, e) => {
     e.preventDefault();
-    axios
-      .delete("http://localhost:8080/livro/" + id)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    delLivro(id);
     navigate(`/lista`);
+  };
+
+  const completar = (e) => {
+    e.preventDefault();
+
+    putLivro(
+      livro.id,
+      livro.capa,
+      livro.titulo,
+      livro.subTitulo,
+      livro.generoPrincipal,
+      livro.generoSecundario,
+      livro.sinopse,
+      paginasLidas,
+      livro.paginasTotais,
+      rating,
+      completo
+    );
+  };
+
+  const CircularProgressWithLabel = () => {
+    let calc = Math.floor((paginasLidas * 100) / paginasTotais);
+
+    useEffect(() => {
+      // se o progresso for 100%, habilita o botao de completo
+      if (paginasLidas === paginasTotais) {
+        setUnable(false);
+        setCompleto(true);
+      } else {
+        setUnable(true);
+        setCompleto(false);
+      }
+    });
+
+    return (
+      <Box sx={{ position: "relative", display: "inline-flex" }}>
+        <CircularProgress
+          variant="determinate"
+          size="10vh"
+          value={calc}
+          color="success"
+        />
+
+        <Box
+          sx={{
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            onClick={(e) => completar(e)}
+            endIcon={<TaskAltIcon />}
+            disabled={unable}
+            size="large"
+            color="success"
+            className={styles.botaoFormulario}
+          />
+        </Box>
+
+        <Typography variant="caption" component="div" color="text.secondary">
+          {`${calc}%`}
+        </Typography>
+      </Box>
+    );
   };
 
   return (
@@ -115,15 +166,15 @@ function MostraLivro() {
             name="size-medium"
             defaultValue={0}
             precision={0.5}
-            value={parseFloat(rating)}
-            onChange={(e) => setRating(e.target.value)}
+            value={rating || 0}
+            onChange={(e) => setRating(parseFloat(e.target.value))}
           />
         </Stack>
       </div>
 
       <div className={styles.infosLivro}>
         <div className={styles.fabGroup}>
-          <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
+          <Fab onClick={(e) => deletaLivro(e)} color="error">
             <DeleteIcon />
           </Fab>
 
@@ -152,9 +203,10 @@ function MostraLivro() {
         <div className={styles.paginasGrid}>
           <TextField
             id="paginasLidas"
-            value={paginasLidas || ""}
+            autoComplete="off"
+            value={paginasLidas || 0}
             className={styles.inputPage}
-            onChange={(e) => setPaginasLidas(e.target.value)}
+            onChange={(e) => setPaginasLidas(parseInt(e.target.value))}
           />
 
           <span> / </span>
@@ -164,29 +216,13 @@ function MostraLivro() {
           <Button
             size="small"
             endIcon={<SaveIcon />}
-            onClick={(e) => atlPages(livro.id, e)}
+            onClick={(e) => atlPages(e)}
             className={styles.botaoAtl}
           />
         </div>
 
         <div className={styles.grupoBotoes}>
-          {/* <Button
-            variant="contained"
-            onClick={(e) => deletaLivro(livro.id, e)}
-            endIcon={<DeleteIcon />}
-            color="error"
-            size="large"
-            className={styles.botaoFormulario}
-          /> */}
-
-          <Button
-            variant="contained"
-            onClick={(e) => console.log(rating)}
-            endIcon={<TaskAltIcon />}
-            color="success"
-            size="large"
-            className={styles.botaoFormulario}
-          />
+          <CircularProgressWithLabel />
         </div>
       </div>
     </div>

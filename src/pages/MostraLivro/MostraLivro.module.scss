@@ -3,15 +3,15 @@
   display: grid;
   grid-template-columns: 50% 50%;
   max-width: 700px;
-  height: 300px;
   place-content: center;
 
   .coverLivro {
     position: relative;
 
     img {
-      max-width: 100%;
       height: auto;
+      max-width: 100%;
+      border-bottom-left-radius: 10px;
     }
 
     .returnFlutuante {
@@ -37,6 +37,7 @@
     padding: 20px 0px;
     align-items: center;
     position: relative;
+    border-bottom-right-radius: 10px;
 
     .fabGroup {
       position: absolute;
@@ -71,6 +72,18 @@
 
       &::-webkit-scrollbar {
         width: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #3d3d3d;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #c4c4c4;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #8b8b8b;
       }
     }
 
@@ -123,7 +136,8 @@
       margin: auto;
 
       .botaoFormulario {
-        width: 80px;
+        position: absolute;
+        left: 0;
 
         span {
           margin-left: 0 !important;

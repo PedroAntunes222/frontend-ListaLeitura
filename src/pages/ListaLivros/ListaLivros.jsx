@@ -1,8 +1,9 @@
-import axios from "axios";
+// import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./ListaLivros.module.scss";
 import { getUser } from "../../Service/getData";
 import React, { useState, useEffect } from "react";
+import { delLivro } from "../../Service/getData";
 
 import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
@@ -14,7 +15,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function Home() {
   const [livros, setLivros] = useState([]);
-  const [refresh, setrefresh] = useState(0);
+  // const [refresh, setrefresh] = useState(0);
 
   useEffect(() => {
     getUser()
@@ -30,19 +31,20 @@ function Home() {
         setLivros(response.data.livros);
       })
       .catch((error) => console.log(error));
-  }, [refresh]);
+  }, [livros]);
 
   const deletaLivro = (id, e) => {
     e.preventDefault();
-    axios
-      .delete("http://localhost:8080/livro/" + id)
-      .then(function (response) {
-        console.log(response);
-        setrefresh((prev) => prev + 1);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    delLivro(id);
+    // axios
+    // .delete("http://localhost:8080/livro/" + id)
+    // .then(function (response) {
+    //   console.log(response);
+    //   setrefresh((prev) => prev + 1);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
   };
 
   return (
@@ -98,7 +100,6 @@ function Home() {
               </div>
 
               <Fab
-                w
                 onClick={(e) => deletaLivro(livro.id, e)}
                 color="error"
                 className={styles.botaoFormulario}
