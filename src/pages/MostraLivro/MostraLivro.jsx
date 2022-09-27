@@ -138,7 +138,12 @@ function MostraLivro() {
           />
         </Box>
 
-        <Typography variant="caption" component="div" color="text.secondary">
+        <Typography
+          variant="caption"
+          component="div"
+          color="text.secondary"
+          className={styles.completePercent}
+        >
           {`${calc}%`}
         </Typography>
       </Box>
