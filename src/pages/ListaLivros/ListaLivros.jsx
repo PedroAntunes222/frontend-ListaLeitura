@@ -11,22 +11,21 @@ import AddIcon from "@mui/icons-material/Add";
 
 function ListaLivros() {
   const [livros, setLivros] = useState([]);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     getUser()
       .then((response) => {
         setLivros(response.data.livros);
+        console.log("opa");
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [refresh]);
 
-  useEffect(() => {
-    getUser()
-      .then((response) => {
-        setLivros(response.data.livros);
-      })
-      .catch((error) => console.log(error));
-  }, [livros]);
+  const refreshList = () => {
+    setRefresh((prev) => prev + 1);
+    console.log(refresh);
+  };
 
   return (
     <div className={styles.grupoCards}>
@@ -37,7 +36,7 @@ function ListaLivros() {
       </Card>
 
       {livros.map((livro) => (
-        <CardLivro {...livro} key={livro.id} />
+        <CardLivro livro={livro} refresh={refreshList} key={livro.id} />
       ))}
     </div>
   );

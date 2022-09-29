@@ -72,7 +72,9 @@ function MostraLivro() {
   const deletaLivro = (id, e) => {
     e.preventDefault();
     delLivro(id);
-    navigate(`/lista`);
+    setTimeout(() => {
+      navigate(`/lista`);
+    }, 1000);
   };
 
   const completar = (e) => {
@@ -179,7 +181,7 @@ function MostraLivro() {
 
       <div className={styles.infosLivro}>
         <div className={styles.fabGroup}>
-          <Fab onClick={(e) => deletaLivro(e)} color="error">
+          <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
             <DeleteIcon />
           </Fab>
 

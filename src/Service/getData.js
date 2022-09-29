@@ -1,19 +1,19 @@
 import axios from "axios";
 
-// const urlGet = "http://localhost:8080/usuario/";
+// const urlGet = "http://back-end-lista-leitura.herokuapp.com/usuario/";
 
 export function getUser() {
-  let id = 1;
-  let url = "http://localhost:8080/usuario/" + id;
+  let id = 4;
+  let url = "http://back-end-lista-leitura.herokuapp.com/usuario/" + id;
   return axios.get(url);
 }
 
 export function getUsers() {
-  return axios.get("http://localhost:8080/usuario/all");
+  return axios.get("http://back-end-lista-leitura.herokuapp.com/usuario/all");
 }
 
 export function getLivro(id) {
-  let url = "http://localhost:8080/livro/" + id;
+  let url = "http://back-end-lista-leitura.herokuapp.com/livro/" + id;
   return axios.get(url);
 }
 
@@ -27,7 +27,7 @@ export function addLivro(
   paginasTotais
 ) {
   axios
-    .post("http://localhost:8080/livro/add", {
+    .post("http://back-end-lista-leitura.herokuapp.com/livro/add", {
       capa: capa,
       titulo: titulo,
       subTitulo: subTitulo,
@@ -37,7 +37,7 @@ export function addLivro(
       paginasLidas: 0,
       paginasTotais: paginasTotais,
       completo: false,
-      usuario: { id: 1 },
+      usuario: { id: 4 },
     })
     .then(function (response) {
       console.log(response);
@@ -49,7 +49,7 @@ export function addLivro(
 
 export function delLivro(id) {
   axios
-    .delete("http://localhost:8080/livro/" + id)
+    .delete("http://back-end-lista-leitura.herokuapp.com/livro/" + id)
     .then(function (response) {
       console.log(response);
     })
@@ -72,7 +72,7 @@ export function putLivro(
   completo
 ) {
   axios
-    .put("http://localhost:8080/livro/" + id, {
+    .put("http://back-end-lista-leitura.herokuapp.com/livro/" + id, {
       capa: capa,
       titulo: titulo,
       subTitulo: subTitulo,
@@ -83,7 +83,7 @@ export function putLivro(
       paginasTotais: paginasTotais,
       rating: rating,
       completo: completo,
-      usuario: { id: 1 },
+      usuario: { id: 4 },
     })
     .then(function (response) {
       console.log(response);

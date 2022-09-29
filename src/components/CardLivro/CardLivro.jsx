@@ -9,38 +9,41 @@ import CardContent from "@mui/material/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-function cardLivro(livro) {
+function cardLivro(props) {
   const deletaLivro = (id, e) => {
     e.preventDefault();
     delLivro(id);
+    setTimeout(() => {
+      props.refresh();
+    }, 1000);
   };
 
   return (
     <Card className={styles.card}>
-      <Link to={`/livro/${livro.id}`}>
-        {!livro.capa ? (
+      <Link to={`/livro/${props.livro.id}`}>
+        {!props.livro.capa ? (
           <CardMedia
             className={styles.capa}
             component="img"
             height="200"
             image="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
-            alt={`${livro.titulo} no image`}
+            alt={`${props.livro.titulo} no image`}
           />
         ) : (
           <CardMedia
             className={styles.capa}
             component="img"
-            image={livro.capa}
-            alt={`${livro.titulo} cover image`}
+            image={props.livro.capa}
+            alt={`${props.livro.titulo} cover image`}
           />
         )}
 
         <CardContent className={styles.cardInfo}>
           <div className={styles.cardGenero}>
-            <p className={styles.genero}>{livro.generoPrincipal}</p>
+            <p className={styles.genero}>{props.livro.generoPrincipal}</p>
 
-            {livro.generoSecundario ? (
-              <p className={styles.genero}> / {livro.generoSecundario}</p>
+            {props.livro.generoSecundario ? (
+              <p className={styles.genero}> / {props.livro.generoSecundario}</p>
             ) : (
               ""
             )}
@@ -54,13 +57,13 @@ function cardLivro(livro) {
 
           <div className={styles.cardText}>
             <div>
-              <h4 className={styles.titulo}>{livro.titulo}</h4>
-              <h4 className={styles.subtitulo}>{livro.subTitulo}</h4>
+              <h4 className={styles.titulo}>{props.livro.titulo}</h4>
+              <h4 className={styles.subtitulo}>{props.livro.subTitulo}</h4>
             </div>
           </div>
 
           <Fab
-            onClick={(e) => deletaLivro(livro.id, e)}
+            onClick={(e) => deletaLivro(props.livro.id, e)}
             color="error"
             className={styles.botaoFormulario}
           >
