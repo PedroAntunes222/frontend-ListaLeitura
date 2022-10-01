@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./CardLivro.module.scss";
 import { delLivro } from "../../Service/getData";
@@ -9,12 +10,14 @@ import CardContent from "@mui/material/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-function cardLivro(props) {
+function CardLivro(props) {
   const deletaLivro = (id, e) => {
     e.preventDefault();
+    props.loading(true);
     delLivro(id);
     setTimeout(() => {
       props.refresh();
+      props.loading(false);
     }, 1000);
   };
 
@@ -75,4 +78,4 @@ function cardLivro(props) {
   );
 }
 
-export default cardLivro;
+export default CardLivro;

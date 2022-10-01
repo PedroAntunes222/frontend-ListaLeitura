@@ -2,18 +2,11 @@ import React from "react";
 import styles from "./Loading.module.scss";
 import CircularProgress from "@mui/material/CircularProgress";
 
-function Loading(loading) {
-  console.log(loading);
+function Loading() {
   return (
-    <>
-      {!loading ? (
-        <div className={styles.loading}>
-          <CircularProgress />
-        </div>
-      ) : (
-        <></>
-      )}
-    </>
+    <div className={styles.loading}>
+      <CircularProgress />
+    </div>
   );
 }
 

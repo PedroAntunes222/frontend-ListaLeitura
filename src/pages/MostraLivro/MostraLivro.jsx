@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
 import { delLivro } from "../../Service/getData";
 import { putLivro } from "../../Service/getData";
+import Loading from "../../components/Loading/Loading";
 
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
@@ -30,8 +31,7 @@ function MostraLivro() {
 
   const [paginasTotais, setPaginasTotais] = useState(0);
   const [paginasLidas, setPaginasLidas] = useState(0);
-
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // setLoading(true);
@@ -39,12 +39,13 @@ function MostraLivro() {
     getLivro(IDLivro)
       .then((response) => {
         setLivro(response.data);
+        setLoading(false);
         console.log(response.data);
       })
       .catch((error) => console.log(error));
-    // setLoading(false);
   }, []);
 
+  // Atualiza os estados (sem loop de get)
   useEffect(() => {
     setPaginasLidas(livro.paginasLidas);
     setPaginasTotais(livro.paginasTotais);
@@ -53,7 +54,7 @@ function MostraLivro() {
 
   const atlPages = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     putLivro(
       livro.id,
       livro.capa,
@@ -67,19 +68,24 @@ function MostraLivro() {
       livro.rating,
       completo
     );
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   const deletaLivro = (id, e) => {
     e.preventDefault();
+    setLoading(true);
     delLivro(id);
     setTimeout(() => {
       navigate(`/lista`);
+      setLoading(false);
     }, 1000);
   };
 
   const completar = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     putLivro(
       livro.id,
       livro.capa,
@@ -93,6 +99,9 @@ function MostraLivro() {
       rating,
       completo
     );
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   const CircularProgressWithLabel = () => {
@@ -153,86 +162,96 @@ function MostraLivro() {
   };
 
   return (
-    <div className={styles.cardInfo}>
-      <div className={styles.coverLivro}>
-        <Fab component={Link} to="/lista" className={styles.returnFlutuante}>
-          <ReplyAllOutlinedIcon />
-        </Fab>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={styles.cardInfo}>
+          <div className={styles.coverLivro}>
+            <Fab
+              component={Link}
+              to="/lista"
+              className={styles.returnFlutuante}
+            >
+              <ReplyAllOutlinedIcon />
+            </Fab>
 
-        {!livro.capa ? (
-          <img
-            src="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
-            alt={`${livro.titulo} no cover`}
-          />
-        ) : (
-          <img src={livro.capa} alt={`${livro.titulo} cover`} />
-        )}
+            {!livro.capa ? (
+              <img
+                src="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
+                alt={`${livro.titulo} no cover`}
+              />
+            ) : (
+              <img src={livro.capa} alt={`${livro.titulo} cover`} />
+            )}
 
-        <Stack spacing={1} className={styles.ratingLivro}>
-          <Rating
-            name="size-medium"
-            defaultValue={0}
-            precision={0.5}
-            value={rating || 0}
-            onChange={(e) => setRating(parseFloat(e.target.value))}
-          />
-        </Stack>
-      </div>
+            <Stack spacing={1} className={styles.ratingLivro}>
+              <Rating
+                name="size-medium"
+                defaultValue={0}
+                precision={0.5}
+                value={rating || 0}
+                onChange={(e) => setRating(parseFloat(e.target.value))}
+              />
+            </Stack>
+          </div>
 
-      <div className={styles.infosLivro}>
-        <div className={styles.fabGroup}>
-          <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
-            <DeleteIcon />
-          </Fab>
+          <div className={styles.infosLivro}>
+            <div className={styles.fabGroup}>
+              <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
+                <DeleteIcon />
+              </Fab>
 
-          <Fab component={Link} to={`/edit/${livro.id}`}>
-            <EditOutlinedIcon />
-          </Fab>
+              <Fab component={Link} to={`/edit/${livro.id}`}>
+                <EditOutlinedIcon />
+              </Fab>
+            </div>
+
+            <div className={styles.titulos}>
+              <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
+
+              {livro.subTitulo !== "" && (
+                <h3 className={styles.subtituloLivro}>{livro.subTitulo}</h3>
+              )}
+            </div>
+
+            <div className={styles.generosLivro}>
+              <h4>{livro.generoPrincipal}</h4>
+              {livro.generoSecundario !== "" && (
+                <h4> / {livro.generoSecundario} </h4>
+              )}
+            </div>
+
+            <p className={styles.sinopseLivro}> {livro.sinopse} </p>
+
+            <div className={styles.paginasGrid}>
+              <TextField
+                id="paginasLidas"
+                autoComplete="off"
+                value={paginasLidas || 0}
+                className={styles.inputPage}
+                onChange={(e) => setPaginasLidas(parseInt(e.target.value))}
+              />
+
+              <span> / </span>
+
+              <p className={styles.totalPages}> {paginasTotais}</p>
+
+              <Button
+                size="small"
+                endIcon={<SaveIcon />}
+                onClick={(e) => atlPages(e)}
+                className={styles.botaoAtl}
+              />
+            </div>
+
+            <div className={styles.grupoBotoes}>
+              <CircularProgressWithLabel />
+            </div>
+          </div>
         </div>
-
-        <div className={styles.titulos}>
-          <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
-
-          {livro.subTitulo !== "" && (
-            <h3 className={styles.subtituloLivro}>{livro.subTitulo}</h3>
-          )}
-        </div>
-
-        <div className={styles.generosLivro}>
-          <h4>{livro.generoPrincipal}</h4>
-          {livro.generoSecundario !== "" && (
-            <h4> / {livro.generoSecundario} </h4>
-          )}
-        </div>
-
-        <p className={styles.sinopseLivro}> {livro.sinopse} </p>
-
-        <div className={styles.paginasGrid}>
-          <TextField
-            id="paginasLidas"
-            autoComplete="off"
-            value={paginasLidas || 0}
-            className={styles.inputPage}
-            onChange={(e) => setPaginasLidas(parseInt(e.target.value))}
-          />
-
-          <span> / </span>
-
-          <p className={styles.totalPages}> {paginasTotais}</p>
-
-          <Button
-            size="small"
-            endIcon={<SaveIcon />}
-            onClick={(e) => atlPages(e)}
-            className={styles.botaoAtl}
-          />
-        </div>
-
-        <div className={styles.grupoBotoes}>
-          <CircularProgressWithLabel />
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

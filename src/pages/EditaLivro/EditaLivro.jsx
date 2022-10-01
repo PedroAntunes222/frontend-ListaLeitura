@@ -5,15 +5,14 @@ import { Link } from "react-router-dom";
 import styles from "./EditaLivro.module.scss";
 import { useNavigate } from "react-router-dom";
 import { putLivro } from "../../Service/getData";
+import Loading from "../../components/Loading/Loading";
 
 import Fab from "@mui/material/Fab";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import CircularProgress from "@mui/material/CircularProgress";
-import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -32,33 +31,7 @@ function EditaLivro() {
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(false);
-
-  const atlLivro = (id, e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    putLivro(
-      id,
-      capa,
-      titulo,
-      subtitulo,
-      generoPrincipal,
-      generoSecundario,
-      sinopse,
-      livro.paginasLidas,
-      paginasTotais,
-      livro.rating,
-      livro.completo
-    );
-    setModal(true);
-  };
-
-  const fechaModal = () => {
-    setLoading(false);
-    setModal(false);
-    navigate(`/lista`);
-  };
+  // const [modal, setModal] = useState(false);
 
   useEffect(() => {
     // setLoading(true);
@@ -82,28 +55,31 @@ function EditaLivro() {
     setCapa(livro.capa);
   }, [livro]);
 
+  const atlLivro = (id, e) => {
+    e.preventDefault();
+    setLoading(true);
+    putLivro(
+      id,
+      capa,
+      titulo,
+      subtitulo,
+      generoPrincipal,
+      generoSecundario,
+      sinopse,
+      livro.paginasLidas,
+      paginasTotais,
+      livro.rating,
+      livro.completo
+    );
+    setTimeout(() => {
+      setLoading(false);
+      navigate(`/lista`);
+    }, 1000);
+  };
+
   return (
     <>
-      {loading && (
-        <div className={styles.loading}>
-          <CircularProgress />
-        </div>
-      )}
-
-      {modal ? (
-        <div className={styles.loading}>
-          <p>Livro atualizado com sucesso</p>
-          <Button
-            variant="outlined"
-            onClick={fechaModal}
-            endIcon={<CheckCircleOutlineRoundedIcon />}
-            size="large"
-            className={styles.botaoFormulario}
-          />
-        </div>
-      ) : (
-        <></>
-      )}
+      {loading && <Loading />}
 
       <div className={styles.cardInfo}>
         {/* <div className={styles.coverLivro}>
@@ -132,6 +108,7 @@ function EditaLivro() {
           autoComplete="off"
           className={styles.infosLivro}
         >
+          {/* return */}
           <Fab
             component={Link}
             to={`/livro/${livro.id}`}
@@ -140,6 +117,7 @@ function EditaLivro() {
             <ReplyAllOutlinedIcon />
           </Fab>
 
+          {/* save */}
           <Fab
             variant="contained"
             onClick={(e) => atlLivro(livro.id, e)}

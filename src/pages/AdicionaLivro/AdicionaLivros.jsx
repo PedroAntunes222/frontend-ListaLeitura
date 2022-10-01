@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AdicionaLivros.module.scss";
 import { addLivro } from "../../Service/getData";
+import Loading from "../../components/Loading/Loading";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
@@ -15,8 +15,8 @@ import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore
 import FormControl from "@mui/material/FormControl";
 import Fab from "@mui/material/Fab";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
-import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
-import CircularProgress from "@mui/material/CircularProgress";
+// import Button from "@mui/material/Button";
+// import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 
 function ListagemLivros() {
   const [titulo, setTitulo] = useState("");
@@ -28,7 +28,6 @@ function ListagemLivros() {
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(false);
 
   const limpaForm = () => {
     setTitulo("");
@@ -52,35 +51,16 @@ function ListagemLivros() {
       sinopse,
       paginas
     );
-    setModal(true);
     limpaForm();
-  };
-
-  const fechaModal = () => {
-    setLoading(false);
-    setModal(false);
+    setTimeout(() => {
+      setLoading(false);
+      // navigate(`/lista`);
+    }, 1000);
   };
 
   return (
     <>
-      {loading && (
-        <div className={styles.loading}>
-          <CircularProgress />
-        </div>
-      )}
-
-      {modal && (
-        <div className={styles.loading}>
-          <p>Livro adicionado com sucesso</p>
-          <Button
-            variant="outlined"
-            onClick={fechaModal}
-            endIcon={<CheckCircleOutlineRoundedIcon />}
-            size="large"
-            className={styles.botaoFormulario}
-          />
-        </div>
-      )}
+      {loading && <Loading />}
 
       <div className={styles.formPage}>
         <h1 className={styles.titulo}> Adicione um livro </h1>
