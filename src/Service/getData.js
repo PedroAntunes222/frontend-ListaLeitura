@@ -13,8 +13,7 @@ export function getUsers() {
 }
 
 export function getLivro(id) {
-  let url = "http://back-end-lista-leitura.herokuapp.com/livro/" + id;
-  return axios.get(url);
+  return axios.get("http://back-end-lista-leitura.herokuapp.com/livro/" + id);
 }
 
 export function addLivro(
@@ -26,36 +25,24 @@ export function addLivro(
   sinopse,
   paginasTotais
 ) {
-  axios
-    .post("http://back-end-lista-leitura.herokuapp.com/livro/add", {
-      capa: capa,
-      titulo: titulo,
-      subTitulo: subTitulo,
-      generoPrincipal: generoPrincipal,
-      generoSecundario: generoSecundario,
-      sinopse: sinopse,
-      paginasLidas: 0,
-      paginasTotais: paginasTotais,
-      completo: false,
-      usuario: { id: 4 },
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  return axios.post("http://back-end-lista-leitura.herokuapp.com/livro/add", {
+    capa: capa,
+    titulo: titulo,
+    subTitulo: subTitulo,
+    generoPrincipal: generoPrincipal,
+    generoSecundario: generoSecundario,
+    sinopse: sinopse,
+    paginasLidas: 0,
+    paginasTotais: paginasTotais,
+    completo: false,
+    usuario: { id: 4 },
+  });
 }
 
 export function delLivro(id) {
-  axios
-    .delete("http://back-end-lista-leitura.herokuapp.com/livro/" + id)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  return axios.delete(
+    "http://back-end-lista-leitura.herokuapp.com/livro/" + id
+  );
 }
 
 export function putLivro(
@@ -71,24 +58,17 @@ export function putLivro(
   rating,
   completo
 ) {
-  axios
-    .put("http://back-end-lista-leitura.herokuapp.com/livro/" + id, {
-      capa: capa,
-      titulo: titulo,
-      subTitulo: subTitulo,
-      generoPrincipal: generoPrincipal,
-      generoSecundario: generoSecundario,
-      sinopse: sinopse,
-      paginasLidas: paginasLidas,
-      paginasTotais: paginasTotais,
-      rating: rating,
-      completo: completo,
-      usuario: { id: 4 },
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  return axios.put("http://back-end-lista-leitura.herokuapp.com/livro/" + id, {
+    capa: capa,
+    titulo: titulo,
+    subTitulo: subTitulo,
+    generoPrincipal: generoPrincipal,
+    generoSecundario: generoSecundario,
+    sinopse: sinopse,
+    paginasLidas: paginasLidas,
+    paginasTotais: paginasTotais,
+    rating: rating,
+    completo: completo,
+    usuario: { id: 4 },
+  });
 }

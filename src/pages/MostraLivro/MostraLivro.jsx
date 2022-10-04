@@ -25,13 +25,16 @@ import CircularProgress from "@mui/material/CircularProgress";
 function MostraLivro() {
   const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
-  const [rating, setRating] = useState(0);
   const [completo, setCompleto] = useState(false);
   const [unable, setUnable] = useState(true);
 
   const [paginasTotais, setPaginasTotais] = useState(0);
   const [paginasLidas, setPaginasLidas] = useState(0);
+  const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState(false);
+  const [completa, setCompleta] = useState(false);
 
   useEffect(() => {
     // setLoading(true);
@@ -52,6 +55,21 @@ function MostraLivro() {
     setRating(livro.rating);
   }, [livro]);
 
+  const deletaLivro = (id, e) => {
+    e.preventDefault();
+    setLoading(true);
+    delLivro(id)
+      .then(function (response) {
+        console.log(response);
+        setMessage(response.data);
+        setLoading(false);
+        setModal(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const atlPages = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -67,20 +85,19 @@ function MostraLivro() {
       livro.paginasTotais,
       livro.rating,
       completo
-    );
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    )
+      .then(function (response) {
+        console.log(response);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
-  const deletaLivro = (id, e) => {
+  const fechaModal = (e) => {
     e.preventDefault();
-    setLoading(true);
-    delLivro(id);
-    setTimeout(() => {
-      navigate(`/lista`);
-      setLoading(false);
-    }, 1000);
+    setModal(false);
   };
 
   const completar = (e) => {
@@ -98,10 +115,18 @@ function MostraLivro() {
       livro.paginasTotais,
       rating,
       completo
-    );
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    )
+      .then(function (response) {
+        console.log(response);
+        setMessage(response.data);
+        setLoading(false);
+        setModal(true);
+        setCompleta(false);
+        navigate("/lista");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const CircularProgressWithLabel = () => {
@@ -140,7 +165,7 @@ function MostraLivro() {
           }}
         >
           <Button
-            onClick={(e) => completar(e)}
+            onClick={(e) => setCompleta(true)}
             endIcon={<TaskAltIcon />}
             disabled={unable}
             size="large"
@@ -163,6 +188,40 @@ function MostraLivro() {
 
   return (
     <>
+      {completa && (
+        <div className={styles.modal}>
+          <div>
+            <p>Livro Completado</p>
+            <p>
+              {paginasLidas} / {paginasTotais}
+            </p>
+            <Stack spacing={1} className={styles.ratingLivro}>
+              <Rating
+                name="size-medium"
+                defaultValue={0}
+                precision={0.5}
+                value={rating || 0}
+                onChange={(e) => setRating(parseFloat(e.target.value))}
+              />
+            </Stack>
+            <Button variant="outlined" onClick={(e) => completar(e)}>
+              Completar
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {modal && (
+        <div className={styles.modal}>
+          <div>
+            <p>{message}</p>
+            <Button variant="outlined" onClick={(e) => fechaModal(e)}>
+              OK
+            </Button>
+          </div>
+        </div>
+      )}
+
       {loading ? (
         <Loading />
       ) : (

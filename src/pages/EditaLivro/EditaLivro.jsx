@@ -17,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
 
 function EditaLivro() {
   const navigate = useNavigate();
@@ -31,7 +32,8 @@ function EditaLivro() {
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
-  // const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState(false);
 
   useEffect(() => {
     // setLoading(true);
@@ -70,15 +72,36 @@ function EditaLivro() {
       paginasTotais,
       livro.rating,
       livro.completo
-    );
-    setTimeout(() => {
-      setLoading(false);
-      navigate(`/lista`);
-    }, 1000);
+    )
+      .then(function (response) {
+        console.log(response);
+        setMessage(response.data);
+        setLoading(false);
+        setModal(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const fechaModal = (e, id) => {
+    e.preventDefault();
+    navigate(`/livro/${id}`);
   };
 
   return (
     <>
+      {modal && (
+        <div className={styles.modal}>
+          <div>
+            <p>{message}</p>
+            <Button variant="outlined" onClick={(e) => fechaModal(e, livro.id)}>
+              OK
+            </Button>
+          </div>
+        </div>
+      )}
+
       {loading && <Loading />}
 
       <div className={styles.cardInfo}>

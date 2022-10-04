@@ -13,10 +13,9 @@ import SaveIcon from "@mui/icons-material/Save";
 import InputLabel from "@mui/material/InputLabel";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
-// import Button from "@mui/material/Button";
-// import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 
 function ListagemLivros() {
   const [titulo, setTitulo] = useState("");
@@ -28,6 +27,8 @@ function ListagemLivros() {
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState(false);
 
   const limpaForm = () => {
     setTitulo("");
@@ -50,16 +51,38 @@ function ListagemLivros() {
       generoSecundario,
       sinopse,
       paginas
-    );
-    limpaForm();
-    setTimeout(() => {
-      setLoading(false);
-      // navigate(`/lista`);
-    }, 1000);
+    )
+      .then(function (response) {
+        console.log(response);
+        setMessage(response.data);
+        setLoading(false);
+        setModal(true);
+        limpaForm();
+      })
+      .catch(function (error) {
+        console.log(error);
+        setMessage(error.data);
+      });
+  };
+
+  const fechaModal = (e) => {
+    e.preventDefault();
+    setModal(false);
+    // navigate(`/lista`);
   };
 
   return (
     <>
+      {modal && (
+        <div className={styles.modal}>
+          <div>
+            <p>{message}</p>
+            <Button variant="outlined" onClick={(e) => fechaModal(e)}>
+              OK
+            </Button>
+          </div>
+        </div>
+      )}
       {loading && <Loading />}
 
       <div className={styles.formPage}>

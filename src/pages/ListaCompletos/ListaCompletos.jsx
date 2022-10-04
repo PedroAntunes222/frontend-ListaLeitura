@@ -1,6 +1,6 @@
 // import axios from "axios";
 import { Link } from "react-router-dom";
-import styles from "./ListaLivros.module.scss";
+import styles from "./ListaCompletos.module.scss";
 import { getUser } from "../../Service/getData";
 import React, { useState, useEffect } from "react";
 import CardLivro from "../../components/CardLivro/CardLivro";
@@ -11,7 +11,7 @@ import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 
-function ListaLivros() {
+function ListaCompletos() {
   const [livros, setLivros] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -60,20 +60,22 @@ function ListaLivros() {
             </Fab>
           </Card>
 
-          {livros.map((livro) => (
-            <CardLivro
-              livro={livro}
-              modal={setModal}
-              loading={setLoading}
-              message={setMessage}
-              refresh={refreshList}
-              key={livro.id}
-            />
-          ))}
+          {livros
+            .filter((p) => p.completo === true)
+            .map((livro) => (
+              <CardLivro
+                livro={livro}
+                modal={setModal}
+                loading={setLoading}
+                message={setMessage}
+                refresh={refreshList}
+                key={livro.id}
+              />
+            ))}
         </div>
       )}
     </>
   );
 }
 
-export default ListaLivros;
+export default ListaCompletos;

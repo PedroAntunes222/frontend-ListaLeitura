@@ -14,11 +14,18 @@ function CardLivro(props) {
   const deletaLivro = (id, e) => {
     e.preventDefault();
     props.loading(true);
-    delLivro(id);
-    setTimeout(() => {
-      props.refresh();
-      props.loading(false);
-    }, 1000);
+    delLivro(id)
+      .then(function (response) {
+        console.log(response);
+        props.message(response.data);
+        props.refresh();
+        props.loading(false);
+        props.modal(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+        props.message(error.data);
+      });
   };
 
   return (
