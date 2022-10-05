@@ -1,9 +1,10 @@
 // import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AdicionaLivros.module.scss";
 import { addLivro } from "../../Service/getData";
 import Loading from "../../components/Loading/Loading";
+import AuthContext from "../../Service/auth";
 
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
@@ -18,6 +19,7 @@ import Fab from "@mui/material/Fab";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 
 function ListagemLivros() {
+  const { authenticated } = useContext(AuthContext);
   const [titulo, setTitulo] = useState("");
   const [subtitulo, setSubtitulo] = useState("");
   const [generoPrincipal, setgeneroPrincipal] = useState("");
@@ -28,7 +30,7 @@ function ListagemLivros() {
 
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState("");
 
   const limpaForm = () => {
     setTitulo("");
@@ -50,7 +52,8 @@ function ListagemLivros() {
       generoPrincipal,
       generoSecundario,
       sinopse,
-      paginas
+      paginas,
+      authenticated
     )
       .then(function (response) {
         console.log(response);

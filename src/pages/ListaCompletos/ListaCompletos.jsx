@@ -2,9 +2,10 @@
 import { Link } from "react-router-dom";
 import styles from "./ListaCompletos.module.scss";
 import { getUser } from "../../Service/getData";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CardLivro from "../../components/CardLivro/CardLivro";
 import Loading from "../../components/Loading/Loading";
+import AuthContext from "../../Service/auth";
 
 import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
@@ -12,21 +13,22 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 
 function ListaCompletos() {
+  const { authenticated } = useContext(AuthContext);
   const [livros, setLivros] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
-  const [message, setMessage] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     setLoading(true);
-    getUser()
+    getUser(authenticated)
       .then((response) => {
         setLivros(response.data.livros);
         setLoading(false);
       })
       .catch((error) => console.log(error));
-  }, [refresh]);
+  }, [refresh, authenticated]);
 
   const refreshList = () => {
     //muda o estado para dar reload no useeffect
@@ -61,7 +63,7 @@ function ListaCompletos() {
           </Card>
 
           {livros
-            .filter((p) => p.completo === true)
+            .filter((livros) => livros.completo === true)
             .map((livro) => (
               <CardLivro
                 livro={livro}

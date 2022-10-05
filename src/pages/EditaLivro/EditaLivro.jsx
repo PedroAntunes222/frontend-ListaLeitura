@@ -1,11 +1,12 @@
 // import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getLivro } from "../../Service/getData";
 import { Link } from "react-router-dom";
 import styles from "./EditaLivro.module.scss";
 import { useNavigate } from "react-router-dom";
 import { putLivro } from "../../Service/getData";
 import Loading from "../../components/Loading/Loading";
+import AuthContext from "../../Service/auth";
 
 import Fab from "@mui/material/Fab";
 // import Button from "@mui/material/Button";
@@ -20,6 +21,7 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 
 function EditaLivro() {
+  const { authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [livro, setLivro] = useState([]);
@@ -33,7 +35,7 @@ function EditaLivro() {
 
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     // setLoading(true);
@@ -71,7 +73,8 @@ function EditaLivro() {
       livro.paginasLidas,
       paginasTotais,
       livro.rating,
-      livro.completo
+      livro.completo,
+      authenticated
     )
       .then(function (response) {
         console.log(response);

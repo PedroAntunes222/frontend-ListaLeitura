@@ -1,11 +1,11 @@
 import axios from "axios";
+// import AuthContext from "./auth";
 
 // const urlGet = "http://back-end-lista-leitura.herokuapp.com/usuario/";
 
-export function getUser() {
-  let id = 4;
-  let url = "http://back-end-lista-leitura.herokuapp.com/usuario/" + id;
-  return axios.get(url);
+export function getUser(id) {
+  // let id = 4;
+  return axios.get("http://back-end-lista-leitura.herokuapp.com/usuario/" + id);
 }
 
 export function getUsers() {
@@ -23,7 +23,8 @@ export function addLivro(
   generoPrincipal,
   generoSecundario,
   sinopse,
-  paginasTotais
+  paginasTotais,
+  authenticated
 ) {
   return axios.post("http://back-end-lista-leitura.herokuapp.com/livro/add", {
     capa: capa,
@@ -35,7 +36,7 @@ export function addLivro(
     paginasLidas: 0,
     paginasTotais: paginasTotais,
     completo: false,
-    usuario: { id: 4 },
+    usuario: { id: authenticated },
   });
 }
 
@@ -56,7 +57,8 @@ export function putLivro(
   paginasLidas,
   paginasTotais,
   rating,
-  completo
+  completo,
+  authenticated
 ) {
   return axios.put("http://back-end-lista-leitura.herokuapp.com/livro/" + id, {
     capa: capa,
@@ -69,6 +71,6 @@ export function putLivro(
     paginasTotais: paginasTotais,
     rating: rating,
     completo: completo,
-    usuario: { id: 4 },
+    usuario: { id: authenticated },
   });
 }

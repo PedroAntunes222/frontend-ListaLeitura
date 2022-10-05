@@ -1,5 +1,5 @@
 // import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getLivro } from "../../Service/getData";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import styles from "./MostraLivro.module.scss";
 import { delLivro } from "../../Service/getData";
 import { putLivro } from "../../Service/getData";
 import Loading from "../../components/Loading/Loading";
+import AuthContext from "../../Service/auth";
 
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
@@ -23,6 +24,7 @@ import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 
 function MostraLivro() {
+  const { authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
   const [completo, setCompleto] = useState(false);
@@ -33,7 +35,7 @@ function MostraLivro() {
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState("");
   const [completa, setCompleta] = useState(false);
 
   useEffect(() => {
@@ -84,7 +86,8 @@ function MostraLivro() {
       paginasLidas,
       livro.paginasTotais,
       livro.rating,
-      completo
+      completo,
+      authenticated
     )
       .then(function (response) {
         console.log(response);

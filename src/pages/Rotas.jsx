@@ -5,20 +5,24 @@ import EditaLivro from "./EditaLivro/EditaLivro";
 import ListaLivros from "./ListaLivros/ListaLivros";
 import MostraLivro from "./MostraLivro/MostraLivro";
 import ListaCompletos from "./ListaCompletos/ListaCompletos";
+import Login from "./Login/Login";
+import { AuthProvider } from "../Service/auth";
 
 function Rotas() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ListaLivros />} />
-        <Route path="/adicionar" element={<AdicionaLivros />} />
-        <Route path="/lista" element={<ListaLivros />} />
-        <Route path="/livro" element={<MostraLivro />} />
-        <Route path="/livro/*" element={<MostraLivro />} />
-        <Route path="/edit/" element={<EditaLivro />} />
-        <Route path="/edit/*" element={<EditaLivro />} />
-        <Route path="/completos" element={<ListaCompletos />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/adicionar" element={<AdicionaLivros />} />
+          <Route path="/lista" element={<ListaLivros />} />
+          <Route path="/livro" element={<MostraLivro />} />
+          <Route path="/livro/*" element={<MostraLivro />} />
+          <Route path="/edit/" element={<EditaLivro />} />
+          <Route path="/edit/*" element={<EditaLivro />} />
+          <Route path="/completos" element={<ListaCompletos />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
