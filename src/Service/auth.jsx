@@ -1,4 +1,6 @@
 import React, { useState, createContext } from "react";
+import Login from "../pages/Login/Login";
+import { Route, Routes } from "react-router-dom";
 
 const AuthContext = createContext({
   authenticated: 0,
@@ -11,7 +13,13 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
-      {children}
+      {authenticated ? (
+        children
+      ) : (
+        <Routes>
+          <Route path="*" element={<Login />} />
+        </Routes>
+      )}
     </AuthContext.Provider>
   );
 };

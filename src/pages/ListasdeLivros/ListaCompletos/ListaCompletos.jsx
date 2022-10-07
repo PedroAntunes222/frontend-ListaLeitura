@@ -1,18 +1,18 @@
 // import axios from "axios";
 import { Link } from "react-router-dom";
-import styles from "./ListaLivros.module.scss";
-import { getUser } from "../../Service/getData";
+import styles from "../ListaLivros.module.scss";
+import { getUser } from "../../../Service/getData";
 import React, { useState, useEffect, useContext } from "react";
-import CardLivro from "../../components/CardLivro/CardLivro";
-import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../Service/auth";
+import CardLivro from "../../../components/CardLivro/CardLivro";
+import Loading from "../../../components/Loading/Loading";
+import AuthContext from "../../../Service/auth";
 
 import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 
-function ListaLivros() {
+function ListaCompletos() {
   const { authenticated } = useContext(AuthContext);
   const [livros, setLivros] = useState([]);
   const [refresh, setRefresh] = useState(0);
@@ -62,20 +62,22 @@ function ListaLivros() {
             </Fab>
           </Card>
 
-          {livros.map((livro) => (
-            <CardLivro
-              livro={livro}
-              modal={setModal}
-              loading={setLoading}
-              message={setMessage}
-              refresh={refreshList}
-              key={livro.id}
-            />
-          ))}
+          {livros
+            .filter((livros) => livros.completo === true)
+            .map((livro) => (
+              <CardLivro
+                livro={livro}
+                modal={setModal}
+                loading={setLoading}
+                message={setMessage}
+                refresh={refreshList}
+                key={livro.id}
+              />
+            ))}
         </div>
       )}
     </>
   );
 }
 
-export default ListaLivros;
+export default ListaCompletos;

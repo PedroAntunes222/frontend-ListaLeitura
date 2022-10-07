@@ -98,9 +98,7 @@ function EditaLivro() {
         <div className={styles.modal}>
           <div>
             <p>{message}</p>
-            <Button variant="outlined" onClick={(e) => fechaModal(e, livro.id)}>
-              OK
-            </Button>
+            <Button onClick={(e) => fechaModal(e, livro.id)}>OK</Button>
           </div>
         </div>
       )}

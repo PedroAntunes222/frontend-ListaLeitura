@@ -9,6 +9,8 @@ import { putLivro } from "../../Service/getData";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
 
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -37,6 +39,7 @@ function MostraLivro() {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [completa, setCompleta] = useState(false);
+  const [alerta, setAlerta] = useState(false);
 
   useEffect(() => {
     // setLoading(true);
@@ -74,7 +77,7 @@ function MostraLivro() {
 
   const atlPages = (e) => {
     e.preventDefault();
-    setLoading(true);
+    // setAlerta(true);
     putLivro(
       livro.id,
       livro.capa,
@@ -91,7 +94,7 @@ function MostraLivro() {
     )
       .then(function (response) {
         console.log(response);
-        setLoading(false);
+        setAlerta(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -101,6 +104,7 @@ function MostraLivro() {
   const fechaModal = (e) => {
     e.preventDefault();
     setModal(false);
+    navigate("/lista");
   };
 
   const completar = (e) => {
@@ -218,12 +222,24 @@ function MostraLivro() {
         <div className={styles.modal}>
           <div>
             <p>{message}</p>
-            <Button variant="outlined" onClick={(e) => fechaModal(e)}>
-              OK
-            </Button>
+            <Button onClick={(e) => fechaModal(e)}>OK</Button>
           </div>
         </div>
       )}
+
+      <Snackbar open={alerta} autoHideDuration={6000}>
+        <Alert
+          variant="filled"
+          onClose={() => {
+            setAlerta(false);
+          }}
+          // onClick={setAlerta(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Páginas salvas!
+        </Alert>
+      </Snackbar>
 
       {loading ? (
         <Loading />

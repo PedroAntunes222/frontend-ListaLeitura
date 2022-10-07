@@ -4,7 +4,6 @@ import axios from "axios";
 // const urlGet = "http://back-end-lista-leitura.herokuapp.com/usuario/";
 
 export function getUser(id) {
-  // let id = 4;
   return axios.get("http://back-end-lista-leitura.herokuapp.com/usuario/" + id);
 }
 

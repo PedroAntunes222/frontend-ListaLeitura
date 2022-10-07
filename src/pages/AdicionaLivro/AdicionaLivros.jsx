@@ -68,11 +68,11 @@ function ListagemLivros() {
       });
   };
 
-  const fechaModal = (e) => {
-    e.preventDefault();
-    setModal(false);
-    // navigate(`/lista`);
-  };
+  // const fechaModal = (e) => {
+  //   e.preventDefault();
+  //   setModal(false);
+  //   navigate(`/lista`);
+  // };
 
   return (
     <>
@@ -80,9 +80,7 @@ function ListagemLivros() {
         <div className={styles.modal}>
           <div>
             <p>{message}</p>
-            <Button variant="outlined" onClick={(e) => fechaModal(e)}>
-              OK
-            </Button>
+            <Button onClick={(e) => setModal(false)}>OK</Button>
           </div>
         </div>
       )}

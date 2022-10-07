@@ -3,6 +3,8 @@
    License: none (public domain)
 */
 
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+
 html,
 body,
 div,
@@ -88,7 +90,7 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  // font: inherit;
+  font-family: "Open Sans", sans-serif;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
