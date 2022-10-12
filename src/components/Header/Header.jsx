@@ -3,13 +3,17 @@ import { getUser } from "../../Service/getData";
 import AuthContext from "../../Service/auth";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
+import { useNavigate } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Header() {
+  const navigate = useNavigate();
   const { authenticated } = useContext(AuthContext);
+  const { setAuthenticated } = useContext(AuthContext);
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -21,15 +25,15 @@ function Header() {
       .catch((error) => console.log(error));
   }, [authenticated]);
 
+  const logout = () => {
+    localStorage.setItem("login", null);
+    setAuthenticated(localStorage.getItem("login"));
+    navigate("/");
+  };
+
   return (
     <Box component="div">
       <div className={styles.headerBar}>
-        <div className={styles.headerOptions}>
-          <Link to="/em-andamento">Em andamento</Link>
-          <Link to="/completos">Completos</Link>
-          <Link to="/lista">Todos</Link>
-        </div>
-
         <Stack
           component={Link}
           to="/meu-perfil"
@@ -40,6 +44,8 @@ function Header() {
           <Avatar alt="Remy Sharp">P</Avatar>
           <p>Olá, {user.nome}</p>
         </Stack>
+
+        <LogoutIcon onClick={logout} />
       </div>
     </Box>
   );

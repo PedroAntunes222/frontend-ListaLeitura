@@ -10,6 +10,10 @@
   background-color: rgb(0 0 0 / 50%);
   z-index: 9999;
 
+  .complete {
+    background-color: #080808;
+  }
+
   & > div {
     display: grid;
     gap: 30px;
@@ -23,7 +27,8 @@
     }
 
     span {
-      place-content: center;
+      margin: auto;
+      width: fit-content;
     }
   }
 }

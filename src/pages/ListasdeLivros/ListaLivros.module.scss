@@ -24,24 +24,33 @@
   }
 }
 
-.grupoCards {
-  display: grid;
-  width: 80%;
-  padding: 80px 0px;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  position: relative;
+.filtroLista {
+  margin-top: 40px;
 
   & > div {
-    overflow: visible;
-    background-color: transparent;
+    min-width: 150px;
   }
 
-  .livrosAdd {
+  .grupoCards {
     display: grid;
-    place-content: center;
-    background-color: #343944;
-    min-height: 200px;
-    overflow: visible;
+    width: 80%;
+    padding: 80px 0px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    position: relative;
+    margin: auto;
+
+    & > div {
+      overflow: visible;
+      background-color: transparent;
+    }
+
+    .livrosAdd {
+      display: grid;
+      place-content: center;
+      background-color: #343944;
+      min-height: 200px;
+      overflow: visible;
+    }
   }
 }

@@ -19,6 +19,8 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
 
 function EditaLivro() {
   const { authenticated } = useContext(AuthContext);
@@ -32,6 +34,7 @@ function EditaLivro() {
   const [sinopse, setSinopse] = useState("");
   const [paginasTotais, setPaginasTotais] = useState("");
   const [capa, setCapa] = useState("");
+  const [rating, setRating] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
@@ -57,6 +60,7 @@ function EditaLivro() {
     setSinopse(livro.sinopse);
     setPaginasTotais(livro.paginasTotais);
     setCapa(livro.capa);
+    setRating(livro.rating);
   }, [livro]);
 
   const atlLivro = (id, e) => {
@@ -72,7 +76,7 @@ function EditaLivro() {
       sinopse,
       livro.paginasLidas,
       paginasTotais,
-      livro.rating,
+      rating,
       livro.completo,
       authenticated
     )
@@ -106,24 +110,6 @@ function EditaLivro() {
       {loading && <Loading />}
 
       <div className={styles.cardInfo}>
-        {/* <div className={styles.coverLivro}>
-          <Fab
-            component={Link}
-            to={`/livro/${livro.id}`}
-            className={styles.returnFlutuante}
-          >
-            <ReplyAllOutlinedIcon />
-          </Fab>
-          {!livro.capa ? (
-            <img
-              src="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
-              alt={`${livro.nome} no cover`}
-            />
-          ) : (
-            <img src={livro.capa} alt={`${livro.nome} cover`} />
-          )}
-        </div> */}
-
         <h1 className={styles.titulo}>Editar Livro</h1>
 
         <Box
@@ -132,7 +118,7 @@ function EditaLivro() {
           autoComplete="off"
           className={styles.infosLivro}
         >
-          {/* return */}
+          {/* botao return */}
           <Fab
             component={Link}
             to={`/livro/${livro.id}`}
@@ -141,7 +127,7 @@ function EditaLivro() {
             <ReplyAllOutlinedIcon />
           </Fab>
 
-          {/* save */}
+          {/* botao save */}
           <Fab
             variant="contained"
             onClick={(e) => atlLivro(livro.id, e)}
@@ -151,6 +137,16 @@ function EditaLivro() {
           >
             <SaveIcon />
           </Fab>
+
+          <Stack spacing={1} className={styles.ratingLivro}>
+            <Rating
+              name="size-medium"
+              defaultValue={0}
+              precision={0.5}
+              value={rating || 0}
+              onChange={(e) => setRating(parseFloat(e.target.value))}
+            />
+          </Stack>
 
           <div>
             <TextField

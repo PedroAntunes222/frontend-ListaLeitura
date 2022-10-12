@@ -121,7 +121,8 @@ function MostraLivro() {
       paginasLidas,
       livro.paginasTotais,
       rating,
-      completo
+      completo,
+      authenticated
     )
       .then(function (response) {
         console.log(response);
@@ -197,7 +198,7 @@ function MostraLivro() {
     <>
       {completa && (
         <div className={styles.modal}>
-          <div>
+          <div className={styles.complete}>
             <p>Livro Completado</p>
             <p>
               {paginasLidas} / {paginasTotais}
@@ -269,7 +270,8 @@ function MostraLivro() {
                 defaultValue={0}
                 precision={0.5}
                 value={rating || 0}
-                onChange={(e) => setRating(parseFloat(e.target.value))}
+                readOnly
+                // onChange={(e) => setRating(parseFloat(e.target.value))}
               />
             </Stack>
           </div>
