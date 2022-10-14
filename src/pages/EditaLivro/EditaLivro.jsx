@@ -177,10 +177,12 @@ function EditaLivro() {
                   label="Gênero 1"
                   onChange={(e) => setgeneroPrincipal(e.target.value)}
                 >
-                  <MenuItem value={""}></MenuItem>
                   <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
                   <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                  <MenuItem value={"Mistério"}>Mistério</MenuItem>
                   <MenuItem value={"Drama"}>Drama</MenuItem>
+                  <MenuItem value={"Romance"}>Romance</MenuItem>
+                  <MenuItem value={"Filosofia"}>Filosofia</MenuItem>
                 </Select>
               </FormControl>
 
@@ -195,7 +197,10 @@ function EditaLivro() {
                   <MenuItem value={""}>Nenhum</MenuItem>
                   <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
                   <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                  <MenuItem value={"Mistério"}>Mistério</MenuItem>
                   <MenuItem value={"Drama"}>Drama</MenuItem>
+                  <MenuItem value={"Romance"}>Romance</MenuItem>
+                  <MenuItem value={"Filosofia"}>Filosofia</MenuItem>
                 </Select>
               </FormControl>
             </div>

@@ -138,7 +138,10 @@ function ListagemLivros() {
                 >
                   <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
                   <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                  <MenuItem value={"Mistério"}>Mistério</MenuItem>
                   <MenuItem value={"Drama"}>Drama</MenuItem>
+                  <MenuItem value={"Romance"}>Romance</MenuItem>
+                  <MenuItem value={"Filosofia"}>Filosofia</MenuItem>
                 </Select>
               </FormControl>
 
@@ -154,7 +157,10 @@ function ListagemLivros() {
                   <MenuItem value={""}>Nenhum</MenuItem>
                   <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
                   <MenuItem value={"Aventura"}>Aventura</MenuItem>
+                  <MenuItem value={"Mistério"}>Mistério</MenuItem>
                   <MenuItem value={"Drama"}>Drama</MenuItem>
+                  <MenuItem value={"Romance"}>Romance</MenuItem>
+                  <MenuItem value={"Filosofia"}>Filosofia</MenuItem>
                 </Select>
               </FormControl>
             </div>
