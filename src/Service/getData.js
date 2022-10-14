@@ -11,6 +11,31 @@ export function getUsers() {
   return axios.get("http://back-end-lista-leitura.herokuapp.com/usuario/all");
 }
 
+export function addUser(nome, email, senha) {
+  return axios.post("http://back-end-lista-leitura.herokuapp.com/usuario/add", {
+    nome: nome,
+    email: email,
+    senha: senha,
+  });
+}
+
+export function delUser(id) {
+  return axios.delete(
+    "http://back-end-lista-leitura.herokuapp.com/usuario/" + id
+  );
+}
+
+export function putUser(id, nome, email, senha) {
+  return axios.put(
+    "http://back-end-lista-leitura.herokuapp.com/usuario/" + id,
+    {
+      nome: nome,
+      email: email,
+      senha: senha,
+    }
+  );
+}
+
 export function getLivro(id) {
   return axios.get("http://back-end-lista-leitura.herokuapp.com/livro/" + id);
 }

@@ -17,12 +17,14 @@ function Header() {
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    getUser(authenticated)
-      .then((response) => {
-        console.log(response.data);
-        setUser(response.data);
-      })
-      .catch((error) => console.log(error));
+    if (authenticated > 0) {
+      getUser(authenticated)
+        .then((response) => {
+          console.log(response.data);
+          setUser(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
   }, [authenticated]);
 
   const logout = () => {
@@ -33,20 +35,22 @@ function Header() {
 
   return (
     <Box component="div">
-      <div className={styles.headerBar}>
-        <Stack
-          component={Link}
-          to="/meu-perfil"
-          direction="row"
-          spacing={2}
-          className={styles.headerProfile}
-        >
-          <Avatar alt="Remy Sharp">P</Avatar>
-          <p>Olá, {user.nome}</p>
-        </Stack>
+      {authenticated > 0 && (
+        <div className={styles.headerBar}>
+          <Stack
+            component={Link}
+            to="/meu-perfil"
+            direction="row"
+            spacing={2}
+            className={styles.headerProfile}
+          >
+            <Avatar alt="Remy Sharp">P</Avatar>
+            <p>Olá, {user.nome}</p>
+          </Stack>
 
-        <LogoutIcon onClick={logout} />
-      </div>
+          <LogoutIcon onClick={logout} />
+        </div>
+      )}
     </Box>
   );
 }

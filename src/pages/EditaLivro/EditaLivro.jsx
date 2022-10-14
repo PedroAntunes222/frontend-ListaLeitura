@@ -9,7 +9,6 @@ import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
 
 import Fab from "@mui/material/Fab";
-// import Button from "@mui/material/Button";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import Box from "@mui/material/Box";
@@ -35,6 +34,7 @@ function EditaLivro() {
   const [paginasTotais, setPaginasTotais] = useState("");
   const [capa, setCapa] = useState("");
   const [rating, setRating] = useState("");
+  const [completo, setCompleto] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
@@ -61,6 +61,7 @@ function EditaLivro() {
     setPaginasTotais(livro.paginasTotais);
     setCapa(livro.capa);
     setRating(livro.rating);
+    setCompleto(livro.completo);
   }, [livro]);
 
   const atlLivro = (id, e) => {
@@ -129,24 +130,24 @@ function EditaLivro() {
 
           {/* botao save */}
           <Fab
-            variant="contained"
             onClick={(e) => atlLivro(livro.id, e)}
-            size="large"
             color="success"
             className={styles.saveFlutuante}
           >
             <SaveIcon />
           </Fab>
 
-          <Stack spacing={1} className={styles.ratingLivro}>
-            <Rating
-              name="size-medium"
-              defaultValue={0}
-              precision={0.5}
-              value={rating || 0}
-              onChange={(e) => setRating(parseFloat(e.target.value))}
-            />
-          </Stack>
+          {completo && (
+            <Stack spacing={1} className={styles.ratingLivro}>
+              <Rating
+                name="size-medium"
+                defaultValue={0}
+                precision={0.5}
+                value={rating || 0}
+                onChange={(e) => setRating(parseFloat(e.target.value))}
+              />
+            </Stack>
+          )}
 
           <div>
             <TextField

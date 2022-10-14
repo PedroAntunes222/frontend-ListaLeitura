@@ -26,6 +26,7 @@ function Rotas() {
           <div>
             <Routes>
               <Route path="/" element={<Login />} />
+              <Route path="/cadastrar" element={<Login />} />
               <Route path="/adicionar" element={<AdicionaLivros />} />
               <Route path="/lista" element={<ListaTodos />} />
               <Route path="/livro/*" element={<MostraLivro />} />

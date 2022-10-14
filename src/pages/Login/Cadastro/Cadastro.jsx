@@ -1,70 +1,68 @@
-import React, { useState, useEffect, useContext } from "react";
-import styles from "./login.module.scss";
-import { getUsers } from "../../Service/getData";
-import AuthContext from "../../Service/auth";
+import React, { useState } from "react";
+import styles from "./Cadastro.module.scss";
 import { useNavigate } from "react-router-dom";
+import { addUser } from "../../../Service/getData";
 import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
+import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 
-function Login() {
+function Cadastro() {
   const navigate = useNavigate();
-  const { setAuthenticated } = useContext(AuthContext);
-  const [email, setEmail] = useState("pedro@gmail.com");
-  const [senha, setSenha] = useState("123");
-  const [usuarios, setUsuarios] = useState("");
+  const [email, setEmail] = useState("");
+  const [nome, setNome] = useState("");
+  const [senha, setSenha] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
   const showHidePassword = () => setShowPassword(!showPassword);
 
-  useEffect(() => {
-    getUsers()
+  const enviaLogin = (e) => {
+    e.preventDefault();
+    addUser(nome, email, senha)
       .then(function (response) {
-        setUsuarios(response.data);
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error.data);
       });
-  }, []);
-
-  const enviaLogin = () => {
-    console.log(usuarios);
-    const user = usuarios.filter((user) => user.email === email);
-    console.log(user);
-
-    if (!user.length) {
-      console.log("não cadastrado");
-    } else {
-      if (user[0].senha !== senha) {
-        console.log("senha incorreta");
-      } else {
-        localStorage.setItem("login", user[0].id); // nao perder ao atualizar a página
-        setAuthenticated(localStorage.getItem("login"));
-        navigate("/lista");
-      }
-    }
+    // console.log("enviando login");
+    // navigate("/lista");
   };
 
   return (
     <Box
       component="form"
-      noValidate
+      // noValidate
       autoComplete="off"
       className={styles.formularioLogin}
     >
+      <Fab component={Link} to={"/login"} className={styles.returnFlutuante}>
+        <ReplyAllOutlinedIcon />
+      </Fab>
+
       <TextField
         className={styles.inputLogin}
         id="email"
-        label="email"
+        label="Email"
         variant="outlined"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <TextField
+        className={styles.inputLogin}
+        id="nome"
+        label="Nome"
+        variant="outlined"
+        value={nome}
+        onChange={(e) => setNome(e.target.value)}
       />
 
       <TextField
@@ -84,14 +82,11 @@ function Login() {
         }}
       />
 
-      <Button variant="outlined" component={Link} to="/cadastrar">
-        Cadastrar
-      </Button>
       <Button variant="outlined" color="success" onClick={(e) => enviaLogin(e)}>
-        Entrar
+        Cadastrar
       </Button>
     </Box>
   );
 }
 
-export default Login;
+export default Cadastro;

@@ -203,6 +203,7 @@ function MostraLivro() {
             <p>
               {paginasLidas} / {paginasTotais}
             </p>
+
             <Stack spacing={1} className={styles.ratingLivro}>
               <Rating
                 name="size-medium"
@@ -263,17 +264,18 @@ function MostraLivro() {
             ) : (
               <img src={livro.capa} alt={`${livro.titulo} cover`} />
             )}
-
-            <Stack spacing={1} className={styles.ratingLivro}>
-              <Rating
-                name="size-medium"
-                defaultValue={0}
-                precision={0.5}
-                value={rating || 0}
-                readOnly
-                // onChange={(e) => setRating(parseFloat(e.target.value))}
-              />
-            </Stack>
+            {completo && (
+              <Stack spacing={1} className={styles.ratingLivro}>
+                <Rating
+                  name="size-medium"
+                  defaultValue={0}
+                  precision={0.5}
+                  value={rating || 0}
+                  readOnly
+                  // onChange={(e) => setRating(parseFloat(e.target.value))}
+                />
+              </Stack>
+            )}
           </div>
 
           <div className={styles.infosLivro}>
