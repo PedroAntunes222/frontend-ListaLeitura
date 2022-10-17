@@ -7,7 +7,7 @@ import Header from "../components/Header/Header";
 import Login from "./Login/Login";
 import AdicionaLivros from "./AdicionaLivro/AdicionaLivros";
 import EditaLivro from "./EditaLivro/EditaLivro";
-import ListaTodos from "./ListasdeLivros/TodosLivros";
+import ListaLivros from "./ListasdeLivros/ListaLivros";
 import MostraLivro from "./MostraLivro/MostraLivro";
 import Perfil from "./Perfil/Perfil";
 
@@ -28,7 +28,7 @@ function Rotas() {
               <Route path="/" element={<Login />} />
               <Route path="/cadastrar" element={<Login />} />
               <Route path="/adicionar" element={<AdicionaLivros />} />
-              <Route path="/lista" element={<ListaTodos />} />
+              <Route path="/lista" element={<ListaLivros />} />
               <Route path="/livro/*" element={<MostraLivro />} />
               <Route path="/edit/*" element={<EditaLivro />} />
               <Route path="/meu-perfil" element={<Perfil />} />
