@@ -14,9 +14,13 @@
 
   .capa {
     max-width: 100%;
+    max-height: 520px;
     height: 100%;
     color: white;
     border-radius: 5px;
+    @media (max-width: 900px) {
+      max-height: 600px;
+    }
   }
 
   .cardInfo {

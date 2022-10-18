@@ -73,49 +73,51 @@ function Login() {
         </Alert>
       </Snackbar>
 
-      <Box
-        component="form"
-        noValidate
-        autoComplete="off"
-        className={styles.formularioLogin}
-      >
-        <TextField
-          className={styles.inputLogin}
-          id="email"
-          label="email"
-          variant="outlined"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <TextField
-          label="Senha"
-          variant="outlined"
-          type={showPassword ? "text" : "password"}
-          value={senha || ""}
-          onChange={(e) => setSenha(e.target.value)}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton aria-label="ver senha" onClick={showHidePassword}>
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-
-        <Button variant="outlined" component={Link} to="/cadastrar">
-          Cadastrar
-        </Button>
-        <Button
-          variant="outlined"
-          color="success"
-          onClick={(e) => enviaLogin(e)}
+      <div className={styles.loginPage}>
+        <Box
+          component="form"
+          noValidate
+          autoComplete="off"
+          className={styles.formularioLogin}
         >
-          Entrar
-        </Button>
-      </Box>
+          <TextField
+            className={styles.inputLogin}
+            id="email"
+            label="email"
+            variant="outlined"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <TextField
+            label="Senha"
+            variant="outlined"
+            type={showPassword ? "text" : "password"}
+            value={senha || ""}
+            onChange={(e) => setSenha(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton aria-label="ver senha" onClick={showHidePassword}>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Button variant="outlined" component={Link} to="/cadastrar">
+            Cadastrar
+          </Button>
+          <Button
+            variant="outlined"
+            color="success"
+            onClick={(e) => enviaLogin(e)}
+          >
+            Entrar
+          </Button>
+        </Box>
+      </div>
     </>
   );
 }

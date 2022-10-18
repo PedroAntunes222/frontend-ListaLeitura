@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Cadastro.module.scss";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { addUser } from "../../../Service/getData";
 import { Link } from "react-router-dom";
 
@@ -13,7 +13,7 @@ import TextField from "@mui/material/TextField";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 
 function Cadastro() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [senha1, setSenha1] = useState("");
@@ -21,8 +21,8 @@ function Cadastro() {
   const [message, setMessage] = useState("");
   const [alerta, setAlerta] = useState(false);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const showHidePassword = () => setShowPassword(!showPassword);
+  // const [showPassword, setShowPassword] = useState(false);
+  // const showHidePassword = () => setShowPassword(!showPassword);
 
   const enviaLogin = (e) => {
     e.preventDefault();

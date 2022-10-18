@@ -19,12 +19,12 @@
   color: white;
 }
 
-.App-header > div {
+/* .App-header > div {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
+} */
 
 .App-link {
   color: #61dafb;

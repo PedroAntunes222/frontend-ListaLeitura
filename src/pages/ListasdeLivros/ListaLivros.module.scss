@@ -24,41 +24,63 @@
   }
 }
 
-.filtroLista {
+.Lista {
+  display: grid;
+  gap: 20px;
+  max-width: 630px;
+  margin: auto;
   margin-top: 40px;
 
-  & > div {
-    min-width: 150px;
-  }
+  // & > div {
+  //   min-width: 150px;
+  // }
 
-  .grupoCards {
-    display: grid;
-    width: 80%;
-    padding: 80px 0px;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 28px;
-    position: relative;
+  .pesquisa {
+    width: 100%;
     margin: auto;
 
-    @media (max-width: 1000px) {
-      grid-template-columns: repeat(3, 1fr);
+    .searchBar {
+      width: 100%;
     }
+  }
+  .filtros {
+    display: flex;
+    gap: 10px;
+    margin: auto;
 
-    @media (max-width: 800px) {
-      grid-template-columns: repeat(2, 1fr);
+    .selectFilter {
+      width: 130px;
     }
+  }
+}
 
-    & > div {
-      overflow: visible;
-      background-color: transparent;
-    }
+.grupoCards {
+  display: grid;
+  width: 80%;
+  padding: 80px 0px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px;
+  position: relative;
+  margin: auto;
 
-    .livrosAdd {
-      display: grid;
-      place-content: center;
-      background-color: #343944;
-      min-height: 200px;
-      overflow: visible;
-    }
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  & > div {
+    overflow: visible;
+    background-color: transparent;
+  }
+
+  .livrosAdd {
+    display: grid;
+    place-content: center;
+    background-color: #343944;
+    min-height: 200px;
+    overflow: visible;
   }
 }
