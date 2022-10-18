@@ -25,8 +25,8 @@ function ListaLivros() {
   const [filtered, setFiltered] = useState([]);
   const [filterGenero, setFilterGenero] = useState("");
   const [filterCompleto, setFilterCompleto] = useState("");
-  const [ordenacao, setOrdenacao] = useState("titulo");
-  const [tipoOrdenacao, setTipoOrdenacao] = useState(true);
+  const [info, setInfo] = useState("titulo");
+  const [ordenacao, setOrdenacao] = useState(true);
 
   useEffect(() => {
     setLoading(true);
@@ -63,18 +63,18 @@ function ListaLivros() {
       );
     }
 
-    if (tipoOrdenacao) {
+    if (ordenacao) {
       livrosFilter = [...livrosFilter].sort((a, b) =>
-        a[ordenacao] > b[ordenacao] ? 1 : -1
+        a[info] > b[info] ? 1 : -1
       );
     } else {
       livrosFilter = [...livrosFilter].sort((a, b) =>
-        a[ordenacao] < b[ordenacao] ? 1 : -1
+        a[info] < b[info] ? 1 : -1
       );
     }
 
     setFiltered(livrosFilter);
-  }, [filterGenero, filterCompleto, ordenacao, tipoOrdenacao, livros]);
+  }, [filterGenero, filterCompleto, info, ordenacao, livros]);
 
   return (
     <>
@@ -102,18 +102,6 @@ function ListaLivros() {
             <MenuItem value="Fantasia">Fantasia</MenuItem>
           </TextField>
 
-          {/* <TextField
-            id="outlined-select-currency"
-            select
-            label="Rating"
-            value={filterRating || ""}
-            onChange={(e) => setFilterRating(e.target.value)}
-          >
-            <MenuItem value="">Todos</MenuItem>
-            <MenuItem value={4}>4</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-          </TextField> */}
-
           <TextField
             id="outlined-select-currency"
             select
@@ -130,8 +118,8 @@ function ListaLivros() {
             id="outlined-select-currency"
             select
             label="Info"
-            value={String(ordenacao) || ""}
-            onChange={(e) => setOrdenacao(e.target.value)}
+            value={String(info) || ""}
+            onChange={(e) => setInfo(e.target.value)}
           >
             <MenuItem value="titulo"> Nome </MenuItem>
             <MenuItem value="id"> Data </MenuItem>
@@ -143,8 +131,8 @@ function ListaLivros() {
             id="outlined-select-currency"
             select
             label="Ordenação"
-            value={String(tipoOrdenacao) || ""}
-            onChange={(e) => setTipoOrdenacao(e.target.value)}
+            value={String(ordenacao) || ""}
+            onChange={(e) => setOrdenacao(e.target.value)}
           >
             <MenuItem value={true}> Crescente </MenuItem>
             <MenuItem value={false}> Decrescente </MenuItem>
