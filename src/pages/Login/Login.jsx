@@ -39,24 +39,24 @@ function Login() {
 
   const enviaLogin = () => {
     console.log(usuarios);
-    // if (usuarios) {
-    const user = usuarios.filter((user) => user.email === email);
-    console.log(user);
-    // } else console.log("backend está dormindo. Aguarde");
+    if (usuarios) {
+      const user = usuarios.filter((user) => user.email === email);
+      console.log(user);
 
-    if (!user.length) {
-      setError("Não cadastrado");
-      setAlerta(true);
-    } else {
-      if (user[0].senha !== senha) {
-        setError("Senha incorreta");
+      if (!user.length) {
+        setError("Não cadastrado");
         setAlerta(true);
       } else {
-        localStorage.setItem("login", user[0].id); // nao perder ao atualizar a página
-        setAuthenticated(localStorage.getItem("login"));
-        navigate("/lista");
+        if (user[0].senha !== senha) {
+          setError("Senha incorreta");
+          setAlerta(true);
+        } else {
+          localStorage.setItem("login", user[0].id); // nao perder ao atualizar a página
+          setAuthenticated(localStorage.getItem("login"));
+          navigate("/lista");
+        }
       }
-    }
+    } else console.log("backend está dormindo. Aguarde");
   };
 
   return (
