@@ -25,6 +25,8 @@ function ListaLivros() {
   const [filtered, setFiltered] = useState([]);
   const [filterGenero, setFilterGenero] = useState("");
   const [filterCompleto, setFilterCompleto] = useState("");
+  const [ordenacao, setOrdenacao] = useState("titulo");
+  const [tipoOrdenacao, setTipoOrdenacao] = useState(true);
 
   useEffect(() => {
     setLoading(true);
@@ -56,34 +58,23 @@ function ListaLivros() {
     }
 
     if (filterCompleto !== "") {
-      console.log(filterCompleto);
       livrosFilter = livrosFilter.filter(
         (item) => item.completo === filterCompleto
       );
     }
 
-    function stringSort(a, b) {
-      // Use toUpperCase() to ignore character casing
-      const bandA = a.titulo.toUpperCase();
-      const bandB = b.titulo.toUpperCase();
-
-      let comparison = 0;
-      if (bandA > bandB) {
-        comparison = 1;
-      } else if (bandA < bandB) {
-        comparison = -1;
-      }
-      return comparison;
+    if (tipoOrdenacao) {
+      livrosFilter = [...livrosFilter].sort((a, b) =>
+        a[ordenacao] > b[ordenacao] ? 1 : -1
+      );
+    } else {
+      livrosFilter = [...livrosFilter].sort((a, b) =>
+        a[ordenacao] < b[ordenacao] ? 1 : -1
+      );
     }
 
-    function numberSort(a, b) {
-      return parseFloat(a.price) - parseFloat(b.price);
-    }
-
-    livrosFilter = livrosFilter.sort(stringSort);
-    console.log(livrosFilter);
     setFiltered(livrosFilter);
-  }, [filterGenero, filterCompleto, livros]);
+  }, [filterGenero, filterCompleto, ordenacao, tipoOrdenacao, livros]);
 
   return (
     <>
@@ -133,6 +124,30 @@ function ListaLivros() {
             <MenuItem value="">Todos</MenuItem>
             <MenuItem value={true}>Completos</MenuItem>
             <MenuItem value={false}>Incompletos</MenuItem>
+          </TextField>
+
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Info"
+            value={String(ordenacao) || ""}
+            onChange={(e) => setOrdenacao(e.target.value)}
+          >
+            <MenuItem value="titulo"> Nome </MenuItem>
+            <MenuItem value="id"> Data </MenuItem>
+            <MenuItem value="rating"> Avaliação </MenuItem>
+            <MenuItem value="paginasTotais"> Páginas </MenuItem>
+          </TextField>
+
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Ordenação"
+            value={String(tipoOrdenacao) || ""}
+            onChange={(e) => setTipoOrdenacao(e.target.value)}
+          >
+            <MenuItem value={true}> Crescente </MenuItem>
+            <MenuItem value={false}> Decrescente </MenuItem>
           </TextField>
 
           <div className={styles.grupoCards}>
