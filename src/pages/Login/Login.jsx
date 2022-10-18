@@ -39,10 +39,10 @@ function Login() {
 
   const enviaLogin = () => {
     console.log(usuarios);
-    if (usuarios) {
-      const user = usuarios.filter((user) => user.email === email);
-      console.log(user);
-    } else console.log("backend está dormindo. Aguarde");
+    // if (usuarios) {
+    const user = usuarios.filter((user) => user.email === email);
+    console.log(user);
+    // } else console.log("backend está dormindo. Aguarde");
 
     if (!user.length) {
       setError("Não cadastrado");
