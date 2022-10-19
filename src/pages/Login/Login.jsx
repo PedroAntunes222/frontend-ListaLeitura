@@ -38,10 +38,8 @@ function Login() {
   }, []);
 
   const enviaLogin = () => {
-    console.log(usuarios);
     if (usuarios) {
       const user = usuarios.filter((user) => user.email === email);
-      console.log(user);
 
       if (!user.length) {
         setError("Não cadastrado");

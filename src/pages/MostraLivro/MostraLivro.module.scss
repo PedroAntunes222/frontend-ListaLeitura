@@ -41,6 +41,11 @@
   margin: auto;
   place-content: center;
 
+  @media (max-width: 900px) {
+    grid-template-columns: unset;
+    padding: 50px 20px;
+  }
+
   .coverLivro {
     position: relative;
 
@@ -74,6 +79,11 @@
     align-items: center;
     position: relative;
     border-bottom-right-radius: 10px;
+
+    @media (max-width: 900px) {
+      padding: 50px 0px;
+      gap: 40px;
+    }
 
     .fabGroup {
       position: absolute;
@@ -174,6 +184,10 @@
       .botaoFormulario {
         position: absolute;
         left: 0;
+
+        @media (max-width: 900px) {
+          left: unset;
+        }
 
         span {
           margin-left: 0 !important;

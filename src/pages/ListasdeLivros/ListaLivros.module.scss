@@ -41,12 +41,22 @@
 
     .searchBar {
       width: 100%;
+
+      @media (max-width: 900px) {
+        width: 80%;
+      }
     }
   }
+
   .filtros {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin: auto;
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
 
     .selectFilter {
       width: 130px;
