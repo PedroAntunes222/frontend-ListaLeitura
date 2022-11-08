@@ -60,7 +60,7 @@ function ListaLivros() {
 
     if (filterGenero !== "todos") {
       livrosFilter = livrosFilter.filter(
-        (item) => item.generoPrincipal === filterGenero
+        (item) => item.generoPrincipal === filterGenero || item.generoSecundario === filterGenero
       );
     }
 
