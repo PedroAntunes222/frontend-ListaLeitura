@@ -1,5 +1,4 @@
 import './App.css';
-import ListaLivros from './pages/ListaLivros/ListaLivros';
 import Rotas from './service/Rotas';
 
 function App() {
