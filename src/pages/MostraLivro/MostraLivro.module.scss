@@ -1,0 +1,204 @@
+.modal {
+  display: grid;
+  place-content: center;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: auto;
+  min-height: 100%;
+  background-color: RGB(0 0 0 / 50%);
+  z-index: 9999;
+
+  .complete {
+    background-color: #080808;
+  }
+
+  & > div {
+    display: grid;
+    gap: 30px;
+    width: 250px;
+    padding: 40px 15px 20px 15px;
+    border-radius: 5px;
+    background-color: #d32f2f;
+
+    p {
+      color: white;
+    }
+
+    span {
+      margin: auto;
+      width: fit-content;
+    }
+  }
+}
+
+.cardInfo {
+  padding: 80px 0px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  max-width: 700px;
+  margin: auto;
+  place-content: center;
+
+  @media (max-width: 900px) {
+    grid-template-columns: unset;
+    padding: 50px 20px;
+  }
+
+  .coverLivro {
+    position: relative;
+
+    img {
+      height: 100%;
+      min-width: 100%;
+      border-bottom-left-radius: 10px;
+    }
+
+    .returnFlutuante {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+    }
+
+    .ratingLivro {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      width: fit-content;
+    }
+  }
+
+  .infosLivro {
+    background-color: #343944;
+    display: grid;
+    padding: 20px 0px;
+    align-items: center;
+    position: relative;
+    border-bottom-right-radius: 10px;
+
+    @media (max-width: 900px) {
+      padding: 50px 0px;
+      gap: 40px;
+    }
+
+    .fabGroup {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .tituloLivro {
+      font-size: 32px;
+    }
+
+    .subtituloLivro {
+      font-size: 22px;
+      margin-top: 5px;
+    }
+
+    .generosLivro {
+      font-size: 18px;
+      display: flex;
+      margin: auto;
+      gap: 5px;
+    }
+
+    .sinopseLivro {
+      font-size: 16px;
+      text-align: justify;
+      padding: 0px 25px;
+      max-height: 200px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #3d3d3d;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #c4c4c4;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #8b8b8b;
+      }
+    }
+
+    .paginasGrid {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 10px;
+      width: 145px;
+      margin: auto;
+      position: relative;
+      align-items: baseline;
+
+      .inputPage {
+        font-size: 18px;
+        color: white;
+        background-color: #343944;
+        width: 65px;
+
+        & > div {
+          height: 32px;
+          width: 65px;
+
+          input {
+            color: white;
+            text-align: center;
+          }
+        }
+      }
+
+      .totalPages {
+        font-size: 18px;
+        color: white;
+      }
+
+      .botaoAtl {
+        // position: absolute;
+        // right: -10px;
+        // bottom: -10px;
+        align-self: center;
+
+        span {
+          margin-left: 0 !important;
+        }
+      }
+    }
+
+    .grupoBotoes {
+      display: flex;
+      gap: 10px;
+      margin: auto;
+
+      .botaoFormulario {
+        position: absolute;
+        left: 0;
+
+        @media (max-width: 900px) {
+          left: unset;
+        }
+
+        span {
+          margin-left: 0 !important;
+        }
+      }
+
+      .completePercent {
+        position: absolute;
+        right: -30px;
+        color: white;
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+.modal {
+  display: grid;
+  place-content: center;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: auto;
+  min-height: 100%;
+  background-color: RGB(0 0 0 / 50%);
+  z-index: 9999;
+
+  div {
+    display: grid;
+    gap: 30px;
+    width: 250px;
+    padding: 40px 15px 20px 15px;
+    border-radius: 5px;
+    background-color: #2e7d32;
+
+    p {
+      color: white;
+    }
+  }
+}
+
+.cardInfo {
+  padding: 80px 0px;
+
+  @media (max-width: 800px) {
+    padding: 80px 20px;
+  }
+
+  .titulo {
+    color: white;
+    font-size: 35px;
+    margin-bottom: 20px;
+  }
+
+  .infosLivro {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 48% 48%;
+    width: 600px;
+    padding: 55px 25px;
+    border-radius: 5px;
+    background-color: #343944;
+    border: solid 1px #63676f;
+    margin: auto;
+    position: relative;
+
+    @media (max-width: 800px) {
+      width: auto;
+      grid-template-columns: unset;
+    }
+
+    .returnFlutuante {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+    }
+
+    .saveFlutuante {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+    }
+
+    .ratingLivro {
+      position: absolute;
+      left: 50%;
+      top: 12px;
+      transform: translate(-50%, 0);
+    }
+
+    .generoGrid {
+      display: flex;
+      gap: 10px;
+      // width: 80%;
+      // margin: auto;
+    }
+    & > div {
+      display: grid;
+      gap: 15px;
+      height: fit-content;
+
+      .input {
+        width: 100%;
+        margin: auto;
+
+        ::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: #8b8b8b;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: #e2e2e2;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: #8b8b8b;
+        }
+
+        textarea {
+          overflow: auto !important;
+          max-height: 200px;
+        }
+      }
+    }
+  }
+}

@@ -16,13 +16,15 @@
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
+  color: white;
+}
+
+/* .App-header > div {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+} */
 
 .App-link {
   color: #61dafb;
@@ -35,4 +37,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #282c34;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3e424b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #282c34;
 }
