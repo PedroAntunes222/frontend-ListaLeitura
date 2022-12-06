@@ -76,7 +76,7 @@ function ListaLivros() {
       );
     } else {
       livrosFilter = [...livrosFilter].sort((a, b) =>
-        a[info] < b[info] ? 1 : -1
+        String(a[info]).toLowerCase() < String(b[info]).toLowerCase() ? 1 : -1
       );
     }
 

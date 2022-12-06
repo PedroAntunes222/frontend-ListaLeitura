@@ -1,18 +1,18 @@
 import axios from "axios";
 // import AuthContext from "./auth";
 
-// const urlGet = "http://back-end-lista-leitura.herokuapp.com/usuario/";
+// const urlGet = "http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/usuario/";
 
 export function getUser(id) {
-  return axios.get("http://back-end-lista-leitura.herokuapp.com/usuario/" + id);
+  return axios.get("http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/usuario/" + id);
 }
 
 export function getUsers() {
-  return axios.get("http://back-end-lista-leitura.herokuapp.com/usuario/all");
+  return axios.get("http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/usuario/all");
 }
 
 export function addUser(nome, email, senha) {
-  return axios.post("http://back-end-lista-leitura.herokuapp.com/usuario/add", {
+  return axios.post("http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/usuario/add", {
     nome: nome,
     email: email,
     senha: senha,
@@ -21,13 +21,13 @@ export function addUser(nome, email, senha) {
 
 export function delUser(id) {
   return axios.delete(
-    "http://back-end-lista-leitura.herokuapp.com/usuario/" + id
+    "http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/usuario/" + id
   );
 }
 
 export function putUser(id, nome, email, senha) {
   return axios.put(
-    "http://back-end-lista-leitura.herokuapp.com/usuario/" + id,
+    "http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/usuario/" + id,
     {
       nome: nome,
       email: email,
@@ -37,7 +37,7 @@ export function putUser(id, nome, email, senha) {
 }
 
 export function getLivro(id) {
-  return axios.get("http://back-end-lista-leitura.herokuapp.com/livro/" + id);
+  return axios.get("http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/livro/" + id);
 }
 
 export function addLivro(
@@ -50,7 +50,7 @@ export function addLivro(
   paginasTotais,
   authenticated
 ) {
-  return axios.post("http://back-end-lista-leitura.herokuapp.com/livro/add", {
+  return axios.post("http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/livro/add", {
     capa: capa,
     titulo: titulo,
     subTitulo: subTitulo,
@@ -66,7 +66,7 @@ export function addLivro(
 
 export function delLivro(id) {
   return axios.delete(
-    "http://back-end-lista-leitura.herokuapp.com/livro/" + id
+    "http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/livro/" + id
   );
 }
 
@@ -84,7 +84,7 @@ export function putLivro(
   completo,
   authenticated
 ) {
-  return axios.put("http://back-end-lista-leitura.herokuapp.com/livro/" + id, {
+  return axios.put("http://springbootmysqlcrudaws-env.eba-tuc39iyz.us-east-1.elasticbeanstalk.com/livro/" + id, {
     capa: capa,
     titulo: titulo,
     subTitulo: subTitulo,
