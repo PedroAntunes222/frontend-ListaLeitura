@@ -5,13 +5,12 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import Header from "../components/Header/Header";
 import Login from "./Login/Login";
+import Cadastro from "./Login/Cadastro/Cadastro";
 import AdicionaLivros from "./AdicionaLivro/AdicionaLivros";
 import EditaLivro from "./EditaLivro/EditaLivro";
 import ListaLivros from "./ListasdeLivros/ListaLivros";
 import MostraLivro from "./MostraLivro/MostraLivro";
 import Perfil from "./Perfil/Perfil";
-import Home from "./Home/Home";
-import Cadastro from "./Login/Cadastro/Cadastro";
 
 function Rotas() {
   const darkTheme = createTheme({
@@ -28,7 +27,6 @@ function Rotas() {
           <div>
             <Routes>
               <Route path="/" element={<Login />} />
-              <Route path="/home" element={<Home />} />
               <Route path="/cadastrar" element={<Cadastro />} />
               <Route path="/adicionar" element={<AdicionaLivros />} />
               <Route path="/lista" element={<ListaLivros />} />
