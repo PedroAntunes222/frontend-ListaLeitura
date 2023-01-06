@@ -11,6 +11,7 @@ import ListaLivros from "./ListasdeLivros/ListaLivros";
 import MostraLivro from "./MostraLivro/MostraLivro";
 import Perfil from "./Perfil/Perfil";
 import Home from "./Home/Home";
+import Cadastro from "./Login/Cadastro/Cadastro";
 
 function Rotas() {
   const darkTheme = createTheme({
@@ -28,7 +29,7 @@ function Rotas() {
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/cadastrar" element={<Login />} />
+              <Route path="/cadastrar" element={<Cadastro />} />
               <Route path="/adicionar" element={<AdicionaLivros />} />
               <Route path="/lista" element={<ListaLivros />} />
               <Route path="/livro/*" element={<MostraLivro />} />

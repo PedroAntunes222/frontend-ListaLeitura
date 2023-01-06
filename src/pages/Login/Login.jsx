@@ -65,7 +65,6 @@ function Login() {
           onClose={() => {
             setAlerta(false);
           }}
-          // onClick={setAlerta(false)}
           severity="error"
           sx={{ width: "100%" }}
         >

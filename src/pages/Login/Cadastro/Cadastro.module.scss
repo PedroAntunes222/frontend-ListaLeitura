@@ -1,18 +1,25 @@
-.formularioLogin {
-  display: grid;
-  gap: 15px;
-  width: 300px;
-  padding: 35px 25px;
-  border-radius: 5px;
-  background-color: #343944;
-  border: solid 1px #63676f;
-  margin: auto;
-  margin-top: 80px;
-  position: relative;
+.cadastroPage{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  .returnFlutuante {
-    position: absolute;
-    left: -20px;
-    top: -20px;
+  .formularioLogin {
+    display: grid;
+    gap: 15px;
+    width: 300px;
+    padding: 35px 25px;
+    border-radius: 5px;
+    background-color: #343944;
+    border: solid 1px #63676f;
+    margin: auto;
+    position: relative;
+
+    .returnFlutuante {
+      position: absolute;
+      left: -20px;
+      top: -20px;
+    }
   }
 }
