@@ -1,18 +1,18 @@
 import axios from "axios";
 // import AuthContext from "./auth";
 
-// const urlGet = "http://localhost:5000/usuario/";
+const url = "https://backend-listaleitura-production.up.railway.app/";
 
 export function getUser(id) {
-  return axios.get("http://localhost:5000/usuario/" + id);
+  return axios.get( url + "usuario/" + id);
 }
 
 export function getUsers() {
-  return axios.get("http://localhost:5000/usuario/all");
+  return axios.get( url + "usuario/all");
 }
 
 export function addUser(nome, email, senha) {
-  return axios.post("http://localhost:5000/usuario/add", {
+  return axios.post( url + "usuario/add", {
     nome: nome,
     email: email,
     senha: senha,
@@ -21,13 +21,13 @@ export function addUser(nome, email, senha) {
 
 export function delUser(id) {
   return axios.delete(
-    "http://localhost:5000/usuario/" + id
+    url + "usuario/" + id
   );
 }
 
 export function putUser(id, nome, email, senha) {
   return axios.put(
-    "http://localhost:5000/usuario/" + id,
+    url + "usuario/" + id,
     {
       nome: nome,
       email: email,
@@ -37,7 +37,7 @@ export function putUser(id, nome, email, senha) {
 }
 
 export function getLivro(id) {
-  return axios.get("http://localhost:5000/livro/" + id);
+  return axios.get( url + "livro/" + id);
 }
 
 export function addLivro(
@@ -50,7 +50,7 @@ export function addLivro(
   paginasTotais,
   authenticated
 ) {
-  return axios.post("http://localhost:5000/livro/add", {
+  return axios.post( url + "livro/add", {
     capa: capa,
     titulo: titulo,
     subTitulo: subTitulo,
@@ -66,7 +66,7 @@ export function addLivro(
 
 export function delLivro(id) {
   return axios.delete(
-    "http://localhost:5000/livro/" + id
+    url+ "livro/" + id
   );
 }
 
@@ -84,7 +84,7 @@ export function putLivro(
   completo,
   authenticated
 ) {
-  return axios.put("http://localhost:5000/livro/" + id, {
+  return axios.put( url + "livro/" + id, {
     capa: capa,
     titulo: titulo,
     subTitulo: subTitulo,
