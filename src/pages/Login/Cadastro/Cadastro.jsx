@@ -3,9 +3,8 @@ import styles from "./Cadastro.module.scss";
 // import { useNavigate } from "react-router-dom";
 import { addUser } from "../../../Service/API";
 import { Link } from "react-router-dom";
+import Alertas from "../../../components/Alertas/Alertas";
 
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
@@ -19,7 +18,7 @@ function Cadastro() {
   const [senha1, setSenha1] = useState("");
   const [senha2, setSenha2] = useState("");
   const [message, setMessage] = useState("");
-  const [alerta, setAlerta] = useState(false);
+  const [alert, setAlert] = useState(false);
   const [success, setSuccess] = useState(false);
 
   // const [showPassword, setShowPassword] = useState(false);
@@ -30,11 +29,11 @@ function Cadastro() {
 
     if( email === "" || nome === "" || senha1 === "" || senha2 === ""){   
       setMessage("Campos vazios");
-      setAlerta(true);
+      setAlert(true);
     } else {
       if (senha1 !== senha2) {
         setMessage("Senhas diferentes");
-        setAlerta(true);
+        setAlert(true);
       } else {
         addUser(nome, email, senha1)
           .then(function (response) {
@@ -45,7 +44,7 @@ function Cadastro() {
           .catch(function (error) {
             console.log(error.data);
             setMessage("Erro ao cadastrar");
-            setAlerta(true);
+            setAlert(true);
           });
       }
     }
@@ -54,31 +53,20 @@ function Cadastro() {
 
   return (
     <>
-      <Snackbar open={alerta} autoHideDuration={6000}>
-        <Alert
-          variant="filled"
-          onClose={() => {
-            setAlerta(false);
-          }}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
 
-      <Snackbar open={success} autoHideDuration={6000}>
-        <Alert
-          variant="filled"
-          onClose={() => {
-            setSuccess(false);
-          }}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
+    {alert &&
+     <Alertas
+        alerta={setAlert}
+        message={message}
+        cor="error"
+      /> }
+
+    {success &&
+     <Alertas
+        alerta={setSuccess}
+        message={message}
+        cor="success"
+      /> }
 
       <div className={styles.cadastroPage}>
         <Box

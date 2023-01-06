@@ -5,6 +5,7 @@ import styles from "./AdicionaLivros.module.scss";
 import { addLivro } from "../../Service/API";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
+import Alertas from "../../components/Alertas/Alertas";
 
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
@@ -14,7 +15,6 @@ import SaveIcon from "@mui/icons-material/Save";
 import InputLabel from "@mui/material/InputLabel";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 
@@ -29,7 +29,7 @@ function ListagemLivros() {
   const [capa, setCapa] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
 
   const limpaForm = () => {
@@ -59,7 +59,7 @@ function ListagemLivros() {
         console.log(response);
         setMessage(response.data);
         setLoading(false);
-        setModal(true);
+        setAlert(true);
         limpaForm();
       })
       .catch(function (error) {
@@ -68,22 +68,16 @@ function ListagemLivros() {
       });
   };
 
-  // const fechaModal = (e) => {
-  //   e.preventDefault();
-  //   setModal(false);
-  //   navigate(`/lista`);
-  // };
-
   return (
     <>
-      {modal && (
-        <div className={styles.modal}>
-          <div>
-            <p>{message}</p>
-            <Button onClick={(e) => setModal(false)}>OK</Button>
-          </div>
-        </div>
-      )}
+     
+     {alert &&
+     <Alertas
+        alerta={setAlert}
+        message={message}
+        cor="success"
+      /> }
+
       {loading && <Loading />}
 
       <div className={styles.formPage}>

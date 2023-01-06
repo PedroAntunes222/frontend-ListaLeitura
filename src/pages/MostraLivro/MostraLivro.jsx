@@ -6,9 +6,8 @@ import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
+import Alertas from "../../components/Alertas/Alertas";
 
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -37,7 +36,8 @@ function MostraLivro() {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [completa, setCompleta] = useState(false);
-  const [alerta, setAlerta] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     // setLoading(true);
@@ -75,7 +75,7 @@ function MostraLivro() {
 
   const atlPages = (e) => {
     e.preventDefault();
-    // setAlerta(true);
+    // setAlert(true);
     putLivro(
       livro.id,
       livro.capa,
@@ -92,7 +92,8 @@ function MostraLivro() {
     )
       .then(function (response) {
         console.log(response);
-        setAlerta(true);
+        setMessage("Progresso atualizado")
+        setAlert(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -227,19 +228,12 @@ function MostraLivro() {
         </div>
       )}
 
-      <Snackbar open={alerta} autoHideDuration={6000}>
-        <Alert
-          variant="filled"
-          onClose={() => {
-            setAlerta(false);
-          }}
-          // onClick={setAlerta(false)}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Páginas salvas!
-        </Alert>
-      </Snackbar>
+    {success &&
+     <Alertas
+        alerta={setSuccess}
+        message={message}
+        cor="success"
+      /> }
 
       {loading ? (
         <Loading />

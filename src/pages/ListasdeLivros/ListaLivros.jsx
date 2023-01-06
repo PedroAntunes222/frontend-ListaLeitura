@@ -6,10 +6,10 @@ import React, { useState, useEffect, useContext } from "react";
 import CardLivro from "../../components/CardLivro/CardLivro";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
+import Alertas from "../../components/Alertas/Alertas"
 
 import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,7 +18,8 @@ function ListaLivros() {
   const { authenticated } = useContext(AuthContext);
   const [refresh, setRefresh] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [modal, setModal] = useState(false);
+  // const [success, setSuccess] = useState(false);
+  const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
 
   const [livros, setLivros] = useState([]);
@@ -42,11 +43,6 @@ function ListaLivros() {
   const refreshList = () => {
     //muda o estado para dar reload no useeffect
     setRefresh(refresh + 1);
-  };
-
-  const fechaModal = (e) => {
-    e.preventDefault();
-    setModal(false);
   };
 
   useEffect(() => {
@@ -85,14 +81,21 @@ function ListaLivros() {
 
   return (
     <>
-      {modal && (
-        <div className={styles.modal}>
-          <div>
-            <p>{message}</p>
-            <Button onClick={(e) => fechaModal(e)}>OK</Button>
-          </div>
-        </div>
-      )}
+
+    {alert &&
+     <Alertas
+        alerta={setAlert}
+        message={message}
+        cor="error"
+      /> }
+
+    {/* {success &&
+     <Alertas
+        alerta={setSuccess}
+        message={message}
+        cor="success"
+      /> } */}
+
       {loading ? (
         <Loading />
       ) : (
@@ -173,7 +176,7 @@ function ListaLivros() {
             {filtered.map((livro) => (
               <CardLivro
                 livro={livro}
-                modal={setModal}
+                alert={setAlert}
                 loading={setLoading}
                 message={setMessage}
                 refresh={refreshList}

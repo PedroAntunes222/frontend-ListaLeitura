@@ -8,7 +8,6 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import VisibilityIcon from "@mui/icons-material/Visibility";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -16,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 
 function CardLivro(props) {
+  
   const deletaLivro = (id, e) => {
     e.preventDefault();
     props.loading(true);
@@ -25,7 +25,7 @@ function CardLivro(props) {
         props.message(response.data);
         props.refresh();
         props.loading(false);
-        props.modal(true);
+        props.alert(true);
       })
       .catch(function (error) {
         console.log(error);

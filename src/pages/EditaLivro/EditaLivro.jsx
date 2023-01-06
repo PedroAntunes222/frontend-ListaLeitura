@@ -6,6 +6,7 @@ import styles from "./EditaLivro.module.scss";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
+import Alertas from "../../components/Alertas/Alertas";
 
 import Fab from "@mui/material/Fab";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
@@ -16,13 +17,12 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
-import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 
 function EditaLivro() {
   const { authenticated } = useContext(AuthContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [livro, setLivro] = useState([]);
   const [titulo, setTitulo] = useState("");
@@ -36,7 +36,7 @@ function EditaLivro() {
   const [completo, setCompleto] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -84,28 +84,22 @@ function EditaLivro() {
         console.log(response);
         setMessage(response.data);
         setLoading(false);
-        setModal(true);
+        setSuccess(true);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const fechaModal = (e, id) => {
-    e.preventDefault();
-    navigate(`/livro/${id}`);
-  };
-
   return (
     <>
-      {modal && (
-        <div className={styles.modal}>
-          <div>
-            <p>{message}</p>
-            <Button onClick={(e) => fechaModal(e, livro.id)}>OK</Button>
-          </div>
-        </div>
-      )}
+
+    {success &&
+     <Alertas
+        alerta={setSuccess}
+        message={message}
+        cor="success"
+      /> }
 
       {loading && <Loading />}
 
