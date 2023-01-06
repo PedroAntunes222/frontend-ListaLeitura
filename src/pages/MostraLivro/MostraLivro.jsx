@@ -228,6 +228,13 @@ function MostraLivro() {
         </div>
       )}
 
+    {alert &&
+     <Alertas
+        alerta={setAlert}
+        message={message}
+        cor="success"
+      /> }
+
     {success &&
      <Alertas
         alerta={setSuccess}
