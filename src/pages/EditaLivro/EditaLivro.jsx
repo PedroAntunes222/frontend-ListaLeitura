@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { getLivro, putLivro } from "../../Service/API";
 import { Link } from "react-router-dom";
 import styles from "./EditaLivro.module.scss";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
 import Alertas from "../../components/Alertas/Alertas";
