@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./Home.module.scss";
-import { getUser } from "../../Service/getData";
+import { getUser } from "../../Service/API";
 import CardLivro from "../../components/CardLivro/CardLivro";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";

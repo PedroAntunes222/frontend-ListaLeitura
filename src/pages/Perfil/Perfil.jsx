@@ -1,8 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
-import { getUser } from "../../Service/getData";
+import { getUser, putUser, delUser } from "../../Service/API";
 import AuthContext from "../../Service/auth";
 import { Link } from "react-router-dom";
-import { putUser, delUser } from "../../Service/getData";
 import styles from "./Perfil.module.scss";
 
 import Fab from "@mui/material/Fab";

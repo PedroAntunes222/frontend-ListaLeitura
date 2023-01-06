@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Cadastro.module.scss";
 // import { useNavigate } from "react-router-dom";
-import { addUser } from "../../../Service/getData";
+import { addUser } from "../../../Service/API";
 import { Link } from "react-router-dom";
 
 import Snackbar from "@mui/material/Snackbar";

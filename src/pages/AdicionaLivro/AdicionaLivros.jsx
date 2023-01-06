@@ -2,7 +2,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AdicionaLivros.module.scss";
-import { addLivro } from "../../Service/getData";
+import { addLivro } from "../../Service/API";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
 

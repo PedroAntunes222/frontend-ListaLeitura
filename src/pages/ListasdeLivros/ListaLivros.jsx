@@ -1,7 +1,7 @@
 // import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./ListaLivros.module.scss";
-import { getUser } from "../../Service/getData";
+import { getUser } from "../../Service/API";
 import React, { useState, useEffect, useContext } from "react";
 import CardLivro from "../../components/CardLivro/CardLivro";
 import Loading from "../../components/Loading/Loading";

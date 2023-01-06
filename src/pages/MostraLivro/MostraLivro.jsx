@@ -1,11 +1,9 @@
 // import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-import { getLivro } from "../../Service/getData";
+import { getLivro, putLivro, delLivro } from "../../Service/API";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
-import { delLivro } from "../../Service/getData";
-import { putLivro } from "../../Service/getData";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../Service/auth";
 
