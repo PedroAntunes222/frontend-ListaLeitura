@@ -28,8 +28,8 @@ function Header() {
   }, [authenticated]);
 
   const logout = () => {
-    localStorage.setItem("login", null);
-    setAuthenticated(localStorage.getItem("login"));
+    // localStorage.setItem("login", null);
+    setAuthenticated(null);
     navigate("/");
   };
 

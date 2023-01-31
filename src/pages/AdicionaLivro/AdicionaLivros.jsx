@@ -161,14 +161,6 @@ function ListagemLivros() {
           </div>
 
           <div>
-            <TextField
-              className={styles.inputLivro}
-              id="paginas"
-              label="N° de Páginas"
-              variant="outlined"
-              value={paginas}
-              onChange={(e) => setPaginas(e.target.value)}
-            />
 
             <TextField
               className={styles.inputLivro}
@@ -177,6 +169,15 @@ function ListagemLivros() {
               variant="outlined"
               value={capa}
               onChange={(e) => setCapa(e.target.value)}
+            />
+
+            <TextField
+              className={styles.inputLivro}
+              id="paginas"
+              label="N° de Páginas"
+              variant="outlined"
+              value={paginas}
+              onChange={(e) => setPaginas(e.target.value)}
             />
 
             <TextField

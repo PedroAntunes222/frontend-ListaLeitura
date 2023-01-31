@@ -119,9 +119,9 @@ function CardLivro(props) {
 
           <div className={styles.cardText}>
             <h4 className={styles.titulo}>{props.livro.titulo}</h4>
-            {props.livro.subTitulo && (
+            {/* {props.livro.subTitulo && (
               <h4 className={styles.subtitulo}>{props.livro.subTitulo}</h4>
-            )}
+            )} */}
             {props.livro.completo && (
               <Stack spacing={1} className={styles.ratingLivro}>
                 <Rating

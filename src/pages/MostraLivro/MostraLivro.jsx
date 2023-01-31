@@ -100,12 +100,6 @@ function MostraLivro() {
       });
   };
 
-  const fechaModal = (e) => {
-    e.preventDefault();
-    setModal(false);
-    navigate("/lista");
-  };
-
   const completar = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -134,6 +128,12 @@ function MostraLivro() {
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  const fechaModal = (e) => {
+    e.preventDefault();
+    setModal(false);
+    navigate("/lista");
   };
 
   const CircularProgressWithLabel = () => {
@@ -263,21 +263,18 @@ function MostraLivro() {
             ) : (
               <img src={livro.capa} alt={`${livro.titulo} cover`} />
             )}
-            {completo && (
-              <Stack spacing={1} className={styles.ratingLivro}>
-                <Rating
-                  name="size-medium"
-                  defaultValue={0}
-                  precision={0.5}
-                  value={rating || 0}
-                  readOnly
-                  // onChange={(e) => setRating(parseFloat(e.target.value))}
-                />
-              </Stack>
-            )}
           </div>
 
           <div className={styles.infosLivro}>
+              <Stack spacing={1} className={styles.ratingLivro}>
+                    <Rating
+                      name="size-medium"
+                      defaultValue={0}
+                      precision={0.5}
+                      value={rating || 0}
+                      readOnly
+                    />
+              </Stack>
             <div className={styles.fabGroup}>
               <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
                 <DeleteIcon />
@@ -287,8 +284,8 @@ function MostraLivro() {
                 <EditOutlinedIcon />
               </Fab>
             </div>
-
             <div className={styles.titulos}>
+              
               <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
 
               {livro.subTitulo !== "" && (
@@ -305,30 +302,38 @@ function MostraLivro() {
 
             <p className={styles.sinopseLivro}> {livro.sinopse} </p>
 
-            <div className={styles.paginasGrid}>
-              <TextField
-                id="paginasLidas"
-                autoComplete="off"
-                value={paginasLidas || 0}
-                className={styles.inputPage}
-                onChange={(e) => setPaginasLidas(parseInt(e.target.value))}
-              />
+            
+            {!livro.completo && (
+              <>
+                <div className={styles.paginasGrid}>
+                  <TextField
+                    id="paginasLidas"
+                    autoComplete="off"
+                    value={paginasLidas || 0}
+                    className={styles.inputPage}
+                    onChange={(e) => setPaginasLidas(parseInt(e.target.value))}
+                  />
 
-              <span> / </span>
+                  <span> / </span>
 
-              <p className={styles.totalPages}> {paginasTotais}</p>
+                  <p className={styles.totalPages}> {paginasTotais}</p>
 
-              <Button
-                size="small"
-                endIcon={<SaveIcon />}
-                onClick={(e) => atlPages(e)}
-                className={styles.botaoAtl}
-              />
-            </div>
+                  <Button
+                    size="small"
+                    endIcon={<SaveIcon />}
+                    onClick={(e) => atlPages(e)}
+                    className={styles.botaoAtl}
+                  />
+                </div>
 
-            <div className={styles.grupoBotoes}>
-              <CircularProgressWithLabel />
-            </div>
+                
+                <div className={styles.grupoBotoes}>
+                  <CircularProgressWithLabel />
+                </div>
+              </>
+            )}
+
+            
           </div>
         </div>
       )}
