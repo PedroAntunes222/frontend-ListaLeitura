@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
-import { getUser, putUser, delUser } from "../../Service/API";
-import AuthContext from "../../Service/auth";
+import { getUser, putUser, delUser } from "../../service/API";
+import AuthContext from "../../service/auth";
 import { Link } from "react-router-dom";
 import styles from "./Perfil.module.scss";
 

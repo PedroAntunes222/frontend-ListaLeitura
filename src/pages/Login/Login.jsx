@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./login.module.scss";
-import { getUsers } from "../../Service/API";
-import AuthContext from "../../Service/auth";
+import { getUsers } from "../../service/API";
+import AuthContext from "../../service/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 

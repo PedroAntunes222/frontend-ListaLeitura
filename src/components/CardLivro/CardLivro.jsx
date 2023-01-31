@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./CardLivro.module.scss";
-import { delLivro } from "../../Service/API";
+import { delLivro } from "../../service/API";
 
 import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";

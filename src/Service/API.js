@@ -1,7 +1,7 @@
 import axios from "axios";
 // import AuthContext from "./auth";
 
-const url = "https://backend-listaleitura-production.up.railway.app/";
+const url = "http://localhost:5000/";
 
 export function getUser(id) {
   return axios.get( url + "usuario/" + id);

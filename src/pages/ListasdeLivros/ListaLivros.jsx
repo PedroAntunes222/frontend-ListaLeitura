@@ -1,12 +1,13 @@
 // import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./ListaLivros.module.scss";
-import { getUser } from "../../Service/API";
+import { getUser } from "../../service/API";
 import React, { useState, useEffect, useContext } from "react";
 import CardLivro from "../../components/CardLivro/CardLivro";
 import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../Service/auth";
+import AuthContext from "../../service/auth";
 import Alertas from "../../components/Alertas/Alertas"
+import { generos } from "../../service/Generos";
 
 import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
@@ -24,7 +25,7 @@ function ListaLivros() {
 
   const [livros, setLivros] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [filterGenero, setFilterGenero] = useState("todos");
+  const [filterGenero, setFilterGenero] = useState("");
   const [filterCompleto, setFilterCompleto] = useState("todos");
   const [info, setInfo] = useState("titulo");
   const [ordenacao, setOrdenacao] = useState(true);
@@ -54,7 +55,7 @@ function ListaLivros() {
       );
     }
 
-    if (filterGenero !== "todos") {
+    if (filterGenero !== "") {
       livrosFilter = livrosFilter.filter(
         (item) => item.generoPrincipal === filterGenero || item.generoSecundario === filterGenero
       );
@@ -121,9 +122,11 @@ function ListaLivros() {
                 value={filterGenero || ""}
                 onChange={(e) => setFilterGenero(e.target.value)}
               >
-                <MenuItem value="todos">Todos</MenuItem>
-                <MenuItem value="Filosofia">Filosofia</MenuItem>
-                <MenuItem value="Fantasia">Fantasia</MenuItem>
+                {generos.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                 ))}
               </TextField>
 
               <TextField

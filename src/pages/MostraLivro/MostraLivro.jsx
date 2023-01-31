@@ -1,11 +1,11 @@
 // import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-import { getLivro, putLivro, delLivro } from "../../Service/API";
+import { getLivro, putLivro, delLivro } from "../../service/API";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
 import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../Service/auth";
+import AuthContext from "../../service/auth";
 import Alertas from "../../components/Alertas/Alertas";
 
 import Fab from "@mui/material/Fab";

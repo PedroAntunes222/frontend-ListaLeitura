@@ -2,10 +2,11 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AdicionaLivros.module.scss";
-import { addLivro } from "../../Service/API";
+import { addLivro } from "../../service/API";
 import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../Service/auth";
+import AuthContext from "../../service/auth";
 import Alertas from "../../components/Alertas/Alertas";
+import { generos } from "../../service/Generos";
 
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
@@ -67,7 +68,7 @@ function ListagemLivros() {
         setMessage(error.data);
       });
   };
-
+  
   return (
     <>
      
@@ -130,12 +131,13 @@ function ListagemLivros() {
                   label="generoPrincipal"
                   onChange={(e) => setgeneroPrincipal(e.target.value)}
                 >
-                  <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
-                  <MenuItem value={"Aventura"}>Aventura</MenuItem>
-                  <MenuItem value={"Mistério"}>Mistério</MenuItem>
-                  <MenuItem value={"Drama"}>Drama</MenuItem>
-                  <MenuItem value={"Romance"}>Romance</MenuItem>
-                  <MenuItem value={"Filosofia"}>Filosofia</MenuItem>
+                  
+                  {generos.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+
                 </Select>
               </FormControl>
 
@@ -148,13 +150,11 @@ function ListagemLivros() {
                   label="generoSecundario"
                   onChange={(e) => setgeneroSecundario(e.target.value)}
                 >
-                  <MenuItem value={""}>Nenhum</MenuItem>
-                  <MenuItem value={"Fantasia"}>Fantasia</MenuItem>
-                  <MenuItem value={"Aventura"}>Aventura</MenuItem>
-                  <MenuItem value={"Mistério"}>Mistério</MenuItem>
-                  <MenuItem value={"Drama"}>Drama</MenuItem>
-                  <MenuItem value={"Romance"}>Romance</MenuItem>
-                  <MenuItem value={"Filosofia"}>Filosofia</MenuItem>
+                  {generos.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </div>

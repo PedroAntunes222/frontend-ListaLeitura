@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "../Service/auth";
+import { AuthProvider } from "../service/auth";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import Header from "../components/Header/Header";
