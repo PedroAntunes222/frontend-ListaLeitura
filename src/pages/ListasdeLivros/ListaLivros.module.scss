@@ -79,6 +79,9 @@
 
   @media (max-width: 800px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    padding: 40px 0px;
+    width: 100%;
   }
 
   & > div {
@@ -90,7 +93,7 @@
     display: grid;
     place-content: center;
     background-color: #343944;
-    min-height: 200px;
+    min-height: 300px;
     overflow: visible;
   }
 }
