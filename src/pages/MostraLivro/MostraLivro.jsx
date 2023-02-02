@@ -266,6 +266,8 @@ function MostraLivro() {
           </div>
 
           <div className={styles.infosLivro}>
+            
+            {livro.completo && 
               <Stack spacing={1} className={styles.ratingLivro}>
                     <Rating
                       name="size-medium"
@@ -275,6 +277,8 @@ function MostraLivro() {
                       readOnly
                     />
               </Stack>
+            }
+
             <div className={styles.fabGroup}>
               <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
                 <DeleteIcon />
