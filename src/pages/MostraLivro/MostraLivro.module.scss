@@ -51,7 +51,8 @@
 
     img {
       height: 100%;
-      max-height: 525px;
+      min-height: 342px;
+      max-height: 342px;
       min-width: 100%;
       border-bottom-left-radius: 10px;
     }
