@@ -13,13 +13,13 @@
   }
 }
 
-.App-header {
+.App-background {
   background-color: #282c34;
   min-height: 100vh;
   color: white;
 }
 
-/* .App-header > div {
+/* .App-background > div {
   display: flex;
   flex-direction: column;
   align-items: center;
