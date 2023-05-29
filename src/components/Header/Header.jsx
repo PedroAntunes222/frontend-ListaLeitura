@@ -12,12 +12,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 function Header() {
   const navigate = useNavigate();
-  const { authenticated } = useContext(AuthContext);
-  const { setAuthenticated } = useContext(AuthContext);
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    if (authenticated > 0) {
+    if (authenticated!=='null') {
       getUser(authenticated)
         .then((response) => {
           setUser(response.data);
@@ -27,7 +26,7 @@ function Header() {
   }, [authenticated]);
 
   const logout = () => {
-    // localStorage.setItem("login", null);
+    localStorage.setItem("login", null);
     setAuthenticated(null);
     navigate("/");
   };

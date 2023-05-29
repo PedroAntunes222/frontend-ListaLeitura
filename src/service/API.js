@@ -13,6 +13,7 @@ export function getUsers() {
 }
 
 export function addUser(nome, email, senha) {
+  console.log('passoubaqui')
   return axios.post(url + "usuario/add", {
     nome: nome,
     email: email,

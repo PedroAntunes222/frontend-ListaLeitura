@@ -17,7 +17,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 function Login() {
   const navigate = useNavigate();
-  const { setAuthenticated } = useContext(AuthContext);
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
   const [email, setEmail] = useState("pedro@gmail.com");
   const [senha, setSenha] = useState("123");
   const [usuarios, setUsuarios] = useState("");
@@ -50,7 +50,7 @@ function Login() {
           setAlerta(true);
         } else {
           localStorage.setItem("login", user[0].id); // nao perder ao atualizar a página
-          setAuthenticated(localStorage.getItem("login"));
+          setAuthenticated(user[0].id);
           navigate("/lista");
         }
       }

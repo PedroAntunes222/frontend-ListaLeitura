@@ -13,6 +13,8 @@ export const AuthProvider = ({ children }) => {
   const auth = localStorage.getItem("login");
   const [authenticated, setAuthenticated] = useState(auth);
 
+  // console.log(localStorage.getItem("login"))
+
   return (
     <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
       {authenticated > 0 ? (
