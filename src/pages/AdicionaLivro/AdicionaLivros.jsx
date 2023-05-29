@@ -18,6 +18,7 @@ import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore
 import FormControl from "@mui/material/FormControl";
 import Fab from "@mui/material/Fab";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
+import Livro from "../../class/livro";
 
 function ListagemLivros() {
   const { authenticated } = useContext(AuthContext);
@@ -46,16 +47,20 @@ function ListagemLivros() {
   const adicionaLivro = (e) => {
     e.preventDefault();
     setLoading(true);
-    addLivro(
+    const novoLivro = new Livro(
+      0,
       capa,
       titulo,
       subtitulo,
+      sinopse,
       generoPrincipal,
       generoSecundario,
-      sinopse,
+      0,
       paginas,
-      authenticated
-    )
+      0,
+      0
+    );
+    addLivro(novoLivro.toMap(), authenticated)
       .then(function (response) {
         console.log(response);
         setMessage(response.data);
@@ -68,16 +73,10 @@ function ListagemLivros() {
         setMessage(error.data);
       });
   };
-  
+
   return (
     <>
-     
-     {alert &&
-     <Alertas
-        alerta={setAlert}
-        message={message}
-        cor="success"
-      /> }
+      {alert && <Alertas alerta={setAlert} message={message} cor="success" />}
 
       {loading && <Loading />}
 
@@ -131,13 +130,11 @@ function ListagemLivros() {
                   label="generoPrincipal"
                   onChange={(e) => setgeneroPrincipal(e.target.value)}
                 >
-                  
                   {generos.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
                   ))}
-
                 </Select>
               </FormControl>
 
@@ -161,7 +158,6 @@ function ListagemLivros() {
           </div>
 
           <div>
-
             <TextField
               className={styles.inputLivro}
               id="endereco-capa"

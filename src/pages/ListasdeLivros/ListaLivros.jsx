@@ -1,12 +1,12 @@
 // import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./ListaLivros.module.scss";
-import { getUser } from "../../service/API";
+import { getLivros } from "../../service/API";
 import React, { useState, useEffect, useContext } from "react";
 import CardLivro from "../../components/CardLivro/CardLivro";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../context/auth";
-import Alertas from "../../components/Alertas/Alertas"
+import Alertas from "../../components/Alertas/Alertas";
 import { generos } from "../../service/Generos";
 
 import Fab from "@mui/material/Fab";
@@ -33,12 +33,8 @@ function ListaLivros() {
 
   useEffect(() => {
     setLoading(true);
-    getUser(authenticated)
-      .then((response) => {
-        setLivros(response.data.livros);
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
+    getLivros(authenticated, setLivros);
+    setLoading(false);
   }, [refresh, authenticated]);
 
   const refreshList = () => {
@@ -57,7 +53,9 @@ function ListaLivros() {
 
     if (filterGenero !== "") {
       livrosFilter = livrosFilter.filter(
-        (item) => item.generoPrincipal === filterGenero || item.generoSecundario === filterGenero
+        (item) =>
+          item.generoPrincipal === filterGenero ||
+          item.generoSecundario === filterGenero
       );
     }
 
@@ -82,15 +80,9 @@ function ListaLivros() {
 
   return (
     <>
+      {alert && <Alertas alerta={setAlert} message={message} cor="error" />}
 
-    {alert &&
-     <Alertas
-        alerta={setAlert}
-        message={message}
-        cor="error"
-      /> }
-
-    {/* {success &&
+      {/* {success &&
      <Alertas
         alerta={setSuccess}
         message={message}
@@ -123,10 +115,10 @@ function ListaLivros() {
                 onChange={(e) => setFilterGenero(e.target.value)}
               >
                 {generos.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                 ))}
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
               </TextField>
 
               <TextField

@@ -20,7 +20,6 @@ function Header() {
     if (authenticated > 0) {
       getUser(authenticated)
         .then((response) => {
-          console.log(response.data);
           setUser(response.data);
         })
         .catch((error) => console.log(error));

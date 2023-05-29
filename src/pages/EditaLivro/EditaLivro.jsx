@@ -81,15 +81,15 @@ function EditaLivro() {
       livro.completo,
       authenticated
     )
-      .then(function (response) {
-        console.log(response);
-        setMessage(response.data);
-        setLoading(false);
-        setSuccess(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      // .then(function (response) {
+      //   console.log(response);
+      //   setMessage(response.data);
+      //   setLoading(false);
+      //   setSuccess(true);
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
   };
 
   return (
