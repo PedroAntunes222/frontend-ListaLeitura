@@ -5,7 +5,7 @@ import { getUser } from "../../service/API";
 import React, { useState, useEffect, useContext } from "react";
 import CardLivro from "../../components/CardLivro/CardLivro";
 import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../service/auth";
+import AuthContext from "../../context/auth";
 import Alertas from "../../components/Alertas/Alertas"
 import { generos } from "../../service/Generos";
 

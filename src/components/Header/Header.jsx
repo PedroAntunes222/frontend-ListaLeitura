@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { getUser } from "../../service/API";
-import AuthContext from "../../service/auth";
+import AuthContext from "../../context/auth";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { useNavigate } from "react-router-dom";

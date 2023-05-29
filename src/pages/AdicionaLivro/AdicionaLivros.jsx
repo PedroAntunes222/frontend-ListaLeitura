@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "./AdicionaLivros.module.scss";
 import { addLivro } from "../../service/API";
 import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../service/auth";
+import AuthContext from "../../context/auth";
 import Alertas from "../../components/Alertas/Alertas";
 import { generos } from "../../service/Generos";
 

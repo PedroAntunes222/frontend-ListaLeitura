@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
 import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../service/auth";
+import AuthContext from "../../context/auth";
 import Alertas from "../../components/Alertas/Alertas";
 
 import Fab from "@mui/material/Fab";
