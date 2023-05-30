@@ -46,7 +46,9 @@ function MostraLivro() {
     setLoading(true);
     getLivro(idLivro)
       .then((response) => {
-        setLivro(response.data);
+        const livroteste = Livro.fromMap(response.data);
+        setLivro(livroteste);
+        console.log(livroteste);
         setLoading(false);
         console.log(response.data);
       })

@@ -60,7 +60,7 @@ function ListagemLivros() {
       0,
       0
     );
-    addLivro(novoLivro.toMap(), authenticated)
+    addLivro(novoLivro, authenticated)
       .then(function (response) {
         console.log(response);
         setMessage(response.data);
