@@ -10,9 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
+import Progress from "../Progress/Progress";
 
 function CardLivro({livro, alert, loading, message, refresh}) {
   const deletaLivro = (id, e) => {
@@ -30,51 +28,6 @@ function CardLivro({livro, alert, loading, message, refresh}) {
         console.log(error);
         message(error.data);
       });
-  };
-
-  const CircularProgressWithLabel = () => {
-    let calc = Math.floor(
-      (livro.paginasLidas * 100) / livro.paginasTotais
-    );
-
-    return (
-      <Box
-        sx={{
-          position: "relative",
-          display: "inline-flex",
-          justifyContent: "center",
-        }}
-      >
-        <CircularProgress
-          variant="determinate"
-          size="10vh"
-          value={calc}
-          color="success"
-        />
-
-        <Box
-          sx={{
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Typography
-            variant="caption"
-            component="div"
-            color="success"
-            className={styles.completePercent}
-          >
-            {`${calc}%`}
-          </Typography>
-        </Box>
-      </Box>
-    );
   };
 
   return (
@@ -114,7 +67,7 @@ function CardLivro({livro, alert, loading, message, refresh}) {
             )}
           </div>
 
-          <CircularProgressWithLabel />
+          <Progress lidas={livro.paginasLidas} totais={livro.paginasTotais} />
 
           <div className={styles.cardText}>
             <h4 className={styles.titulo}>{livro.titulo}</h4>
