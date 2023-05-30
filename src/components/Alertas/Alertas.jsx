@@ -2,19 +2,19 @@ import React from 'react'
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 
-function Alertas(props) {
+function Alertas({cor, message, alerta}) {
 
   return (
     <Snackbar open={true} autoHideDuration={6000}>
         <Alert
           variant="filled"
           onClose={() => {
-            props.alerta(false);
+            alerta(false);
           }}
-          severity={props.cor}
+          severity={cor}
           sx={{ width: "100%" }}
         >
-          {props.message}
+          {message}
         </Alert>
       </Snackbar>
   )
