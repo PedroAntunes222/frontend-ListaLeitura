@@ -21,9 +21,10 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
+import Livro from "../../class/livro";
 
-function MostraLivro({ route }) {
-  const {idLivro} = useParams();
+function MostraLivro() {
+  const { idLivro } = useParams();
 
   const { authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -43,7 +44,6 @@ function MostraLivro({ route }) {
 
   useEffect(() => {
     setLoading(true);
-    console.log(idLivro);
     getLivro(idLivro)
       .then((response) => {
         setLivro(response.data);
@@ -51,7 +51,7 @@ function MostraLivro({ route }) {
         console.log(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [idLivro]);
 
   // Atualiza os estados (sem loop de get)
   useEffect(() => {
@@ -78,20 +78,20 @@ function MostraLivro({ route }) {
   const atlPages = (e) => {
     e.preventDefault();
     // setAlert(true);
-    putLivro(
-      livro.id,
+    const livroATL = new Livro(
+      idLivro,
       livro.capa,
       livro.titulo,
       livro.subTitulo,
+      livro.sinopse,
       livro.generoPrincipal,
       livro.generoSecundario,
-      livro.sinopse,
       paginasLidas,
       livro.paginasTotais,
       livro.rating,
-      completo,
-      authenticated
-    )
+      completo
+    );
+    putLivro(livroATL, authenticated)
       .then(function (response) {
         console.log(response);
         setMessage("Progresso atualizado");
@@ -105,8 +105,8 @@ function MostraLivro({ route }) {
   const completar = (e) => {
     e.preventDefault();
     setLoading(true);
-    putLivro(
-      livro.id,
+    const livroATL = new Livro(
+      idLivro,
       livro.capa,
       livro.titulo,
       livro.subTitulo,
@@ -116,9 +116,9 @@ function MostraLivro({ route }) {
       paginasLidas,
       livro.paginasTotais,
       rating,
-      completo,
-      authenticated
-    )
+      completo
+    );
+    putLivro(livroATL, authenticated)
       .then(function (response) {
         console.log(response);
         setMessage(response.data);

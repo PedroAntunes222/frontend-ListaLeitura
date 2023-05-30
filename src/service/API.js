@@ -1,5 +1,5 @@
 import axios from "axios";
-import Livro from "../class/livro";
+// import Livro from "../class/livro";
 
 // const url = "https://backend-listaleitura-production.up.railway.app/";
 const url = "http://localhost:5000/";
@@ -13,7 +13,7 @@ export function getUsers() {
 }
 
 export function addUser(nome, email, senha) {
-  console.log('passoubaqui')
+  console.log("passoubaqui");
   return axios.post(url + "usuario/add", {
     nome: nome,
     email: email,
@@ -67,31 +67,18 @@ export function delLivro(id) {
   return axios.delete(url + "livro/" + id);
 }
 
-export function putLivro(
-  id,
-  capa,
-  titulo,
-  subTitulo,
-  generoPrincipal,
-  generoSecundario,
-  sinopse,
-  paginasLidas,
-  paginasTotais,
-  rating,
-  completo,
-  authenticated
-) {
-  return axios.put(url + "livro/" + id, {
-    capa: capa,
-    titulo: titulo,
-    subTitulo: subTitulo,
-    generoPrincipal: generoPrincipal,
-    generoSecundario: generoSecundario,
-    sinopse: sinopse,
-    paginasLidas: paginasLidas,
-    paginasTotais: paginasTotais,
-    rating: rating,
-    completo: completo,
-    usuario: { id: authenticated },
+export function putLivro(livro, auth) {
+  return axios.put(url + "livro/" + livro.id, {
+    capa: livro.capa,
+    titulo: livro.titulo,
+    subTitulo: livro.subtitulo,
+    generoPrincipal: livro.generoPrincipal,
+    generoSecundario: livro.generoSecundario,
+    sinopse: livro.sinopse,
+    paginasLidas: livro.paginasLidas,
+    paginasTotais: livro.paginasTotais,
+    rating: livro.rating,
+    completo: livro.completo,
+    usuario: { id: auth },
   });
 }

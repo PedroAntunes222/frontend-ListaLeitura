@@ -1,7 +1,7 @@
 // import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { getLivro, putLivro } from "../../service/API";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./EditaLivro.module.scss";
 // import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
@@ -20,10 +20,11 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
+import Livro from "../../class/livro";
 
 function EditaLivro() {
+  const { idLivro } = useParams();
   const { authenticated } = useContext(AuthContext);
-  // const navigate = useNavigate();
 
   const [livro, setLivro] = useState([]);
   const [titulo, setTitulo] = useState("");
@@ -42,15 +43,14 @@ function EditaLivro() {
 
   useEffect(() => {
     // setLoading(true);
-    let IDLivro = window.location.pathname.split("/").pop();
-    getLivro(IDLivro)
+    getLivro(idLivro)
       .then((response) => {
         console.log(response.data);
         setLivro(response.data);
       })
       .catch((error) => console.log(error));
     // setLoading(false);
-  }, []);
+  }, [idLivro]);
 
   useEffect(() => {
     setTitulo(livro.titulo);
@@ -64,43 +64,41 @@ function EditaLivro() {
     setCompleto(livro.completo);
   }, [livro]);
 
-  const atlLivro = (id, e) => {
+  const atlLivro = (e) => {
     e.preventDefault();
     setLoading(true);
-    putLivro(
-      id,
+
+    const livroATL = new Livro(
+      idLivro,
       capa,
       titulo,
       subtitulo,
+      sinopse,
       generoPrincipal,
       generoSecundario,
-      sinopse,
       livro.paginasLidas,
       paginasTotais,
       rating,
-      livro.completo,
-      authenticated
-    )
-      // .then(function (response) {
-      //   console.log(response);
-      //   setMessage(response.data);
-      //   setLoading(false);
-      //   setSuccess(true);
-      // })
-      // .catch(function (error) {
-      //   console.log(error);
-      // });
+      livro.completo
+    );
+    console.log(livroATL)
+    putLivro(livroATL, authenticated)
+      .then((response) => {
+        console.log(response);
+        setMessage(response.data);
+        setLoading(false);
+        setSuccess(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
     <>
-
-    {success &&
-     <Alertas
-        alerta={setSuccess}
-        message={message}
-        cor="success"
-      /> }
+      {success && (
+        <Alertas alerta={setSuccess} message={message} cor="success" />
+      )}
 
       {loading && <Loading />}
 
@@ -124,7 +122,7 @@ function EditaLivro() {
 
           {/* botao save */}
           <Fab
-            onClick={(e) => atlLivro(livro.id, e)}
+            onClick={(e) => atlLivro(e)}
             color="success"
             className={styles.saveFlutuante}
           >
@@ -175,7 +173,7 @@ function EditaLivro() {
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
-                 ))}
+                  ))}
                 </Select>
               </FormControl>
 
@@ -191,7 +189,7 @@ function EditaLivro() {
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
-                 ))}
+                  ))}
                 </Select>
               </FormControl>
             </div>
