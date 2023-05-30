@@ -1,7 +1,7 @@
 // import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { getLivro, putLivro, delLivro } from "../../service/API";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
 import Loading from "../../components/Loading/Loading";
@@ -22,7 +22,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 
-function MostraLivro() {
+function MostraLivro({ route }) {
+  const {idLivro} = useParams();
+
   const { authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
@@ -40,9 +42,9 @@ function MostraLivro() {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    // setLoading(true);
-    let IDLivro = window.location.pathname.split("/").pop();
-    getLivro(IDLivro)
+    setLoading(true);
+    console.log(idLivro);
+    getLivro(idLivro)
       .then((response) => {
         setLivro(response.data);
         setLoading(false);
@@ -92,7 +94,7 @@ function MostraLivro() {
     )
       .then(function (response) {
         console.log(response);
-        setMessage("Progresso atualizado")
+        setMessage("Progresso atualizado");
         setAlert(true);
       })
       .catch(function (error) {
@@ -228,19 +230,11 @@ function MostraLivro() {
         </div>
       )}
 
-    {alert &&
-     <Alertas
-        alerta={setAlert}
-        message={message}
-        cor="success"
-      /> }
+      {alert && <Alertas alerta={setAlert} message={message} cor="success" />}
 
-    {success &&
-     <Alertas
-        alerta={setSuccess}
-        message={message}
-        cor="success"
-      /> }
+      {success && (
+        <Alertas alerta={setSuccess} message={message} cor="success" />
+      )}
 
       {loading ? (
         <Loading />
@@ -266,18 +260,17 @@ function MostraLivro() {
           </div>
 
           <div className={styles.infosLivro}>
-            
-            {livro.completo && 
+            {livro.completo && (
               <Stack spacing={1} className={styles.ratingLivro}>
-                    <Rating
-                      name="size-medium"
-                      defaultValue={0}
-                      precision={0.5}
-                      value={rating || 0}
-                      readOnly
-                    />
+                <Rating
+                  name="size-medium"
+                  defaultValue={0}
+                  precision={0.5}
+                  value={rating || 0}
+                  readOnly
+                />
               </Stack>
-            }
+            )}
 
             <div className={styles.fabGroup}>
               <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
@@ -289,7 +282,6 @@ function MostraLivro() {
               </Fab>
             </div>
             <div className={styles.titulos}>
-              
               <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
 
               {livro.subTitulo !== "" && (
@@ -306,7 +298,6 @@ function MostraLivro() {
 
             <p className={styles.sinopseLivro}> {livro.sinopse} </p>
 
-            
             {!livro.completo && (
               <>
                 <div className={styles.paginasGrid}>
@@ -330,14 +321,11 @@ function MostraLivro() {
                   />
                 </div>
 
-                
                 <div className={styles.grupoBotoes}>
                   <CircularProgressWithLabel />
                 </div>
               </>
             )}
-
-            
           </div>
         </div>
       )}

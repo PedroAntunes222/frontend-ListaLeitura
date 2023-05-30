@@ -30,8 +30,8 @@ function Rotas() {
               <Route path="/cadastrar" element={<Cadastro />} />
               <Route path="/adicionar" element={<AdicionaLivros />} />
               <Route path="/lista" element={<ListaLivros />} />
-              <Route path="/livro/*" element={<MostraLivro />} />
-              <Route path="/edit/*" element={<EditaLivro />} />
+              <Route path="/livro/:idLivro" element={<MostraLivro />} />
+              <Route path="/edit/:idLivro" element={<EditaLivro />} />
               <Route path="/meu-perfil" element={<Perfil />} />
             </Routes>
           </div>
