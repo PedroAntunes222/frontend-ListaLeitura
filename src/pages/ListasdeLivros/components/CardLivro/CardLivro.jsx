@@ -1,35 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./CardLivro.module.scss";
-import { delLivro } from "../../service/API";
 
-import Fab from "@mui/material/Fab";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import Progress from "../Progress/Progress";
+import Progress from "../../../../components/Progress/Progress";
+import DeleteButton from "../../../../components/DeleteButton/DeleteButton";
 
-function CardLivro({livro, alert, loading, message, refresh}) {
-  const deletaLivro = (id, e) => {
-    e.preventDefault();
-    loading(true);
-    delLivro(id)
-      .then(function (response) {
-        console.log(response);
-        message(response.data);
-        refresh();
-        loading(false);
-        alert(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-        message(error.data);
-      });
-  };
-
+function CardLivro({ livro, alert, loading, message, refresh }) {
   return (
     <Card className={styles.card}>
       <Link to={`/livro/${livro.id}`}>
@@ -51,13 +32,13 @@ function CardLivro({livro, alert, loading, message, refresh}) {
         )}
 
         <CardContent className={styles.cardInfo}>
-          <Fab
-            onClick={(e) => deletaLivro(livro.id, e)}
-            color="error"
-            className={styles.botaoFormulario}
-          >
-            <DeleteIcon />
-          </Fab>
+          <DeleteButton
+            livroID={livro.id}
+            alert={alert}
+            loading={loading}
+            message={message}
+            refresh={refresh}
+          />
 
           <div className={styles.cardGenero}>
             <p className={styles.genero}>{livro.generoPrincipal}</p>

@@ -7,6 +7,7 @@ import styles from "./MostraLivro.module.scss";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../context/auth";
 import Alertas from "../../components/Alertas/Alertas";
+import DeleteButton from "../../components/DeleteButton/DeleteButton";
 
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
@@ -275,9 +276,12 @@ function MostraLivro() {
             )}
 
             <div className={styles.fabGroup}>
-              <Fab onClick={(e) => deletaLivro(livro.id, e)} color="error">
-                <DeleteIcon />
-              </Fab>
+              <DeleteButton
+                livroID={livro.id}
+                alert={setModal}
+                loading={setLoading}
+                message={setMessage}
+              />
 
               <Fab component={Link} to={`/edit/${livro.id}`}>
                 <EditOutlinedIcon />

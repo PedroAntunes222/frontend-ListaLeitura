@@ -64,21 +64,21 @@
       }
     }
 
-    .cardButton {
-      bottom: 0;
-      padding: 0;
-      width: 100%;
-      position: absolute;
-    }
+    // .cardButton {
+    //   bottom: 0;
+    //   padding: 0;
+    //   width: 100%;
+    //   position: absolute;
+    // }
 
-    .botaoFormulario {
-      position: absolute;
-      top: -10px;
-      right: -10px;
+    // .botaoFormulario {
+    //   position: absolute;
+    //   top: -10px;
+    //   right: -10px;
 
-      @media (max-width: 800px) {
-        display: none;
-      }
-    }
+    //   @media (max-width: 800px) {
+    //     display: none;
+    //   }
+    // }
   }
 }
