@@ -28,7 +28,7 @@ function EditaLivro() {
 
   const [livro, setLivro] = useState([]);
   const [titulo, setTitulo] = useState("");
-  const [subtitulo, setSubtitulo] = useState("");
+  const [subTitulo, setsubTitulo] = useState("");
   const [generoPrincipal, setgeneroPrincipal] = useState("");
   const [generoSecundario, setgeneroSecundario] = useState("");
   const [sinopse, setSinopse] = useState("");
@@ -54,7 +54,7 @@ function EditaLivro() {
 
   useEffect(() => {
     setTitulo(livro.titulo);
-    setSubtitulo(livro.subTitulo);
+    setsubTitulo(livro.subTitulo);
     setgeneroPrincipal(livro.generoPrincipal);
     setgeneroSecundario(livro.generoSecundario);
     setSinopse(livro.sinopse);
@@ -72,7 +72,7 @@ function EditaLivro() {
       idLivro,
       capa,
       titulo,
-      subtitulo,
+      subTitulo,
       sinopse,
       generoPrincipal,
       generoSecundario,
@@ -152,11 +152,11 @@ function EditaLivro() {
             />
 
             <TextField
-              id="Subtitulo-livro"
-              label="Subtitulo"
+              id="subTitulo-livro"
+              label="subTitulo"
               variant="outlined"
-              value={subtitulo || ""}
-              onChange={(e) => setSubtitulo(e.target.value)}
+              value={subTitulo || ""}
+              onChange={(e) => setsubTitulo(e.target.value)}
               className={styles.input}
             />
 

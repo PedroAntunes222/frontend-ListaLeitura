@@ -48,9 +48,7 @@ function MostraLivro() {
       .then((response) => {
         const livroteste = Livro.fromMap(response.data);
         setLivro(livroteste);
-        console.log(livroteste);
         setLoading(false);
-        console.log(response.data);
       })
       .catch((error) => console.log(error));
   }, [idLivro]);
@@ -89,6 +87,12 @@ function MostraLivro() {
       });
   };
 
+  const fechaModal = (e) => {
+    e.preventDefault();
+    setModal(false);
+    navigate("/lista");
+  };
+
   const completar = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -117,12 +121,6 @@ function MostraLivro() {
       .catch(function (error) {
         console.log(error);
       });
-  };
-
-  const fechaModal = (e) => {
-    e.preventDefault();
-    setModal(false);
-    navigate("/lista");
   };
 
   const CircularProgressWithLabel = () => {
@@ -275,7 +273,7 @@ function MostraLivro() {
               <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
 
               {livro.subTitulo !== "" && (
-                <h3 className={styles.subtituloLivro}>{livro.subTitulo}</h3>
+                <h3 className={styles.subTituloLivro}>{livro.subTitulo}</h3>
               )}
             </div>
 

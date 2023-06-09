@@ -23,7 +23,7 @@ import Livro from "../../class/livro";
 function ListagemLivros() {
   const { authenticated } = useContext(AuthContext);
   const [titulo, setTitulo] = useState("");
-  const [subtitulo, setSubtitulo] = useState("");
+  const [subTitulo, setsubTitulo] = useState("");
   const [generoPrincipal, setgeneroPrincipal] = useState("");
   const [generoSecundario, setgeneroSecundario] = useState("");
   const [sinopse, setSinopse] = useState("");
@@ -36,7 +36,7 @@ function ListagemLivros() {
 
   const limpaForm = () => {
     setTitulo("");
-    setSubtitulo("");
+    setsubTitulo("");
     setgeneroPrincipal("");
     setgeneroSecundario("");
     setSinopse("");
@@ -51,7 +51,7 @@ function ListagemLivros() {
       0,
       capa,
       titulo,
-      subtitulo,
+      subTitulo,
       sinopse,
       generoPrincipal,
       generoSecundario,
@@ -114,11 +114,11 @@ function ListagemLivros() {
 
             <TextField
               className={styles.inputLivro}
-              id="Subtitulo-livro"
-              label="Subtitulo"
+              id="subTitulo-livro"
+              label="subTitulo"
               variant="outlined"
-              value={subtitulo}
-              onChange={(e) => setSubtitulo(e.target.value)}
+              value={subTitulo}
+              onChange={(e) => setsubTitulo(e.target.value)}
             />
             <div className={styles.generoGrid}>
               <FormControl fullWidth>

@@ -3,7 +3,7 @@ export default class Livro {
     id,
     capa,
     titulo,
-    subtitulo,
+    subTitulo,
     sinopse,
     generoPrincipal,
     generoSecundario,
@@ -15,7 +15,7 @@ export default class Livro {
     this.id = id;
     this.capa = capa;
     this.titulo = titulo;
-    this.subtitulo = subtitulo;
+    this.subTitulo = subTitulo;
     this.sinopse = sinopse;
     this.generoPrincipal = generoPrincipal;
     this.generoSecundario = generoSecundario;
@@ -30,7 +30,7 @@ export default class Livro {
       item.id,
       item.capa,
       item.titulo,
-      item.subtitulo,
+      item.subTitulo,
       item.sinopse,
       item.generoPrincipal,
       item.generoSecundario,
@@ -45,7 +45,7 @@ export default class Livro {
     return {
       capa: this.capa,
       titulo: this.titulo,
-      subtitulo: this.subtitulo,
+      subTitulo: this.subTitulo,
       sinopse: this.sinopse,
       generoPrincipal: this.generoPrincipal,
       generoSecundario: this.generoSecundario,

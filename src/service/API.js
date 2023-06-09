@@ -52,7 +52,7 @@ export function addLivro(livro, auth) {
   return axios.post(url + "livro/add", {
     capa: livro.capa,
     titulo: livro.titulo,
-    subTitulo: livro.subtitulo,
+    subTitulo: livro.subTitulo,
     generoPrincipal: livro.generoPrincipal,
     generoSecundario: livro.generoSecundario,
     sinopse: livro.sinopse,
@@ -71,7 +71,7 @@ export function putLivro(livro, auth) {
   return axios.put(url + "livro/" + livro.id, {
     capa: livro.capa,
     titulo: livro.titulo,
-    subTitulo: livro.subtitulo,
+    subTitulo: livro.subTitulo,
     generoPrincipal: livro.generoPrincipal,
     generoSecundario: livro.generoSecundario,
     sinopse: livro.sinopse,
