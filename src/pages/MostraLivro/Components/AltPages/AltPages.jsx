@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import styles from "../../MostraLivro.module.scss";
+import styles from "./AltPages.module.scss";
 import Livro from "../../../../class/livro";
 import { putLivro } from "../../../../service/API";
 import AuthContext from "../../../../context/auth";

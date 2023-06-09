@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import styles from "../../MostraLivro.module.scss";
+import styles from "./CompletaModal.module.scss";
 import { putLivro } from "../../../../service/API";
 import { Button, Rating, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";

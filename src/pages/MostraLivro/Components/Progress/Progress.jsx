@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../MostraLivro.module.scss";
+import styles from "./Progresso.module.scss";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
@@ -9,7 +9,6 @@ export default function Progress({ lidas, totais, setCompleta }) {
   let calc = Math.floor((lidas * 100) / totais);
 
   useEffect(() => {
-    // se o progresso for 100%, habilita o botao de completo
     if (lidas === totais) {
       setUnable(false);
     } else {
@@ -18,7 +17,10 @@ export default function Progress({ lidas, totais, setCompleta }) {
   }, [lidas, totais]);
 
   return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
+    <Box
+      sx={{ position: "relative", display: "inline-flex" }}
+      className={styles.grupoBotoes}
+    >
       <CircularProgress
         variant="determinate"
         size="10vh"

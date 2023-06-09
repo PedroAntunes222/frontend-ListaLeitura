@@ -14,7 +14,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import Livro from "../../class/livro";
-import Modal from "./Components/CompletaModal/Modal";
+import CompletaModal from "./Components/CompletaModal/CompletaModal";
 import AltPages from "./Components/AltPages/AltPages";
 import Progress from "./Components/Progress/Progress";
 
@@ -58,7 +58,7 @@ function MostraLivro() {
   return (
     <>
       {completa && (
-        <Modal
+        <CompletaModal
           livro={livro}
           lidas={paginasLidas}
           totais={paginasTotais}
@@ -143,7 +143,7 @@ function MostraLivro() {
 
             {!livro.completo && (
               <>
-                <AltPages 
+                <AltPages
                   livro={livro}
                   lidas={paginasLidas}
                   setPaginasLidas={setPaginasLidas}
@@ -151,13 +151,11 @@ function MostraLivro() {
                   setMessage={setMessage}
                 />
 
-                <div className={styles.grupoBotoes}>
-                  <Progress
-                    lidas={paginasLidas}
-                    totais={paginasTotais}
-                    setCompleta={setCompleta}
-                  />
-                </div>
+                <Progress
+                  lidas={paginasLidas}
+                  totais={paginasTotais}
+                  setCompleta={setCompleta}
+                />
               </>
             )}
           </div>
