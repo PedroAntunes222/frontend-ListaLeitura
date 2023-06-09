@@ -19,6 +19,7 @@ import TextField from "@mui/material/TextField";
 import SaveIcon from "@mui/icons-material/Save";
 import Livro from "../../class/livro";
 import Progress from "./Components/Progress/Progress";
+import Modal from "./Components/CompletaModal/Modal";
 
 function MostraLivro() {
   const { idLivro } = useParams();
@@ -88,60 +89,16 @@ function MostraLivro() {
     navigate("/lista");
   };
 
-  const completar = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const livroATL = new Livro(
-      idLivro,
-      livro.capa,
-      livro.titulo,
-      livro.subTitulo,
-      livro.generoPrincipal,
-      livro.generoSecundario,
-      livro.sinopse,
-      paginasLidas,
-      livro.paginasTotais,
-      rating,
-      true
-    );
-    putLivro(livroATL, authenticated)
-      .then(function (response) {
-        console.log(response);
-        setMessage(response.data);
-        setLoading(false);
-        setModal(true);
-        setCompleta(false);
-        navigate("/lista");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
   return (
     <>
       {completa && (
-        <div className={styles.modal}>
-          <div className={styles.complete}>
-            <p>Livro Completado</p>
-            <p>
-              {paginasLidas} / {paginasTotais}
-            </p>
-
-            <Stack spacing={1} className={styles.ratingLivro}>
-              <Rating
-                name="size-medium"
-                defaultValue={0}
-                precision={0.5}
-                value={rating || 0}
-                onChange={(e) => setRating(parseFloat(e.target.value))}
-              />
-            </Stack>
-            <Button variant="outlined" onClick={(e) => completar(e)}>
-              Completar
-            </Button>
-          </div>
-        </div>
+        <Modal
+          livro={livro}
+          lidas={paginasLidas}
+          totais={paginasTotais}
+          setLoading={setLoading}
+          setMessage={setMessage}
+        />
       )}
 
       {modal && (
@@ -248,7 +205,7 @@ function MostraLivro() {
                 </div>
 
                 <div className={styles.grupoBotoes}>
-                  <Progress 
+                  <Progress
                     lidas={paginasLidas}
                     totais={paginasTotais}
                     setCompleta={setCompleta}
