@@ -1,12 +1,10 @@
 // import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
-import { getLivro, putLivro } from "../../service/API";
+import React, { useState, useEffect } from "react";
+import { getLivro } from "../../service/API";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
 import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../context/auth";
-import Alertas from "../../components/Alertas/Alertas";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 
 import Fab from "@mui/material/Fab";
@@ -15,16 +13,14 @@ import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import SaveIcon from "@mui/icons-material/Save";
 import Livro from "../../class/livro";
-import Progress from "./Components/Progress/Progress";
 import Modal from "./Components/CompletaModal/Modal";
+import AltPages from "./Components/AltPages/AltPages";
+import Progress from "./Components/Progress/Progress";
 
 function MostraLivro() {
   const { idLivro } = useParams();
 
-  const { authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
 
@@ -35,8 +31,6 @@ function MostraLivro() {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [completa, setCompleta] = useState(false);
-  const [alert, setAlert] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -49,39 +43,11 @@ function MostraLivro() {
       .catch((error) => console.log(error));
   }, [idLivro]);
 
-  // Atualiza os estados (sem loop de get)
   useEffect(() => {
     setPaginasLidas(livro.paginasLidas);
     setPaginasTotais(livro.paginasTotais);
     setRating(livro.rating);
   }, [livro]);
-
-  const atlPages = (e) => {
-    e.preventDefault();
-    // setAlert(true);
-    const livroATL = new Livro(
-      idLivro,
-      livro.capa,
-      livro.titulo,
-      livro.subTitulo,
-      livro.sinopse,
-      livro.generoPrincipal,
-      livro.generoSecundario,
-      paginasLidas,
-      livro.paginasTotais,
-      livro.rating,
-      false
-    );
-    putLivro(livroATL, authenticated)
-      .then(function (response) {
-        console.log(response);
-        setMessage("Progresso atualizado");
-        setAlert(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   const fechaModal = (e) => {
     e.preventDefault();
@@ -108,12 +74,6 @@ function MostraLivro() {
             <Button onClick={(e) => fechaModal(e)}>OK</Button>
           </div>
         </div>
-      )}
-
-      {alert && <Alertas alerta={setAlert} message={message} cor="success" />}
-
-      {success && (
-        <Alertas alerta={setSuccess} message={message} cor="success" />
       )}
 
       {loading ? (
@@ -183,26 +143,13 @@ function MostraLivro() {
 
             {!livro.completo && (
               <>
-                <div className={styles.paginasGrid}>
-                  <TextField
-                    id="paginasLidas"
-                    autoComplete="off"
-                    value={paginasLidas || 0}
-                    className={styles.inputPage}
-                    onChange={(e) => setPaginasLidas(parseInt(e.target.value))}
-                  />
-
-                  <span> / </span>
-
-                  <p className={styles.totalPages}> {paginasTotais}</p>
-
-                  <Button
-                    size="small"
-                    endIcon={<SaveIcon />}
-                    onClick={(e) => atlPages(e)}
-                    className={styles.botaoAtl}
-                  />
-                </div>
+                <AltPages 
+                  livro={livro}
+                  lidas={paginasLidas}
+                  setPaginasLidas={setPaginasLidas}
+                  paginasTotais={paginasTotais}
+                  setMessage={setMessage}
+                />
 
                 <div className={styles.grupoBotoes}>
                   <Progress
