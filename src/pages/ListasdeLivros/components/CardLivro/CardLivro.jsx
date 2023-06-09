@@ -7,7 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import Progress from "../../../../components/Progress/Progress";
+import Progress from "../Progress/Progress";
 import DeleteButton from "../../../../components/DeleteButton/DeleteButton";
 
 function CardLivro({ livro, alert, loading, message, refresh }) {

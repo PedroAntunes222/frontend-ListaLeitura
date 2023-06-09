@@ -1,6 +1,6 @@
 // import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-import { getLivro, putLivro, delLivro } from "../../service/API";
+import { getLivro, putLivro } from "../../service/API";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
@@ -11,7 +11,6 @@ import DeleteButton from "../../components/DeleteButton/DeleteButton";
 
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Rating from "@mui/material/Rating";
@@ -62,21 +61,6 @@ function MostraLivro() {
     setPaginasTotais(livro.paginasTotais);
     setRating(livro.rating);
   }, [livro]);
-
-  const deletaLivro = (id, e) => {
-    e.preventDefault();
-    setLoading(true);
-    delLivro(id)
-      .then(function (response) {
-        console.log(response);
-        setMessage(response.data);
-        setLoading(false);
-        setModal(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   const atlPages = (e) => {
     e.preventDefault();
