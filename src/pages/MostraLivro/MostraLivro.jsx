@@ -1,14 +1,13 @@
 // import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { getLivro } from "../../service/API";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./MostraLivro.module.scss";
 import Loading from "../../components/Loading/Loading";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 
 import Fab from "@mui/material/Fab";
-import Button from "@mui/material/Button";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Rating from "@mui/material/Rating";
@@ -17,11 +16,11 @@ import Livro from "../../class/livro";
 import CompletaModal from "./Components/CompletaModal/CompletaModal";
 import AltPages from "./Components/AltPages/AltPages";
 import Progress from "./Components/Progress/Progress";
+import DeleteModal from "./Components/DeleteModal/DeleteModal";
 
 function MostraLivro() {
   const { idLivro } = useParams();
 
-  const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
 
   const [paginasTotais, setPaginasTotais] = useState(0);
@@ -49,12 +48,6 @@ function MostraLivro() {
     setRating(livro.rating);
   }, [livro]);
 
-  const fechaModal = (e) => {
-    e.preventDefault();
-    setModal(false);
-    navigate("/lista");
-  };
-
   return (
     <>
       {completa && (
@@ -63,17 +56,14 @@ function MostraLivro() {
           lidas={paginasLidas}
           totais={paginasTotais}
           setLoading={setLoading}
-          setMessage={setMessage}
         />
       )}
 
       {modal && (
-        <div className={styles.modal}>
-          <div>
-            <p>{message}</p>
-            <Button onClick={(e) => fechaModal(e)}>OK</Button>
-          </div>
-        </div>
+        <DeleteModal 
+          message={message}
+          setModal={setModal}
+        />
       )}
 
       {loading ? (
