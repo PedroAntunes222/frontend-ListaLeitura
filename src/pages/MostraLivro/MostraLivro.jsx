@@ -16,13 +16,11 @@ import Livro from "../../class/livro";
 import CompletaModal from "./Components/CompletaModal/CompletaModal";
 import AltPages from "./Components/AltPages/AltPages";
 import Progress from "./Components/Progress/Progress";
-import DeleteModal from "./Components/DeleteModal/DeleteModal";
+import Modal from "../../components/Modal/Modal";
 
 function MostraLivro() {
   const { idLivro } = useParams();
-
   const [livro, setLivro] = useState([]);
-
   const [paginasTotais, setPaginasTotais] = useState(0);
   const [paginasLidas, setPaginasLidas] = useState(0);
   const [rating, setRating] = useState(0);
@@ -59,12 +57,7 @@ function MostraLivro() {
         />
       )}
 
-      {modal && (
-        <DeleteModal 
-          message={message}
-          setModal={setModal}
-        />
-      )}
+      {modal && <Modal message={message} setModal={setModal} color={"#d32f2f"} />}
 
       {loading ? (
         <Loading />

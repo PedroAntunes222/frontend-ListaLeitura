@@ -1,9 +1,9 @@
 import React from 'react'
-import styles from './DeleteModal.module.scss'
+import styles from './Modal.module.scss'
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function DeleteModal({message, setModal}) {
+export default function Modal({message, setModal, color}) {
   const navigate = useNavigate();
     
   const fechaModal = (e) => {
@@ -14,7 +14,7 @@ export default function DeleteModal({message, setModal}) {
 
   return (
     <div className={styles.modal}>
-    <div>
+    <div style={{backgroundColor: color}}>
       <p>{message}</p>
       <Button onClick={(e) => fechaModal(e)}>OK</Button>
     </div>

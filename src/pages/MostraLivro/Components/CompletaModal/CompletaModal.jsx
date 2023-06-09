@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Livro from "../../../../class/livro";
 import AuthContext from "../../../../context/auth";
 
-export default function Modal({
+export default function CompletaModal({
   livro,
   lidas,
   totais,
