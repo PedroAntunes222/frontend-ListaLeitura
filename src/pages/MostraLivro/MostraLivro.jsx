@@ -17,11 +17,8 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
 import Livro from "../../class/livro";
+import Progress from "./Components/Progress/Progress";
 
 function MostraLivro() {
   const { idLivro } = useParams();
@@ -29,8 +26,6 @@ function MostraLivro() {
   const { authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const [livro, setLivro] = useState([]);
-  const [completo, setCompleto] = useState(false);
-  const [unable, setUnable] = useState(true);
 
   const [paginasTotais, setPaginasTotais] = useState(0);
   const [paginasLidas, setPaginasLidas] = useState(0);
@@ -74,7 +69,7 @@ function MostraLivro() {
       paginasLidas,
       livro.paginasTotais,
       livro.rating,
-      completo
+      false
     );
     putLivro(livroATL, authenticated)
       .then(function (response) {
@@ -107,7 +102,7 @@ function MostraLivro() {
       paginasLidas,
       livro.paginasTotais,
       rating,
-      completo
+      true
     );
     putLivro(livroATL, authenticated)
       .then(function (response) {
@@ -121,63 +116,6 @@ function MostraLivro() {
       .catch(function (error) {
         console.log(error);
       });
-  };
-
-  const CircularProgressWithLabel = () => {
-    let calc = Math.floor((paginasLidas * 100) / paginasTotais);
-
-    useEffect(() => {
-      // se o progresso for 100%, habilita o botao de completo
-      if (paginasLidas === paginasTotais) {
-        setUnable(false);
-        setCompleto(true);
-      } else {
-        setUnable(true);
-        setCompleto(false);
-      }
-    });
-
-    return (
-      <Box sx={{ position: "relative", display: "inline-flex" }}>
-        <CircularProgress
-          variant="determinate"
-          size="10vh"
-          value={calc}
-          color="success"
-        />
-
-        <Box
-          sx={{
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            onClick={(e) => setCompleta(true)}
-            endIcon={<TaskAltIcon />}
-            disabled={unable}
-            size="large"
-            color="success"
-            className={styles.botaoFormulario}
-          />
-        </Box>
-
-        <Typography
-          variant="caption"
-          component="div"
-          color="text.secondary"
-          className={styles.completePercent}
-        >
-          {`${calc}%`}
-        </Typography>
-      </Box>
-    );
   };
 
   return (
@@ -310,7 +248,11 @@ function MostraLivro() {
                 </div>
 
                 <div className={styles.grupoBotoes}>
-                  <CircularProgressWithLabel />
+                  <Progress 
+                    lidas={paginasLidas}
+                    totais={paginasTotais}
+                    setCompleta={setCompleta}
+                  />
                 </div>
               </>
             )}

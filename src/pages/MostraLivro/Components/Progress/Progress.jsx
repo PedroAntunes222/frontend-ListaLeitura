@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import styles from "../../MostraLivro.module.scss";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
-export default function Progress({lidas, totais, setUnable, unbale, setCompleto}) {
+export default function Progress({ lidas, totais, setCompleta }) {
+  const [unable, setUnable] = useState(true);
+
   let calc = Math.floor((lidas * 100) / totais);
 
   useEffect(() => {
     // se o progresso for 100%, habilita o botao de completo
     if (lidas === totais) {
       setUnable(false);
-      setCompleto(true);
     } else {
       setUnable(true);
-      setCompleto(false);
     }
-  });
+  }, [lidas, totais]);
 
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
