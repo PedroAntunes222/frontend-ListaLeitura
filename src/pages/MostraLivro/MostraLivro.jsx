@@ -18,7 +18,7 @@ import AltPages from "./Components/AltPages/AltPages";
 import Progress from "./Components/Progress/Progress";
 import Modal from "../../components/Modal/Modal";
 
-function MostraLivro() {
+export default function MostraLivro() {
   const { idLivro } = useParams();
   const [livro, setLivro] = useState([]);
   const [paginasTotais, setPaginasTotais] = useState(0);
@@ -147,5 +147,3 @@ function MostraLivro() {
     </>
   );
 }
-
-export default MostraLivro;

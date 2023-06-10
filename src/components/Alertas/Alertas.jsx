@@ -2,7 +2,7 @@ import React from 'react'
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 
-function Alertas({cor, message, alerta}) {
+export default function Alertas({cor, message, alerta}) {
 
   return (
     <Snackbar open={true} autoHideDuration={6000}>
@@ -19,5 +19,3 @@ function Alertas({cor, message, alerta}) {
       </Snackbar>
   )
 }
-
-export default Alertas

@@ -15,7 +15,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-function Login() {
+export default function Login() {
   const navigate = useNavigate();
   const { authenticated, setAuthenticated } = useContext(AuthContext);
   const [email, setEmail] = useState("pedro@gmail.com");
@@ -120,5 +120,3 @@ function Login() {
     </>
   );
 }
-
-export default Login;

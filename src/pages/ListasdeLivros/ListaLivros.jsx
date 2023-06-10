@@ -13,7 +13,7 @@ import Card from "@mui/material/Card";
 import AddIcon from "@mui/icons-material/Add";
 import Filtros from "./components/Filtros/Filtros";
 
-function ListaLivros() {
+export default function ListaLivros() {
   const { authenticated } = useContext(AuthContext);
   const [refresh, setRefresh] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -71,5 +71,3 @@ function ListaLivros() {
     </>
   );
 }
-
-export default ListaLivros;

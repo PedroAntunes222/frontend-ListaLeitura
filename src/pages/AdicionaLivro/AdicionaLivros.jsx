@@ -20,7 +20,7 @@ import Fab from "@mui/material/Fab";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import Livro from "../../class/livro";
 
-function ListagemLivros() {
+export default function ListagemLivros() {
   const { authenticated } = useContext(AuthContext);
   const [titulo, setTitulo] = useState("");
   const [subTitulo, setsubTitulo] = useState("");
@@ -200,5 +200,3 @@ function ListagemLivros() {
     </>
   );
 }
-
-export default ListagemLivros;

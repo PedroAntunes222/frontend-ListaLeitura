@@ -22,7 +22,7 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import Livro from "../../class/livro";
 
-function EditaLivro() {
+export default function EditaLivro() {
   const { idLivro } = useParams();
   const { authenticated } = useContext(AuthContext);
 
@@ -81,7 +81,7 @@ function EditaLivro() {
       rating,
       livro.completo
     );
-    console.log(livroATL)
+    console.log(livroATL);
     putLivro(livroATL, authenticated)
       .then((response) => {
         console.log(response);
@@ -228,5 +228,3 @@ function EditaLivro() {
     </>
   );
 }
-
-export default EditaLivro;

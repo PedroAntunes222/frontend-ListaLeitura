@@ -10,7 +10,7 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-function Header() {
+export default function Header() {
   const navigate = useNavigate();
   const { authenticated, setAuthenticated } = useContext(AuthContext);
   const [user, setUser] = useState("");
@@ -52,5 +52,3 @@ function Header() {
     </Box>
   );
 }
-
-export default Header;

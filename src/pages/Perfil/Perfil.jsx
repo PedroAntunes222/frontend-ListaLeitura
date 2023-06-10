@@ -11,7 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 
-function Perfil() {
+export default function Perfil() {
   const { authenticated } = useContext(AuthContext);
   const [user, setUser] = useState("");
 
@@ -39,9 +39,6 @@ function Perfil() {
     putUser(id, nome, email, senha)
       .then(function (response) {
         console.log(response);
-        // setMessage(response.data);
-        // setLoading(false);
-        // setModal(true);
         window.location.reload();
       })
       .catch(function (error) {
@@ -54,9 +51,6 @@ function Perfil() {
     delUser(id)
       .then(function (response) {
         console.log(response);
-        // setMessage(response.data);
-        // setLoading(false);
-        // setModal(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -106,7 +100,6 @@ function Perfil() {
         className={styles.input}
       />
 
-      {/* botao save */}
       <Fab
         variant="contained"
         onClick={(e) => atlUser(user.id, e)}
@@ -119,5 +112,3 @@ function Perfil() {
     </div>
   );
 }
-
-export default Perfil;

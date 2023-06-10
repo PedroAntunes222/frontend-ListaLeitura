@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 
-function Cadastro() {
+export default function Cadastro() {
   // const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
@@ -143,5 +143,3 @@ function Cadastro() {
     </>
   );
 }
-
-export default Cadastro;

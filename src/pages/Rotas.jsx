@@ -24,7 +24,6 @@ function Rotas() {
       <BrowserRouter>
         <AuthProvider>
           <Header />
-          <div>
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/cadastrar" element={<Cadastro />} />
@@ -34,7 +33,6 @@ function Rotas() {
               <Route path="/edit/:idLivro" element={<EditaLivro />} />
               <Route path="/meu-perfil" element={<Perfil />} />
             </Routes>
-          </div>
         </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>
