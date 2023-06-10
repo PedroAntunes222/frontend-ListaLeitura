@@ -30,7 +30,6 @@ export default function deleteButton({
   };
 
   return (
-    <div className={refresh && styles.length}>
       <Fab
         onClick={(e) => deletaLivro(e)}
         color="error"
@@ -38,6 +37,5 @@ export default function deleteButton({
       >
         <DeleteIcon />
       </Fab>
-    </div>
   );
 }
