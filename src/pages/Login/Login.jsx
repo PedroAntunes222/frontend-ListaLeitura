@@ -17,7 +17,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { authenticated, setAuthenticated } = useContext(AuthContext);
+  const { setAuthenticated } = useContext(AuthContext);
   const [email, setEmail] = useState("pedro@gmail.com");
   const [senha, setSenha] = useState("123");
   const [usuarios, setUsuarios] = useState("");
