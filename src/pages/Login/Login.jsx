@@ -4,9 +4,8 @@ import { getUsers } from "../../service/API";
 import AuthContext from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Alertas from "../../components/Alertas/Alertas";
 
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -59,18 +58,7 @@ export default function Login() {
 
   return (
     <>
-      <Snackbar open={alerta} autoHideDuration={6000}>
-        <Alert
-          variant="filled"
-          onClose={() => {
-            setAlerta(false);
-          }}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
-          {error}
-        </Alert>
-      </Snackbar>
+      {alerta && <Alertas alerta={setAlerta} message={error} cor={"error"} />}
 
       <div className={styles.loginPage}>
         <Box

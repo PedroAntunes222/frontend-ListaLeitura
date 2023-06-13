@@ -27,11 +27,14 @@ export default function Cadastro() {
   const enviaLogin = (e) => {
     e.preventDefault();
 
-    if( email === "" || nome === "" || senha1 === "" || senha2 === ""){   
+    if (email === "" || nome === "" || senha1 === "" || senha2 === "") {
       setMessage("Campos vazios");
       setAlert(true);
     } else {
-      if (senha1 !== senha2) {
+      if (!/^\S+@\S+$/.test(email)) {
+        setMessage("Email inválido");
+        setAlert(true);
+      } else if (senha1 !== senha2) {
         setMessage("Senhas diferentes");
         setAlert(true);
       } else {
@@ -48,25 +51,15 @@ export default function Cadastro() {
           });
       }
     }
- 
   };
 
   return (
     <>
+      {alert && <Alertas alerta={setAlert} message={message} cor="error" />}
 
-    {alert &&
-     <Alertas
-        alerta={setAlert}
-        message={message}
-        cor="error"
-      /> }
-
-    {success &&
-     <Alertas
-        alerta={setSuccess}
-        message={message}
-        cor="success"
-      /> }
+      {success && (
+        <Alertas alerta={setSuccess} message={message} cor="success" />
+      )}
 
       <div className={styles.cadastroPage}>
         <Box
@@ -75,7 +68,11 @@ export default function Cadastro() {
           autoComplete="off"
           className={styles.formularioLogin}
         >
-          <Fab component={Link} to={"/login"} className={styles.returnFlutuante}>
+          <Fab
+            component={Link}
+            to={"/login"}
+            className={styles.returnFlutuante}
+          >
             <ReplyAllOutlinedIcon />
           </Fab>
 
