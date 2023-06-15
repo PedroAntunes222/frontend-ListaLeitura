@@ -6,17 +6,17 @@ import { useNavigate } from 'react-router-dom';
 export default function Modal({message, setModal, color}) {
   const navigate = useNavigate();
     
-  const fechaModal = (e) => {
+  const closeModal = (e) => {
     e.preventDefault();
     setModal(false);
-    navigate("/lista");
+    navigate("/shelf");
   };
 
   return (
     <div className={styles.modal}>
     <div style={{backgroundColor: color}}>
       <p>{message}</p>
-      <Button onClick={(e) => fechaModal(e)}>OK</Button>
+      <Button onClick={(e) => closeModal(e)}>OK</Button>
     </div>
   </div>
   )

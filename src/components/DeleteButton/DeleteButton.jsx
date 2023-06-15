@@ -6,21 +6,21 @@ import Fab from "@mui/material/Fab";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function deleteButton({
-  livroID,
-  alert,
+  bookID,
+  setAlert,
   loading,
   message,
   refresh,
 }) {
-  const deletaLivro = (e) => {
+  const deleteLivro = (e) => {
     e.preventDefault();
     loading(true);
-    delLivro(livroID)
+    delLivro(bookID)
       .then(function (response) {
         console.log(response);
         message(response.data);
         loading(false);
-        alert(true);
+        setAlert(true);
         refresh && refresh();
       })
       .catch(function (error) {
@@ -31,9 +31,9 @@ export default function deleteButton({
 
   return (
       <Fab
-        onClick={(e) => deletaLivro(e)}
+        onClick={(e) => deleteLivro(e)}
         color="error"
-        className={refresh && styles.botaoDelete}
+        className={refresh && styles.buttonDelete}
       >
         <DeleteIcon />
       </Fab>

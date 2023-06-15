@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import styles from "./login.module.scss";
+import styles from "./Login.module.scss";
 import { getUsers } from "../../service/API";
 import AuthContext from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Alertas from "../../components/Alertas/Alertas";
+import Alerts from "../../components/Alerts/Alerts";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -50,7 +50,7 @@ export default function Login() {
         } else {
           localStorage.setItem("login", user[0].id); // nao perder ao atualizar a página
           setAuthenticated(user[0].id);
-          navigate("/lista");
+          navigate("/shelf");
         }
       }
     } else console.log("backend está dormindo. Aguarde");
@@ -58,14 +58,14 @@ export default function Login() {
 
   return (
     <>
-      {alerta && <Alertas alerta={setAlerta} message={error} cor={"error"} />}
+      {alerta && <Alerts alerta={setAlerta} message={error} cor={"error"} />}
 
       <div className={styles.loginPage}>
         <Box
           component="form"
           noValidate
           autoComplete="off"
-          className={styles.formularioLogin}
+          className={styles.loginForm}
         >
           <TextField
             className={styles.inputLogin}

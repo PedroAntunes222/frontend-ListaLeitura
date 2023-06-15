@@ -1,5 +1,4 @@
 import axios from "axios";
-// import Livro from "../class/livro";
 
 // const url = "https://backend-listaleitura-production.up.railway.app/";
 const url = "http://localhost:5000/";
