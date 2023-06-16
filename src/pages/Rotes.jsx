@@ -9,7 +9,7 @@ import SignIn from "./Login/Signin/Signin";
 import AddBook from "./AddBook/AddBook";
 import EditBook from "./EditBook/EditBook";
 import BookShelf from "./BookShelf/BookShelf";
-import ViewBook from "./ShowBook/ViewBook";
+import ViewBook from "./ViewBook/ViewBook";
 import Profile from "./Profile/Profile";
 
 export default function Rotas() {

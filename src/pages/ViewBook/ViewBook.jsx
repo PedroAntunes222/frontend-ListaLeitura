@@ -7,6 +7,7 @@ import styles from "./ViewBook.module.scss";
 import Loading from "../../components/Loading/Loading";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import Book from "../../class/book";
+import bookCover from "../../functions/bookCover";
 
 import Fab from "@mui/material/Fab";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
@@ -57,7 +58,9 @@ export default function ViewBook() {
         />
       )}
 
-      {modal && <Modal message={message} setModal={setModal} color={"#d32f2f"} />}
+      {modal && (
+        <Modal message={message} setModal={setModal} color={"#d32f2f"} />
+      )}
 
       {loading ? (
         <Loading />
@@ -72,14 +75,7 @@ export default function ViewBook() {
               <ReplyAllOutlinedIcon />
             </Fab>
 
-            {!livro.capa ? (
-              <img
-                src="https://i.pinimg.com/564x/2a/ae/b8/2aaeb8b8c0f40e196b926016a04e591d.jpg"
-                alt={`${livro.titulo} no cover`}
-              />
-            ) : (
-              <img src={livro.capa} alt={`${livro.titulo} cover`} />
-            )}
+            <img src={bookCover(livro.capa)} alt={`${livro.titulo} book cover`} />
           </div>
 
           <div className={styles.infosLivro}>
