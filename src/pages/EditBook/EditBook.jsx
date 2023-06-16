@@ -3,9 +3,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { getLivro, putLivro } from "../../service/API";
 import { Link, useParams } from "react-router-dom";
 import styles from "./EditBook.module.scss";
-import Loading from "../../components/Loading/Loading";
-import AuthContext from "../../context/auth";
-import Alerts from "../../components/Alerts/Alerts";
+import AuthContext from "../../context/Auth/auth";
+import AlertContext from "../../context/Alert/alert";
 import BookRating from "../../components/BookRating/BookRating";
 import { generos } from "../../service/Generos";
 
@@ -22,6 +21,7 @@ import Book from "../../class/book";
 
 export default function EditBook() {
   const { bookID } = useParams();
+  const { setAlert, setMessage } = useContext(AlertContext);
   const { authenticated } = useContext(AuthContext);
 
   const [livro, setLivro] = useState([]);
@@ -34,10 +34,6 @@ export default function EditBook() {
   const [capa, setCapa] = useState("");
   const [rating, setRating] = useState("");
   const [completo, setCompleto] = useState("");
-
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     // setLoading(true);
@@ -64,7 +60,6 @@ export default function EditBook() {
 
   const atlLivro = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const livroATL = new Book(
       bookID,
@@ -83,9 +78,8 @@ export default function EditBook() {
     putLivro(livroATL, authenticated)
       .then((response) => {
         console.log(response);
-        setMessage(response.data);
-        setLoading(false);
-        setSuccess(true);
+        setMessage("Livro atualizado");
+        setAlert(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -93,23 +87,16 @@ export default function EditBook() {
   };
 
   return (
-    <>
-      {success && (
-        <Alerts alerta={setSuccess} message={message} cor="success" />
-      )}
+    <div className={styles.cardInfo}>
+      <h1 className={styles.title}>Editar Livro</h1>
 
-      {loading && <Loading />}
-
-      <div className={styles.cardInfo}>
-        <h1 className={styles.title}>Editar Livro</h1>
-
-        <Box
-          component="form"
-          noValidate
-          autoComplete="off"
-          className={styles.bookInfos}
-        >
-          <div className={styles.ratingBook}>
+      <Box
+        component="form"
+        noValidate
+        autoComplete="off"
+        className={styles.bookInfos}
+      >
+        <div className={styles.ratingBook}>
           {completo && (
             <BookRating
               rating={rating}
@@ -117,110 +104,109 @@ export default function EditBook() {
               readOnly={false}
             />
           )}
+        </div>
+
+        {/* botao return */}
+        <Fab
+          component={Link}
+          to={`/viewBook/${livro.id}`}
+          className={styles.returnToShelf}
+        >
+          <ReplyAllOutlinedIcon />
+        </Fab>
+
+        {/* botao save */}
+        <Fab
+          onClick={(e) => atlLivro(e)}
+          color="success"
+          className={styles.saveBook}
+        >
+          <SaveIcon />
+        </Fab>
+
+        <div>
+          <TextField
+            id="tituloLivro"
+            label="Titulo"
+            variant="outlined"
+            value={titulo || ""}
+            onChange={(e) => setTitulo(e.target.value)}
+            className={styles.input}
+          />
+
+          <TextField
+            id="subTitulo-livro"
+            label="subTitulo"
+            variant="outlined"
+            value={subTitulo || ""}
+            onChange={(e) => setsubTitulo(e.target.value)}
+            className={styles.input}
+          />
+
+          <div className={styles.typesGrid}>
+            <FormControl fullWidth className={styles.input}>
+              <InputLabel id="select-label">Gênero 1</InputLabel>
+              <Select
+                id="generoPrincipal-label"
+                value={generoPrincipal || ""}
+                label="Gênero 1"
+                onChange={(e) => setgeneroPrincipal(e.target.value)}
+              >
+                {generos.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth className={styles.input}>
+              <InputLabel id="select-label">Gênero 2</InputLabel>
+              <Select
+                id="generoSecundario-label"
+                value={generoSecundario || ""}
+                label="Gênero 2"
+                onChange={(e) => setgeneroSecundario(e.target.value)}
+              >
+                {generos.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
+        </div>
 
-          {/* botao return */}
-          <Fab
-            component={Link}
-            to={`/viewBook/${livro.id}`}
-            className={styles.returnToShelf}
-          >
-            <ReplyAllOutlinedIcon />
-          </Fab>
+        <div>
+          <TextField
+            id="capa"
+            label="Capa"
+            variant="outlined"
+            value={capa || ""}
+            onChange={(e) => setCapa(e.target.value)}
+            className={styles.input}
+          />
 
-          {/* botao save */}
-          <Fab
-            onClick={(e) => atlLivro(e)}
-            color="success"
-            className={styles.saveBook}
-          >
-            <SaveIcon />
-          </Fab>
+          <TextField
+            id="paginas"
+            label="N° de Páginas"
+            variant="outlined"
+            value={paginasTotais || ""}
+            onChange={(e) => setPaginasTotais(e.target.value)}
+          />
 
-          <div>
-            <TextField
-              id="tituloLivro"
-              label="Titulo"
-              variant="outlined"
-              value={titulo || ""}
-              onChange={(e) => setTitulo(e.target.value)}
-              className={styles.input}
-            />
-
-            <TextField
-              id="subTitulo-livro"
-              label="subTitulo"
-              variant="outlined"
-              value={subTitulo || ""}
-              onChange={(e) => setsubTitulo(e.target.value)}
-              className={styles.input}
-            />
-
-            <div className={styles.typesGrid}>
-              <FormControl fullWidth className={styles.input}>
-                <InputLabel id="select-label">Gênero 1</InputLabel>
-                <Select
-                  id="generoPrincipal-label"
-                  value={generoPrincipal || ""}
-                  label="Gênero 1"
-                  onChange={(e) => setgeneroPrincipal(e.target.value)}
-                >
-                  {generos.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <FormControl fullWidth className={styles.input}>
-                <InputLabel id="select-label">Gênero 2</InputLabel>
-                <Select
-                  id="generoSecundario-label"
-                  value={generoSecundario || ""}
-                  label="Gênero 2"
-                  onChange={(e) => setgeneroSecundario(e.target.value)}
-                >
-                  {generos.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-          </div>
-
-          <div>
-            <TextField
-              id="capa"
-              label="Capa"
-              variant="outlined"
-              value={capa || ""}
-              onChange={(e) => setCapa(e.target.value)}
-              className={styles.input}
-            />
-
-            <TextField
-              id="paginas"
-              label="N° de Páginas"
-              variant="outlined"
-              value={paginasTotais || ""}
-              onChange={(e) => setPaginasTotais(e.target.value)}
-            />
-
-            <TextField
-              id="nomeSinopse"
-              label="sinopse"
-              variant="outlined"
-              multiline
-              value={sinopse || ""}
-              onChange={(e) => setSinopse(e.target.value)}
-              className={styles.input}
-            />
-          </div>
-        </Box>
-      </div>
-    </>
+          <TextField
+            id="nomeSinopse"
+            label="sinopse"
+            variant="outlined"
+            multiline
+            value={sinopse || ""}
+            onChange={(e) => setSinopse(e.target.value)}
+            className={styles.input}
+          />
+        </div>
+      </Box>
+    </div>
   );
 }

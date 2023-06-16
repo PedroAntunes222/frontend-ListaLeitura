@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { getUser } from "../../service/API";
-import AuthContext from "../../context/auth";
+import AuthContext from "../../context/Auth/auth";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,7 @@ export default function Header() {
         <div className={styles.headerBar}>
           <Stack
             component={Link}
-            to="/meu-perfil"
+            to="/my-profile"
             direction="row"
             spacing={2}
             className={styles.headerProfile}

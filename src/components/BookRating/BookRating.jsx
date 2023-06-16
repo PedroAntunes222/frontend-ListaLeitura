@@ -2,7 +2,7 @@ import React from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 
-export default function BookRating({rating, setRating, readOnly}) {
+export default function BookRating({rating, setRating, readOnly=false}) {
   return (
     <Stack spacing={1}>
       <Rating

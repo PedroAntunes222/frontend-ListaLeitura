@@ -2,7 +2,7 @@ import React from "react";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 
-export default function Alerts({ color, message, setAlert }) {
+export default function Alerts({ severity, message, setAlert }) {
   return (
     <Snackbar open={true} autoHideDuration={6000}>
       <Alert
@@ -10,7 +10,7 @@ export default function Alerts({ color, message, setAlert }) {
         onClose={() => {
           setAlert(false);
         }}
-        severity={color}
+        severity={severity}
         sx={{ width: "100%" }}
       >
         {message}

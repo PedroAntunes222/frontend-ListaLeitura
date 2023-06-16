@@ -1,8 +1,7 @@
 import React, { useState, createContext } from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "../pages/Login/Login";
-import Signin from "../pages/Login/Signin/Signin";
-import Header from "../components/Header/Header";
+import Login from "../../pages/Login/Login";
+import Signin from "../../pages/Login/Signin/Signin";
 
 const AuthContext = createContext({
   authenticated: 0,
@@ -18,13 +17,10 @@ export const AuthProvider = ({ children }) => {
       {authenticated > 0 ? (
         children
       ) : (
-        <>
-          <Header />
           <Routes>
             <Route path="*" element={<Login />} />
             <Route path="/cadastrar" element={<Signin />} />
           </Routes>
-        </>
       )}
     </AuthContext.Provider>
   );

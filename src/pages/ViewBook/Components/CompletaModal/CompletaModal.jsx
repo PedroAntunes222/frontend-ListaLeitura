@@ -1,16 +1,17 @@
 import React, { useContext, useState } from "react";
 import styles from "./CompletaModal.module.scss";
 import { putLivro } from "../../../../service/API";
-import { Button, Rating, Stack } from "@mui/material";
+import BookRating from "../../../../components/BookRating/BookRating";
+
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Book from "../../../../class/book";
-import AuthContext from "../../../../context/auth";
+import AuthContext from "../../../../context/Auth/auth";
 
 export default function CompletaModal({
   livro,
   lidas,
-  totais,
-  setLoading
+  totais
 }) {
   const { authenticated } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
@@ -18,7 +19,6 @@ export default function CompletaModal({
 
   const completar = (e) => {
     e.preventDefault();
-    setLoading(true);
     const livroATL = new Book(
       livro.id,
       livro.capa,
@@ -33,11 +33,11 @@ export default function CompletaModal({
       true
     );
     putLivro(livroATL, authenticated)
-      .then(function (response) {
+      .then((response) => {
         console.log(response);
-        navigate("/lista");
+        navigate("/shelf");
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -50,15 +50,8 @@ export default function CompletaModal({
           {lidas} / {totais}
         </p>
 
-        <Stack spacing={1} className={styles.ratingLivro}>
-          <Rating
-            name="size-medium"
-            defaultValue={0}
-            precision={0.5}
-            value={rating || 0}
-            onChange={(e) => setRating(parseFloat(e.target.value))}
-          />
-        </Stack>
+        <BookRating rating={rating} setRating={setRating} />
+
         <Button variant="outlined" onClick={(e) => completar(e)}>
           Completar
         </Button>

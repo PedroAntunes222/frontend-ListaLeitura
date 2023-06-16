@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styles from "./AltPages.module.scss";
 import Book from "../../../../class/book";
 import { putLivro } from "../../../../service/API";
-import AuthContext from "../../../../context/auth";
+import AuthContext from "../../../../context/Auth/auth";
+import AlertContext from "../../../../context/Alert/alert";
+
 import { Button, TextField } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import Alerts from "../../../../components/Alerts/Alerts";
 
 export default function AltPages({
   livro,
@@ -14,8 +15,7 @@ export default function AltPages({
   paginasTotais,
 }) {
   const { authenticated } = useContext(AuthContext);
-  const [alert, setAlert] = useState();
-  const [message, setMessage] = useState("");
+  const { setAlert, setMessage } = useContext(AlertContext);
 
   const atlPages = (e) => {
     e.preventDefault();
@@ -44,29 +44,25 @@ export default function AltPages({
   };
 
   return (
-    <>
-      {alert && <Alerts alerta={setAlert} message={message} cor="success" />}
+    <div className={styles.paginasGrid}>
+      <TextField
+        id="paginasLidas"
+        autoComplete="off"
+        value={lidas || 0}
+        className={styles.inputPage}
+        onChange={(e) => setPaginasLidas(parseInt(e.target.value))}
+      />
 
-      <div className={styles.paginasGrid}>
-        <TextField
-          id="paginasLidas"
-          autoComplete="off"
-          value={lidas || 0}
-          className={styles.inputPage}
-          onChange={(e) => setPaginasLidas(parseInt(e.target.value))}
-        />
+      <span> / </span>
 
-        <span> / </span>
+      <p className={styles.totalPages}> {paginasTotais}</p>
 
-        <p className={styles.totalPages}> {paginasTotais}</p>
-
-        <Button
-          size="small"
-          endIcon={<SaveIcon />}
-          onClick={(e) => atlPages(e)}
-          className={styles.botaoAtl}
-        />
-      </div>
-    </>
+      <Button
+        size="small"
+        endIcon={<SaveIcon />}
+        onClick={(e) => atlPages(e)}
+        className={styles.botaoAtl}
+      />
+    </div>
   );
 }

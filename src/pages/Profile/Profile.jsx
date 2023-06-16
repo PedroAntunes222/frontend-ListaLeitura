@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { getUser, putUser, delUser } from "../../service/API";
-import AuthContext from "../../context/auth";
+import AuthContext from "../../context/Auth/auth";
 import { Link } from "react-router-dom";
 import styles from "./Profile.module.scss";
 
@@ -59,7 +59,7 @@ export default function Profile() {
 
   return (
     <div className={styles.perfilInfos}>
-      <Fab component={Link} to={"/lista"} className={styles.returnFlutuante}>
+      <Fab component={Link} to={"/shelf"} className={styles.returnFlutuante}>
         <ReplyAllOutlinedIcon />
       </Fab>
 

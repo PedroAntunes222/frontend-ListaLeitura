@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "../context/auth";
+import { AuthProvider } from "../context/Auth/auth";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { AlertProvider } from "../context/Alert/alert";
 
 import Header from "../components/Header/Header";
 import Login from "./Login/Login";
@@ -22,6 +23,7 @@ export default function Rotas() {
   return (
     <ThemeProvider theme={darkTheme}>
       <BrowserRouter>
+      <AlertProvider>
         <AuthProvider>
           <Header />
             <Routes>
@@ -34,6 +36,7 @@ export default function Rotas() {
               <Route path="/my-profile" element={<Profile />} />
             </Routes>
         </AuthProvider>
+        </AlertProvider>
       </BrowserRouter>
     </ThemeProvider>
   );

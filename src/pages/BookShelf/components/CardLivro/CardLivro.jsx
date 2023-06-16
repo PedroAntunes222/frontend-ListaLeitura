@@ -12,9 +12,6 @@ import DeleteButton from "../../../../components/DeleteButton/DeleteButton";
 
 export default function CardLivro({
   livro,
-  setAlert,
-  loading,
-  message,
   refresh,
 }) {
   const {
@@ -42,9 +39,6 @@ export default function CardLivro({
         <CardContent className={styles.cardInfo}>
           <DeleteButton
             bookID={id}
-            setAlert={setAlert}
-            loading={loading}
-            message={message}
             refresh={refresh}
           />
 

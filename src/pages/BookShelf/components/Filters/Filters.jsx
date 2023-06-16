@@ -61,7 +61,7 @@ export default function Filtros({ livros, setFiltered }) {
           id="outlined-select-currency"
           className={styles.searchBar}
           autoComplete="off"
-          label="search"
+          label="Pesquisa"
           value={search || ""}
           onChange={(e) => setSearch(e.target.value)}
         />

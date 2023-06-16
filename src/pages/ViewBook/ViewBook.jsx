@@ -4,7 +4,6 @@ import { getLivro } from "../../service/API";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./ViewBook.module.scss";
-import Loading from "../../components/Loading/Loading";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import Book from "../../class/book";
 import bookCover from "../../functions/bookCover";
@@ -24,18 +23,15 @@ export default function ViewBook() {
   const [paginasTotais, setPaginasTotais] = useState(0);
   const [paginasLidas, setPaginasLidas] = useState(0);
   const [rating, setRating] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [completa, setCompleta] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     getLivro(bookID)
       .then((response) => {
-        const livroteste = Book.fromMap(response.data);
-        setLivro(livroteste);
-        setLoading(false);
+        const livroClass = Book.fromMap(response.data);
+        setLivro(livroClass);
       })
       .catch((error) => console.log(error));
   }, [bookID]);
@@ -53,7 +49,6 @@ export default function ViewBook() {
           livro={livro}
           lidas={paginasLidas}
           totais={paginasTotais}
-          setLoading={setLoading}
         />
       )}
 
@@ -61,77 +56,65 @@ export default function ViewBook() {
         <Modal message={message} setModal={setModal} color={"#d32f2f"} />
       )}
 
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className={styles.cardInfo}>
-          <div className={styles.coverLivro}>
-            <Fab
-              component={Link}
-              to="/shelf"
-              className={styles.returnFlutuante}
-            >
-              <ReplyAllOutlinedIcon />
-            </Fab>
+      <div className={styles.cardInfo}>
+        <div className={styles.coverLivro}>
+          <Fab component={Link} to="/shelf" className={styles.returnFlutuante}>
+            <ReplyAllOutlinedIcon />
+          </Fab>
 
-            <img
-              src={bookCover(livro.capa)}
-              alt={`${livro.titulo} book cover`}
+          <img src={bookCover(livro.capa)} alt={`${livro.titulo} book cover`} />
+        </div>
+
+        <div className={styles.infosLivro}>
+          {livro.completo && <BookRating rating={rating} readOnly={true} />}
+
+          <div className={styles.fabGroup}>
+            <DeleteButton
+              bookID={livro.id}
+              alert={setModal}
+              message={setMessage}
             />
+
+            <Fab component={Link} to={`/editBook/${livro.id}`}>
+              <EditOutlinedIcon />
+            </Fab>
           </div>
+          <div className={styles.titulos}>
+            <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
 
-          <div className={styles.infosLivro}>
-            {livro.completo && <BookRating rating={rating} readOnly={true} />}
-
-            <div className={styles.fabGroup}>
-              <DeleteButton
-                bookID={livro.id}
-                alert={setModal}
-                loading={setLoading}
-                message={setMessage}
-              />
-
-              <Fab component={Link} to={`/editBook/${livro.id}`}>
-                <EditOutlinedIcon />
-              </Fab>
-            </div>
-            <div className={styles.titulos}>
-              <h1 className={styles.tituloLivro}>{livro.titulo}</h1>
-
-              {livro.subTitulo !== "" && (
-                <h3 className={styles.subTituloLivro}>{livro.subTitulo}</h3>
-              )}
-            </div>
-
-            <div className={styles.generosLivro}>
-              <h4>{livro.generoPrincipal}</h4>
-              {livro.generoSecundario !== "" && (
-                <h4> / {livro.generoSecundario} </h4>
-              )}
-            </div>
-
-            <p className={styles.sinopseLivro}> {livro.sinopse} </p>
-
-            {!livro.completo && (
-              <>
-                <AltPages
-                  livro={livro}
-                  lidas={paginasLidas}
-                  setPaginasLidas={setPaginasLidas}
-                  paginasTotais={paginasTotais}
-                  setMessage={setMessage}
-                />
-
-                <Progress
-                  lidas={paginasLidas}
-                  totais={paginasTotais}
-                  setCompleta={setCompleta}
-                />
-              </>
+            {livro.subTitulo !== "" && (
+              <h3 className={styles.subTituloLivro}>{livro.subTitulo}</h3>
             )}
           </div>
+
+          <div className={styles.generosLivro}>
+            <h4>{livro.generoPrincipal}</h4>
+            {livro.generoSecundario !== "" && (
+              <h4> / {livro.generoSecundario} </h4>
+            )}
+          </div>
+
+          <p className={styles.sinopseLivro}> {livro.sinopse} </p>
+
+          {!livro.completo && (
+            <>
+              <AltPages
+                livro={livro}
+                lidas={paginasLidas}
+                setPaginasLidas={setPaginasLidas}
+                paginasTotais={paginasTotais}
+                setMessage={setMessage}
+              />
+
+              <Progress
+                lidas={paginasLidas}
+                totais={paginasTotais}
+                setCompleta={setCompleta}
+              />
+            </>
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 }
