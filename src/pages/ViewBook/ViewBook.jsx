@@ -8,12 +8,11 @@ import Loading from "../../components/Loading/Loading";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import Book from "../../class/book";
 import bookCover from "../../functions/bookCover";
+import BookRating from "../../components/BookRating/BookRating";
 
 import Fab from "@mui/material/Fab";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
 import CompletaModal from "./Components/CompletaModal/CompletaModal";
 import AltPages from "./Components/AltPages/AltPages";
 import Progress from "./Components/Progress/Progress";
@@ -75,21 +74,14 @@ export default function ViewBook() {
               <ReplyAllOutlinedIcon />
             </Fab>
 
-            <img src={bookCover(livro.capa)} alt={`${livro.titulo} book cover`} />
+            <img
+              src={bookCover(livro.capa)}
+              alt={`${livro.titulo} book cover`}
+            />
           </div>
 
           <div className={styles.infosLivro}>
-            {livro.completo && (
-              <Stack spacing={1} className={styles.ratingLivro}>
-                <Rating
-                  name="size-medium"
-                  defaultValue={0}
-                  precision={0.5}
-                  value={rating || 0}
-                  readOnly
-                />
-              </Stack>
-            )}
+            {livro.completo && <BookRating rating={rating} readOnly={true} />}
 
             <div className={styles.fabGroup}>
               <DeleteButton

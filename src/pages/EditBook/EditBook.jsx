@@ -3,10 +3,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { getLivro, putLivro } from "../../service/API";
 import { Link, useParams } from "react-router-dom";
 import styles from "./EditBook.module.scss";
-// import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import AuthContext from "../../context/auth";
 import Alerts from "../../components/Alerts/Alerts";
+import BookRating from "../../components/BookRating/BookRating";
 import { generos } from "../../service/Generos";
 
 import Fab from "@mui/material/Fab";
@@ -18,8 +18,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
-import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
 import Book from "../../class/book";
 
 export default function EditBook() {
@@ -111,6 +109,16 @@ export default function EditBook() {
           autoComplete="off"
           className={styles.bookInfos}
         >
+          <div className={styles.ratingBook}>
+          {completo && (
+            <BookRating
+              rating={rating}
+              setRating={setRating}
+              readOnly={false}
+            />
+          )}
+          </div>
+
           {/* botao return */}
           <Fab
             component={Link}
@@ -128,18 +136,6 @@ export default function EditBook() {
           >
             <SaveIcon />
           </Fab>
-
-          {completo && (
-            <Stack spacing={1} className={styles.ratingBook}>
-              <Rating
-                name="size-medium"
-                defaultValue={0}
-                precision={0.5}
-                value={rating || 0}
-                onChange={(e) => setRating(parseFloat(e.target.value))}
-              />
-            </Stack>
-          )}
 
           <div>
             <TextField

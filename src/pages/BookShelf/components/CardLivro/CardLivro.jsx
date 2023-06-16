@@ -2,12 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./CardLivro.module.scss";
 import bookCover from "../../../../functions/bookCover";
+import BookRating from "../../../../components/BookRating/BookRating";
 
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
 import Progress from "../Progress/Progress";
 import DeleteButton from "../../../../components/DeleteButton/DeleteButton";
 
@@ -61,18 +60,7 @@ export default function CardLivro({
 
           <div className={styles.cardText}>
             <h4 className={styles.title}>{titulo}</h4>
-            {completo && (
-              <Stack spacing={1} className={styles.ratingLivro}>
-                <Rating
-                  readOnly
-                  name="size-medium"
-                  defaultValue={0}
-                  precision={0.5}
-                  value={rating || 0}
-                  sx={{ justifyContent: "center" }}
-                />
-              </Stack>
-            )}
+            {completo && <BookRating rating={rating} readOnly={true} />}
           </div>
         </CardContent>
       </Link>
