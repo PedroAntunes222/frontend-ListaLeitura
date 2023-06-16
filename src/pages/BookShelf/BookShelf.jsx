@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./BookShelf.module.scss";
-import { getLivros } from "../../service/API";
+import getBooks from "../../functions/API/Book/getBooks";
 import CardBook from "./components/CardBook/CardBook";
 import AuthContext from "../../context/Auth/auth";
 
@@ -18,7 +18,7 @@ export default function BookShelf() {
   const [filtered, setFiltered] = useState([]);
 
   useEffect(() => {
-    getLivros(authenticated, setLivros);
+    getBooks(authenticated, setLivros);
   }, [refresh, authenticated]);
 
   const refreshList = () => {

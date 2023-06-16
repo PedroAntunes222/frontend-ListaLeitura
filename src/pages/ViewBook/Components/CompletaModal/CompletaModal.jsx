@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styles from "./CompletaModal.module.scss";
-import { putLivro } from "../../../../service/API";
+import putBook from "../../../../functions/API/Book/putBook";
 import BookRating from "../../../../components/BookRating/BookRating";
 
 import { Button } from "@mui/material";
@@ -8,11 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Book from "../../../../class/book";
 import AuthContext from "../../../../context/Auth/auth";
 
-export default function CompletaModal({
-  livro,
-  lidas,
-  totais
-}) {
+export default function CompletaModal({ livro, lidas, totais }) {
   const { authenticated } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const navigate = useNavigate();
@@ -32,7 +28,7 @@ export default function CompletaModal({
       rating,
       true
     );
-    putLivro(livroATL, authenticated)
+    putBook(livroATL, authenticated)
       .then((response) => {
         console.log(response);
         navigate("/shelf");

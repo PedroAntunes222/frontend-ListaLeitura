@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styles from "./AltPages.module.scss";
 import Book from "../../../../class/book";
-import { putLivro } from "../../../../service/API";
+import putBook from "../../../../functions/API/Book/putBook";
 import AuthContext from "../../../../context/Auth/auth";
 import AlertContext from "../../../../context/Alert/alert";
 
@@ -15,7 +15,7 @@ export default function AltPages({
   paginasTotais,
 }) {
   const { authenticated } = useContext(AuthContext);
-  const { setAlert, setMessage } = useContext(AlertContext);
+  const { setAlert, setMessage, setSeverity } = useContext(AlertContext);
 
   const atlPages = (e) => {
     e.preventDefault();
@@ -32,10 +32,11 @@ export default function AltPages({
       livro.rating,
       false
     );
-    putLivro(livroATL, authenticated)
+    putBook(livroATL, authenticated)
       .then(function (response) {
         console.log(response);
         setMessage("Progresso atualizado");
+        setSeverity("success");
         setAlert(true);
       })
       .catch(function (error) {

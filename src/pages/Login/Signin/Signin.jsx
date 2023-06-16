@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styles from "./Signin.module.scss";
 import AlertContext from "../../../context/Alert/alert";
-import { addUser } from "../../../service/API";
+import addUser from "../../../functions/API/User/addUser";
 import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";

@@ -2,7 +2,7 @@ import React from "react";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 
-export default function Alerts({ severity, message, setAlert }) {
+export default function Alerts({ severity = "success", message, setAlert }) {
   return (
     <Snackbar open={true} autoHideDuration={6000}>
       <Alert

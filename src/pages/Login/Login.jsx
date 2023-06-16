@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./Login.module.scss";
-import { getUsers } from "../../service/API";
+import getUsers from "../../functions/API/User/getUsers";
 import AuthContext from "../../context/Auth/auth";
 import AlertContext from "../../context/Alert/alert";
 import { useNavigate } from "react-router-dom";

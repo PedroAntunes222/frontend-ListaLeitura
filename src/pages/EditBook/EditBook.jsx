@@ -1,6 +1,7 @@
 // import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-import { getLivro, putLivro } from "../../service/API";
+import getBook from "../../functions/API/Book/getBook";
+import putBook from "../../functions/API/Book/putBook";
 import { Link, useParams } from "react-router-dom";
 import styles from "./EditBook.module.scss";
 import AuthContext from "../../context/Auth/auth";
@@ -21,7 +22,7 @@ import Book from "../../class/book";
 
 export default function EditBook() {
   const { bookID } = useParams();
-  const { setAlert, setMessage } = useContext(AlertContext);
+  const { setAlert, setMessage, setSeverity } = useContext(AlertContext);
   const { authenticated } = useContext(AuthContext);
 
   const [livro, setLivro] = useState([]);
@@ -37,7 +38,7 @@ export default function EditBook() {
 
   useEffect(() => {
     // setLoading(true);
-    getLivro(bookID)
+    getBook(bookID)
       .then((response) => {
         console.log(response.data);
         setLivro(response.data);
@@ -60,7 +61,6 @@ export default function EditBook() {
 
   const atlLivro = (e) => {
     e.preventDefault();
-
     const livroATL = new Book(
       bookID,
       capa,
@@ -75,10 +75,11 @@ export default function EditBook() {
       livro.completo
     );
     console.log(livroATL);
-    putLivro(livroATL, authenticated)
+    putBook(livroATL, authenticated)
       .then((response) => {
         console.log(response);
         setMessage("Livro atualizado");
+        setSeverity("success");
         setAlert(true);
       })
       .catch(function (error) {

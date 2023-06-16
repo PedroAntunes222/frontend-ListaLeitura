@@ -1,5 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
-import { getUser, putUser, delUser } from "../../service/API";
+import getUser from "../../functions/API/User/getUser";
+import putUser from "../../functions/API/User/putUser";
+import delUser from "../../functions/API/User/delUser";
 import AuthContext from "../../context/Auth/auth";
 import { Link } from "react-router-dom";
 import styles from "./Profile.module.scss";

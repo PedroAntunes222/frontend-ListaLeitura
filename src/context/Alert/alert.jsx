@@ -6,7 +6,7 @@ const AlertContext = createContext();
 export const AlertProvider = ({ children }) => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
-  const [severity, setSeverity] = useState("success");
+  const [severity, setSeverity] = useState("");
 
   return (
     <AlertContext.Provider

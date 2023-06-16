@@ -1,6 +1,5 @@
-// import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { getLivro } from "../../service/API";
+import getBook from "../../functions/API/Book/getBook";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./ViewBook.module.scss";
@@ -28,7 +27,7 @@ export default function ViewBook() {
   const [completa, setCompleta] = useState(false);
 
   useEffect(() => {
-    getLivro(bookID)
+    getBook(bookID)
       .then((response) => {
         const livroClass = Book.fromMap(response.data);
         setLivro(livroClass);

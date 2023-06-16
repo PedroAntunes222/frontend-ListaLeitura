@@ -1,5 +1,5 @@
 import React from "react";
-import { delLivro } from "../../service/API";
+import delBook from "../../functions/API/Book/delBook";
 import styles from "./deleteButton.module.scss";
 import AlertContext from "../../context/Alert/alert";
 
@@ -12,7 +12,7 @@ export default function DeleteButton({ bookID, refresh }) {
 
   const deleteLivro = (e) => {
     e.preventDefault();
-    delLivro(bookID)
+    delBook(bookID)
       .then(function (response) {
         console.log(response);
         setMessage("Livro deletado");

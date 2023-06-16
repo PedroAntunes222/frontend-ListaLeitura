@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { getUser } from "../../service/API";
+import getUser from "../../functions/API/User/getUser";
 import AuthContext from "../../context/Auth/auth";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";

@@ -2,7 +2,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AddBook.module.scss";
-import { addLivro } from "../../service/API";
+import addBook from "../../functions/API/Book/addBook";
 import AuthContext from "../../context/Auth/auth";
 import AlertContext from "../../context/Alert/alert";
 import { generos } from "../../service/Generos";
@@ -21,7 +21,7 @@ import Book from "../../class/book";
 
 export default function AddBook() {
   const { authenticated } = useContext(AuthContext);
-  const { setAlert, setMessage } = useContext(AlertContext);
+  const { setAlert, setMessage, setSeverity } = useContext(AlertContext);
 
   const [titulo, setTitulo] = useState("");
   const [subTitulo, setsubTitulo] = useState("");
@@ -56,10 +56,11 @@ export default function AddBook() {
       0,
       0
     );
-    addLivro(novoLivro, authenticated)
+    addBook(novoLivro, authenticated)
       .then(function (response) {
         console.log(response);
         setMessage("Livro adicionado");
+        setSeverity("success");
         setAlert(true);
         limpaForm();
       })
