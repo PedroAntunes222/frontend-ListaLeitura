@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./CardLivro.module.scss";
-import bookCover from "../../../../functions/bookCover";
+import styles from "./CardBook.module.scss";
+import bookCover from "../../../../functions/BookCover/bookCover";
 import BookRating from "../../../../components/BookRating/BookRating";
 
 import Card from "@mui/material/Card";
@@ -10,7 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import Progress from "../Progress/Progress";
 import DeleteButton from "../../../../components/DeleteButton/DeleteButton";
 
-export default function CardLivro({
+export default function CardBook({
   livro,
   refresh,
 }) {

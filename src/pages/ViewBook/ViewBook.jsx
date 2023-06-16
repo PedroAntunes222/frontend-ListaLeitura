@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import styles from "./ViewBook.module.scss";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import Book from "../../class/book";
-import bookCover from "../../functions/bookCover";
+import bookCover from "../../functions/BookCover/bookCover";
 import BookRating from "../../components/BookRating/BookRating";
 
 import Fab from "@mui/material/Fab";

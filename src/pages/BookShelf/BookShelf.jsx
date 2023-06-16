@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./BookShelf.module.scss";
 import { getLivros } from "../../service/API";
-import CardLivro from "./components/CardLivro/CardLivro";
+import CardBook from "./components/CardBook/CardBook";
 import AuthContext from "../../context/Auth/auth";
 
 import Fab from "@mui/material/Fab";
@@ -38,7 +38,7 @@ export default function BookShelf() {
         </Card>
 
         {filtered?.map((livro) => (
-          <CardLivro
+          <CardBook
             livro={livro}
             refresh={refreshList}
             key={livro.id}
