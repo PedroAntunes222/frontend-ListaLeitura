@@ -42,7 +42,7 @@ export default function Header() {
             spacing={2}
             className={styles.headerProfile}
           >
-            <Avatar alt="Remy Sharp">P</Avatar>
+            <Avatar alt="Remy Sharp">{(user.nome).slice(0,1)}</Avatar>
             <p>Olá, {user.nome}</p>
           </Stack>
 

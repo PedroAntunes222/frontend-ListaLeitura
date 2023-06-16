@@ -1,15 +1,13 @@
 import React, { useEffect, useContext, useState } from "react";
 import getUser from "../../functions/API/User/getUser";
-import putUser from "../../functions/API/User/putUser";
-import delUser from "../../functions/API/User/delUser";
 import AuthContext from "../../context/Auth/auth";
+import AtlButton from "./components/AtlButton/AtlButton";
+import DeleteButton from "./components/DeleteButton/DeleteButton";
 import { Link } from "react-router-dom";
 import styles from "./Profile.module.scss";
 
 import Fab from "@mui/material/Fab";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 
@@ -36,28 +34,6 @@ export default function Profile() {
     setSenha(user.senha);
   }, [user]);
 
-  const atlUser = (id, e) => {
-    e.preventDefault();
-    putUser(id, nome, email, senha)
-      .then(function (response) {
-        console.log(response);
-        window.location.reload();
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const deletaUser = (id, e) => {
-    e.preventDefault();
-    delUser(id)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   return (
     <div className={styles.perfilInfos}>
@@ -65,15 +41,9 @@ export default function Profile() {
         <ReplyAllOutlinedIcon />
       </Fab>
 
-      <Fab
-        onClick={(e) => deletaUser(user.id, e)}
-        color="error"
-        className={styles.deleteFlutuante}
-      >
-        <DeleteIcon />
-      </Fab>
+      <DeleteButton userID={user.id} />
 
-      <Avatar alt="Remy Sharp">P</Avatar>
+      <Avatar alt="Remy Sharp">{(user.nome).slice(0,1)}</Avatar>
 
       <TextField
         id="nomeUser"
@@ -102,15 +72,7 @@ export default function Profile() {
         className={styles.input}
       />
 
-      <Fab
-        variant="contained"
-        onClick={(e) => atlUser(user.id, e)}
-        size="large"
-        color="success"
-        className={styles.saveFlutuante}
-      >
-        <SaveIcon />
-      </Fab>
+      <AtlButton user={user} />
     </div>
   );
 }
