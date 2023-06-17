@@ -28,9 +28,7 @@ export default function Filtros({ livros, setFiltered }) {
     }
 
     if (filter !== "todos") {
-      bookFilter = bookFilter.filter(
-        (item) => item.completo === filter
-      );
+      bookFilter = bookFilter.filter((item) => item.completo === filter);
     }
 
     if (order) {
@@ -44,15 +42,7 @@ export default function Filtros({ livros, setFiltered }) {
     }
 
     setFiltered(bookFilter);
-  }, [
-    search,
-    filterGenero,
-    filter,
-    info,
-    order,
-    livros,
-    setFiltered,
-  ]);
+  }, [search, filterGenero, filter, info, order, livros, setFiltered]);
 
   return (
     <div className={styles.shelf}>

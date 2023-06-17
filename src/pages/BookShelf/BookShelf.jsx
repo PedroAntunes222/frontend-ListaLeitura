@@ -38,11 +38,7 @@ export default function BookShelf() {
         </Card>
 
         {filtered?.map((livro) => (
-          <CardBook
-            livro={livro}
-            refresh={refreshList}
-            key={livro.id}
-          />
+          <CardBook livro={livro} refresh={refreshList} key={livro.id} />
         ))}
       </div>
     </>

@@ -10,10 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import Progress from "../Progress/Progress";
 import DeleteButton from "../../../../components/DeleteButton/DeleteButton";
 
-export default function CardBook({
-  livro,
-  refresh,
-}) {
+export default function CardBook({ livro, refresh }) {
   const {
     id,
     capa,
@@ -37,10 +34,7 @@ export default function CardBook({
         />
 
         <CardContent className={styles.cardInfo}>
-          <DeleteButton
-            bookID={id}
-            refresh={refresh}
-          />
+          <DeleteButton bookID={id} refresh={refresh} />
 
           <div className={styles.bookTypes}>
             <p className={styles.type}>{generoPrincipal}</p>

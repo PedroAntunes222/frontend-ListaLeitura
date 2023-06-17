@@ -34,7 +34,6 @@ export default function Profile() {
     setSenha(user.senha);
   }, [user]);
 
-
   return (
     <div className={styles.perfilInfos}>
       <Fab component={Link} to={"/shelf"} className={styles.returnFlutuante}>
@@ -43,7 +42,7 @@ export default function Profile() {
 
       <DeleteButton userID={user.id} />
 
-      <Avatar alt="Remy Sharp">{(user.nome).slice(0,1)}</Avatar>
+      <Avatar alt="Remy Sharp">{user.nome.slice(0, 1)}</Avatar>
 
       <TextField
         id="nomeUser"
