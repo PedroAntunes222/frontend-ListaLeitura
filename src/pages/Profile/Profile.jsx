@@ -42,7 +42,7 @@ export default function Profile() {
 
       <DeleteButton userID={user.id} />
 
-      <Avatar alt="Remy Sharp">{user.nome.slice(0, 1)}</Avatar>
+      <Avatar alt="Remy Sharp">{user.nome?.slice(0, 1)}</Avatar>
 
       <TextField
         id="nomeUser"

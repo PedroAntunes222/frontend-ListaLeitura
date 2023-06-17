@@ -16,7 +16,7 @@ export default function Header() {
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    if (authenticated!=='null') {
+    if (authenticated !== "null") {
       getUser(authenticated)
         .then((response) => {
           setUser(response.data);
@@ -31,6 +31,10 @@ export default function Header() {
     navigate("/");
   };
 
+  const avatarMaker = () => {
+    return user.nome?.slice(0,1)
+  }
+
   return (
     <Box component="div">
       {authenticated > 0 && (
@@ -42,7 +46,7 @@ export default function Header() {
             spacing={2}
             className={styles.headerProfile}
           >
-            <Avatar alt="Remy Sharp">{(user.nome).slice(0,1)}</Avatar>
+            <Avatar alt="Remy Sharp">{avatarMaker()}</Avatar>
             <p>Olá, {user.nome}</p>
           </Stack>
 

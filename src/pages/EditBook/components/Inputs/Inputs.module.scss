@@ -1,0 +1,66 @@
+.bookInfos {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 48% 48%;
+  width: 600px;
+  padding: 75px 25px;
+  border-radius: 5px;
+  background-color: #343944;
+  border: solid 1px #63676f;
+  margin: auto;
+  position: relative;
+
+  @media (max-width: 800px) {
+    width: auto;
+    grid-template-columns: unset;
+  }
+
+  .returnToShelf {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+  }
+
+  .ratingBook {
+    position: absolute;
+    left: 50%;
+    top: 22px;
+    transform: translate(-50%, 0);
+  }
+
+  .typesGrid {
+    display: flex;
+    gap: 10px;
+  }
+  & > div {
+    display: grid;
+    gap: 15px;
+    height: fit-content;
+
+    .input {
+      width: 100%;
+      margin: auto;
+
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #8b8b8b;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #e2e2e2;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #8b8b8b;
+      }
+
+      textarea {
+        overflow: auto !important;
+        max-height: 200px;
+      }
+    }
+  }
+}
