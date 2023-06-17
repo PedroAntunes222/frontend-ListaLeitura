@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./Inputs.module.scss";
+import styles from "./Form.module.scss";
 import ButtonAtl from "../ButtonAtl/ButtonAtl";
 import { generos } from "../../../../service/Generos";
 import BookRating from "../../../../components/BookRating/BookRating";
@@ -15,7 +15,7 @@ import FormControl from "@mui/material/FormControl";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
 import Book from "../../../../class/book";
 
-export default function Inputs({ originalBook }) {
+export default function Form({ originalBook }) {
   const [titulo, setTitulo] = useState("");
   const [subTitulo, setsubTitulo] = useState("");
   const [generoPrincipal, setgeneroPrincipal] = useState("");

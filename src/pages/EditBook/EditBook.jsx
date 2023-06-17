@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import getBook from "../../functions/API/Book/getBook";
-import Inputs from "./components/Inputs/Inputs";
+import Form from "./components/Form/Form";
 import styles from "./EditBook.module.scss"
 
 export default function EditBook() {
@@ -22,7 +22,7 @@ export default function EditBook() {
   return (
     <div className={styles.cardInfo}>
       <h1 className={styles.title}>Editar Livro</h1>
-      <Inputs originalBook={livro} />
+      <Form originalBook={livro} />
     </div>
   );
 }
