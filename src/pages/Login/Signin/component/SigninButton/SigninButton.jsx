@@ -5,7 +5,13 @@ import User from "../../../../../class/user";
 
 import Button from "@mui/material/Button";
 
-export default function SigninButton({ nome, email, senha1, senha2 }) {
+export default function SigninButton({
+  nome,
+  email,
+  senha1,
+  senha2,
+  usuarios,
+}) {
   const { setAlert, setMessage, setSeverity } = useContext(AlertContext);
 
   const sendLogin = () => {
@@ -16,6 +22,10 @@ export default function SigninButton({ nome, email, senha1, senha2 }) {
     } else {
       if (!/^\S+@\S+$/.test(email)) {
         setMessage("Email inválido");
+        setSeverity("error");
+        setAlert(true);
+      } else if (usuarios?.filter((user) => user.email === email)) {
+        setMessage("Email já cadastrado");
         setSeverity("error");
         setAlert(true);
       } else if (senha1 !== senha2) {
