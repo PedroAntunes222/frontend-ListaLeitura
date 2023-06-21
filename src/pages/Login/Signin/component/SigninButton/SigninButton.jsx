@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
 import AlertContext from "../../../../../context/Alert/alert";
 import addUser from "../../../../../functions/API/User/addUser";
+import User from "../../../../../class/user";
 
 import Button from "@mui/material/Button";
 
-export default function SendSignin({nome, email, senha1, senha2}) {
+export default function SigninButton({ nome, email, senha1, senha2 }) {
   const { setAlert, setMessage, setSeverity } = useContext(AlertContext);
 
-  const sendLogin = (e) => {
-    e.preventDefault();
-
+  const sendLogin = () => {
     if (email === "" || nome === "" || senha1 === "" || senha2 === "") {
       setMessage("Campos vazios");
       setSeverity("error");
@@ -24,11 +23,12 @@ export default function SendSignin({nome, email, senha1, senha2}) {
         setSeverity("error");
         setAlert(true);
       } else {
-        addUser(nome, email, senha1)
+        let newUser = new User(1, nome, email, senha1);
+        addUser(newUser)
           .then(function (response) {
             console.log(response);
             setMessage("Cadastrado com sucesso");
-            setSeverity("error");
+            setSeverity("success");
             setAlert(true);
           })
           .catch(function (error) {
@@ -42,7 +42,7 @@ export default function SendSignin({nome, email, senha1, senha2}) {
   };
 
   return (
-    <Button variant="outlined" color="success" onClick={(e) => sendLogin(e)}>
+    <Button variant="outlined" color="success" onClick={sendLogin}>
       Cadastrar
     </Button>
   );

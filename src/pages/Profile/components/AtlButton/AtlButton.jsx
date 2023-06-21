@@ -7,10 +7,11 @@ import SaveIcon from "@mui/icons-material/Save";
 // import { useNavigate } from "react-router-dom";
 
 export default function AtlButton({ user }) {
+  console.log(user)
   // const navigate = useNavigate();
 
   const atlUser = () => {
-    putUser(user[0], user[1], user[2], user[3])
+    putUser(user)
       .then(function (response) {
         console.log(response);
         window.location.reload();

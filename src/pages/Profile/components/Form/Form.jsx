@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Form.module.scss";
 import AtlButton from "../../components/AtlButton/AtlButton";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
+import User from "../../../../class/user";
 
 import { Link } from "react-router-dom";
 import Fab from "@mui/material/Fab";
@@ -57,7 +58,7 @@ export default function Form({ user }) {
         className={styles.input}
       />
 
-      <AtlButton user={[user.id, nome, email, senha]} />
+      <AtlButton user={new User(user.id, nome, email, senha)} />
     </>
   );
 }

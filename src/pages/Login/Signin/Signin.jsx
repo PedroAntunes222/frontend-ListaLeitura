@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Signin.module.scss";
 import { Link } from "react-router-dom";
-import SendSignin from "./component/SendSignin/SendSignin";
+import SigninButton from "./component/SigninButton/SigninButton";
+import getUsers from "../../../functions/API/User/getUsers";
 
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
@@ -13,6 +14,17 @@ export default function Signin() {
   const [email, setEmail] = useState("");
   const [senha1, setSenha1] = useState("");
   const [senha2, setSenha2] = useState("");
+  const [usuarios, setUsuarios] = useState([]);
+
+  useEffect(() => {
+    getUsers()
+      .then(function (response) {
+        setUsuarios(response.data);
+      })
+      .catch(function (error) {
+        console.log(error.data);
+      });
+  }, []);
 
   return (
     <div className={styles.signinPage}>
@@ -58,7 +70,12 @@ export default function Signin() {
           onChange={(e) => setSenha2(e.target.value)}
         />
 
-        <SendSignin nome={nome} email={email} senha1={senha1} senha2={senha2} />
+        <SigninButton
+          nome={nome}
+          email={email}
+          senha1={senha1}
+          senha2={senha2}
+        />
       </Box>
     </div>
   );
