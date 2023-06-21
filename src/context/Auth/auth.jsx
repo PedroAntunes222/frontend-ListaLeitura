@@ -6,14 +6,18 @@ import Signin from "../../pages/Login/Signin/Signin";
 const AuthContext = createContext({
   authenticated: 0,
   setAuthenticated: (auth) => {},
+  demo: false,
+  setDemo: (version) => {},
 });
 
 export const AuthProvider = ({ children }) => {
   const auth = localStorage.getItem("login");
   const [authenticated, setAuthenticated] = useState(auth);
+  const version = localStorage.getItem("demo");
+  const [demo, setDemo] = useState(version);
 
   return (
-    <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
+    <AuthContext.Provider value={{ authenticated, setAuthenticated, demo, setDemo }}>
       {authenticated > 0 ? (
         children
       ) : (

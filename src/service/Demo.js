@@ -1,0 +1,32 @@
+export var demoJSON = {
+  id: 1,
+  nome: "DEMO",
+  email: "DEMO@gmail.com",
+  senha: "DEMO123",
+  livros: [
+    {
+      id: 1,
+      titulo: "DEMO1",
+      subTitulo: "DEMO",
+      generoPrincipal: "",
+      generoSecundario: "",
+      sinopse: "DEMO",
+      paginasLidas: 0,
+      paginasTotais: 100,
+      rating: 0,
+      completo: false,
+    },
+    {
+      id: 2,
+      titulo: "DEMO2",
+      subTitulo: "DEMO",
+      generoPrincipal: "",
+      generoSecundario: "",
+      sinopse: "DEMO",
+      paginasLidas: 0,
+      paginasTotais: 100,
+      rating: 0,
+      completo: false,
+    },
+  ],
+};

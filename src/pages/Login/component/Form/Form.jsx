@@ -27,7 +27,7 @@ export default function Form(users) {
       <TextField
         className={styles.inputLogin}
         id="email"
-        label="email"
+        label="Email"
         variant="outlined"
         value={email}
         onChange={(e) => setEmail(e.target.value)}

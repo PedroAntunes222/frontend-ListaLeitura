@@ -6,22 +6,30 @@ import AlertContext from "../../../../context/Alert/alert";
 
 import Fab from "@mui/material/Fab";
 import SaveIcon from "@mui/icons-material/Save";
+import { demoJSON } from "../../../../service/Demo";
 
 export default function AddButton({ newBook }) {
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, demo } = useContext(AuthContext);
   const { setAlert, setMessage, setSeverity } = useContext(AlertContext);
 
   const addsBook = () => {
-    addBook(newBook, authenticated)
-      .then(function (response) {
-        console.log(response);
-        setMessage("Livro adicionado");
-        setSeverity("success");
-        setAlert(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (demo) {
+      demoJSON.livros.push(newBook);
+      setMessage("Livro adicionado");
+      setSeverity("success");
+      setAlert(true);
+    } else {
+      addBook(newBook, authenticated)
+        .then(function (response) {
+          console.log(response);
+          setMessage("Livro adicionado");
+          setSeverity("success");
+          setAlert(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
   return (
     <Fab

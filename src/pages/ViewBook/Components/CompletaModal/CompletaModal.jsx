@@ -7,35 +7,49 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Book from "../../../../class/book";
 import AuthContext from "../../../../context/Auth/auth";
+import { demoJSON } from "../../../../service/Demo";
 
 export default function CompletaModal({ livro, lidas, totais }) {
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, demo } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const navigate = useNavigate();
 
-  const completar = (e) => {
-    e.preventDefault();
-    const livroATL = new Book(
-      livro.id,
-      livro.capa,
-      livro.titulo,
-      livro.subTitulo,
-      livro.generoPrincipal,
-      livro.generoSecundario,
-      livro.sinopse,
-      lidas,
-      livro.paginasTotais,
-      rating,
-      true
-    );
-    putBook(livroATL, authenticated)
-      .then((response) => {
-        console.log(response);
+  const completar = () => {
+    if (demo) {
+      const livroIndex = demoJSON.livros.findIndex(
+        (book) => book.id === livro.id
+      );
+      if (livroIndex !== -1) {
+        demoJSON.livros[livroIndex] = {
+          ...demoJSON.livros[livroIndex],
+          rating: rating,
+          completo: true,
+        };
         navigate("/shelf");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      }
+    } else {
+      const livroATL = new Book(
+        livro.id,
+        livro.capa,
+        livro.titulo,
+        livro.subTitulo,
+        livro.generoPrincipal,
+        livro.generoSecundario,
+        livro.sinopse,
+        lidas,
+        livro.paginasTotais,
+        rating,
+        true
+      );
+      putBook(livroATL, authenticated)
+        .then((response) => {
+          console.log(response);
+          navigate("/shelf");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -48,7 +62,7 @@ export default function CompletaModal({ livro, lidas, totais }) {
 
         <BookRating rating={rating} setRating={setRating} />
 
-        <Button variant="outlined" onClick={(e) => completar(e)}>
+        <Button variant="outlined" onClick={completar}>
           Completar
         </Button>
       </div>

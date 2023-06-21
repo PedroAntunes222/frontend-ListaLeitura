@@ -45,11 +45,11 @@ export default function Form({ originalBook }) {
       autoComplete="off"
       className={styles.bookInfos}
     >
-      <div className={styles.ratingBook}>
-        {completo && (
+      {completo && (
+        <div className={styles.ratingBook}>
           <BookRating rating={rating} setRating={setRating} readOnly={false} />
-        )}
-      </div>
+        </div>
+      )}
 
       {/* botao return */}
       <Fab

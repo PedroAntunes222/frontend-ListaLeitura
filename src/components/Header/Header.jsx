@@ -3,37 +3,42 @@ import getUser from "../../functions/API/User/getUser";
 import AuthContext from "../../context/Auth/auth";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
-import { useNavigate } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { demoJSON } from "../../service/Demo";
 
 export default function Header() {
-  const navigate = useNavigate();
-  const { authenticated, setAuthenticated } = useContext(AuthContext);
+  const { authenticated, demo } = useContext(AuthContext);
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    if (authenticated !== "null") {
-      getUser(authenticated)
-        .then((response) => {
-          setUser(response.data);
-        })
-        .catch((error) => console.log(error));
+    if (demo) {
+      setUser(demoJSON);
+    } else {
+      if (authenticated !== "null") {
+        getUser(authenticated)
+          .then((response) => {
+            setUser(response.data);
+          })
+          .catch((error) => console.log(error));
+      }
     }
-  }, [authenticated]);
+  }, [authenticated, demo]);
 
   const logout = () => {
-    localStorage.setItem("login", null);
-    setAuthenticated(null);
-    navigate("/");
+    if (demo) {
+      localStorage.removeItem("demo");
+    }
+    localStorage.removeItem("login");
+    window.location.reload();
   };
 
   const avatarMaker = () => {
-    return user.nome?.slice(0,1)
-  }
+    return user.nome?.slice(0, 1);
+  };
 
   return (
     <Box component="div">

@@ -4,7 +4,7 @@ import getUsers from "../../functions/API/User/getUsers";
 import Form from "./component/Form/Form";
 
 export default function Login() {
-  const [usuarios, setUsuarios] = useState("");
+  const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
     getUsers()
@@ -17,10 +17,9 @@ export default function Login() {
   }, []);
 
   return (
-    <>
-      <div className={styles.loginPage}>
-        <Form users={usuarios} />
-      </div>
-    </>
+    <div className={styles.loginPage}>
+     {!usuarios.length &&  <h1> Versão DEMO </h1> }
+      <Form users={usuarios} />
+    </div>
   );
 }

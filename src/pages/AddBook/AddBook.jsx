@@ -144,7 +144,7 @@ export default function AddBook() {
               0,
               paginas,
               0,
-              0
+              false
             )
           }
         />

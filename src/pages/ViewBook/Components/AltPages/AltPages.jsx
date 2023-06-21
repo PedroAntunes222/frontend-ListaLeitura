@@ -7,6 +7,7 @@ import AlertContext from "../../../../context/Alert/alert";
 
 import { Button, TextField } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
+import { demoJSON } from "../../../../service/Demo";
 
 export default function AltPages({
   livro,
@@ -14,34 +15,48 @@ export default function AltPages({
   setPaginasLidas,
   paginasTotais,
 }) {
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, demo } = useContext(AuthContext);
   const { setAlert, setMessage, setSeverity } = useContext(AlertContext);
 
-  const atlPages = (e) => {
-    e.preventDefault();
-    const livroATL = new Book(
-      livro.id,
-      livro.capa,
-      livro.titulo,
-      livro.subTitulo,
-      livro.sinopse,
-      livro.generoPrincipal,
-      livro.generoSecundario,
-      lidas,
-      livro.paginasTotais,
-      livro.rating,
-      false
-    );
-    putBook(livroATL, authenticated)
-      .then(function (response) {
-        console.log(response);
-        setMessage("Progresso atualizado");
-        setSeverity("success");
-        setAlert(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const atlPages = () => {
+    if (demo) {
+      const livroIndex = demoJSON.livros.findIndex(
+        (book) => book.id === livro.id
+      );
+      if (livroIndex !== -1) {
+        demoJSON.livros[livroIndex] = {
+          ...demoJSON.livros[livroIndex],
+          paginasLidas: lidas,
+        };
+      }
+      setMessage("Livro atualizado");
+      setSeverity("success");
+      setAlert(true);
+    } else {
+      const livroATL = new Book(
+        livro.id,
+        livro.capa,
+        livro.titulo,
+        livro.subTitulo,
+        livro.sinopse,
+        livro.generoPrincipal,
+        livro.generoSecundario,
+        lidas,
+        livro.paginasTotais,
+        livro.rating,
+        false
+      );
+      putBook(livroATL, authenticated)
+        .then(function (response) {
+          console.log(response);
+          setMessage("Progresso atualizado");
+          setSeverity("success");
+          setAlert(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -56,12 +71,12 @@ export default function AltPages({
 
       <span> / </span>
 
-      <p className={styles.totalPages}> {paginasTotais}</p>
+      <p className={styles.totalPages}> {paginasTotais} </p>
 
       <Button
         size="small"
         endIcon={<SaveIcon />}
-        onClick={(e) => atlPages(e)}
+        onClick={atlPages}
         className={styles.botaoAtl}
       />
     </div>
