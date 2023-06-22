@@ -14,7 +14,7 @@
   @media (max-width: 800px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 0;
-    padding: 40px 0px;
+    padding: 20px 0px 0px 0px;
     width: 100%;
   }
 
@@ -27,7 +27,11 @@
     display: grid;
     place-content: center;
     background-color: #343944;
-    min-height: 300px;
+    min-height: 357px;
     overflow: visible;
+
+    @media (max-width: 800px) {
+      min-height: 300px;
+    }
   }
 }
