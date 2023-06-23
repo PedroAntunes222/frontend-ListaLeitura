@@ -3,12 +3,11 @@ import getUser from "../../functions/API/User/getUser";
 import AuthContext from "../../context/Auth/auth";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
-
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import LogoutIcon from "@mui/icons-material/Logout";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
+import LogoutButton from "./components/logout/LogoutButton";
 import { demoJSON } from "../../service/Demo";
+
+import Stack from "@mui/material/Stack";
 
 export default function Header() {
   const { authenticated, demo } = useContext(AuthContext);
@@ -28,36 +27,22 @@ export default function Header() {
     }
   }, [authenticated, demo]);
 
-  const logout = () => {
-    if (demo) {
-      localStorage.removeItem("demo");
-    }
-    localStorage.removeItem("login");
-    window.location.reload();
-  };
-
-  const avatarMaker = () => {
-    return user.nome?.slice(0, 1);
-  };
-
   return (
-    <Box component="div">
-      {authenticated > 0 && (
-        <div className={styles.headerBar}>
-          <Stack
-            component={Link}
-            to="/my-profile"
-            direction="row"
-            spacing={2}
-            className={styles.headerProfile}
-          >
-            <Avatar alt="Remy Sharp">{avatarMaker()}</Avatar>
-            <p>Olá, {user.nome}</p>
-          </Stack>
+    <div>
+      <div className={styles.headerBar}>
+        <Stack
+          component={Link}
+          to="/my-profile"
+          direction="row"
+          spacing={2}
+          className={styles.headerProfile}
+        >
+          <AvatarIcon user={user} />
+          <p className={styles.welcomeText}>Olá, {user.nome}</p>
+        </Stack>
 
-          <LogoutIcon onClick={logout} />
-        </div>
-      )}
-    </Box>
+        <LogoutButton />
+      </div>
+    </div>
   );
 }

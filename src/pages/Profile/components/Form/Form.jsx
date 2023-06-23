@@ -7,8 +7,8 @@ import User from "../../../../class/user";
 import { Link } from "react-router-dom";
 import Fab from "@mui/material/Fab";
 import ReplyAllOutlinedIcon from "@mui/icons-material/ReplyAllOutlined";
-import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
+import AvatarIcon from "../../../../components/AvatarIcon/AvatarIcon";
 
 export default function Form({ user }) {
   const [nome, setNome] = useState("");
@@ -29,7 +29,7 @@ export default function Form({ user }) {
 
       <DeleteButton userID={user.id} />
 
-      <Avatar alt="Remy Sharp">{user.nome?.slice(0, 1)}</Avatar>
+      <AvatarIcon user={user} />
 
       <TextField
         id="nomeUser"
